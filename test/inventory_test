@@ -4,7 +4,7 @@ rancher2 ansible_ssh_host=10.9.8.13
 rancher3 ansible_ssh_host=10.9.8.14
 utilserver ansible_ssh_host=10.9.8.15
 
-[util_servers]
+[utility_servers]
 utilserver
 
 [load_balancers]

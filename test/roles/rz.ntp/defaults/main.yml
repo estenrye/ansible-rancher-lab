@@ -1,0 +1,29 @@
+---
+ntpd_enabled: False
+ntp_timezone: 'Etc/UTC'
+ntp_manage_config: True
+
+ntp_daemon_log_options: "tracking measurements statistics"
+ntp_daemon_maxupdateskew: "100.0"
+ntp_daemon_logchange: "0.5"
+
+ntp_daemon_allow:
+  - "127.0.0.1"
+
+# NTP server area configuration (leave empty for 'Worldwide').
+# See: http://support.ntp.org/bin/view/Servers/NTPPoolServers
+ntp_area: ''
+ntp_daemon_servers:
+  - "0{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+  - "1{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+  - "2{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+  - "3{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+
+ntp_servers: 
+  - 127.0.0.1
+
+ntp_fallback_servers:
+  - "0{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org"
+  - "1{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org"
+  - "2{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org"
+  - "3{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org"

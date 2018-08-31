@@ -1,0 +1,17 @@
+---
+ntpd_enabled: True
+ntp_timezone: 'Etc/UTC'
+ntp_manage_config: True
+
+ntp_daemon_log_options: "tracking measurements statistics"
+ntp_daemon_maxupdateskew: "100.0"
+ntp_daemon_logchange: "0.5"
+
+ntp_daemon_allow:
+  - "127.0.0.1"
+  - "10.9.8"
+
+ntp_area: 'ubuntu'
+
+ntp_servers: 
+  - 127.0.0.1

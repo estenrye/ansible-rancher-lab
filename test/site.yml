@@ -1,0 +1,4 @@
+---
+- hosts: utility_servers
+  roles:
+    - ntp
