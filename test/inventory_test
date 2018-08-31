@@ -18,4 +18,4 @@ rancher3
 [datacenter:children]
 load_balancers
 rancher_cluster
-util_servers
+utility_servers
