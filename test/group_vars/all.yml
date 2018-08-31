@@ -2,3 +2,7 @@
 ansible_ssh_user: vagrant
 ansible_ssh_pass: vagrant
 ansible_python_interpreter: '/usr/bin/python2.7'
+
+ntp_area: 'ubuntu'
+ntp_servers: 
+  - 10.9.8.15
