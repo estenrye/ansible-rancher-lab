@@ -1,6 +1,6 @@
 ---
 ntpd_enabled: False
-ntp_timezone: 'Etc/UTC'
+ntp_timezone: Etc/UTC
 ntp_manage_config: True
 
 ntp_daemon_log_options: "tracking measurements statistics"
