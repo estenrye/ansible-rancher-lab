@@ -1,4 +1,4 @@
 ---
 - hosts: utility_servers
   roles:
-    - ntp
+    - rz.ntp
