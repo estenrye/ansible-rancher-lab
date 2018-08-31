@@ -16,9 +16,10 @@
 [Time]
 NTP={% for item in ntp_servers -%}
 {{item}}
-{%- if loop.first %},{% endif %}
+{%- if not loop.last %},{% endif %}
 {% endfor %}
+
 FallbackNTP={% for item in ntp_fallback_servers -%}
 {{item}}
-{%- if loop.first %},{% endif %}
+{%- if not loop.last %},{% endif %}
 {% endfor %}
