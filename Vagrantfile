@@ -32,6 +32,13 @@ machines = {
     vmname: 'rancher-server-3',
     mac: '00:35:10:00:00:05',
   },
+  utilserver: {
+    box: 'generic/ubuntu1604',
+    cpus: 2,
+    mem: 2048,
+    vmname: 'utility-server-ntp-syslog',
+    mac: '00:35:10:00:00:06',
+  },
 }
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
