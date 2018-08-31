@@ -25,13 +25,6 @@
     enabled: yes
   when: ntpd_enabled
 
-- name: Ensure NTP Daemon is stopped and disabled as configured.
-  service:
-    name: "{{ ntp_daemon }}"
-    state: stopped
-    enabled: no
-  when: not ntpd_enabled
-  
 - name: Generate NTP Daemon Configuration file.
   template:
     src:  "{{ansible_os_family}}.daemon.ntp.j2"
