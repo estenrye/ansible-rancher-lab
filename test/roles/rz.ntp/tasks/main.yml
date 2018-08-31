@@ -31,17 +31,17 @@
     state: stopped
     enabled: no
   when: not ntpd_enabled
-
-- name: Generate NTP Client Configuration file.
-  template:
-    src:  "{{ansible_os_family}}.client.ntp.j2"
-    dest: "{{ntp_client_conf_file}}"
-  notify: restart ntp
-  when: ntp_manage_config
-
+  
 - name: Generate NTP Daemon Configuration file.
   template:
     src:  "{{ansible_os_family}}.daemon.ntp.j2"
     dest: "{{ntp_daemon_conf_file}}"
   notify: restart ntpd
   when: ntp_manage_config and ntpd_enabled
+
+- name: Generate NTP Client Configuration file.
+  template:
+    src:  "{{ansible_os_family}}.client.ntp.j2"
+    dest: "{{ntp_client_conf_file}}"
+  notify: restart ntp
+  when: ntp_manage_config and ntp_enabled

@@ -1,7 +1,7 @@
 ---
  - name: restart ntp
    service:
-     name: "{{ ntp_daemon }}"
+     name: "{{ ntp_client }}"
      state: restarted
    when: ntp_enabled
 
@@ -9,4 +9,4 @@
    service:
      name: "{{ ntp_daemon }}"
      state: restarted
-   when: ntp_enabled
+   when: ntpd_enabled

@@ -1,5 +1,6 @@
 ---
 ntpd_enabled: False
+ntp_enabled: True
 ntp_timezone: Etc/UTC
 ntp_manage_config: True
 
