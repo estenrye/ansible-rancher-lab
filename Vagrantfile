@@ -60,6 +60,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         hv.cpus = info[:cpus]
         hv.mac = info[:mac]
       end
+      acs.vm.provision 'shell',
+        inline: 'sudo apt-get update && apt-get install python2 -y'
     end
   end
 end
