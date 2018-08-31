@@ -46,7 +46,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       hv.mac = '00:35:10:00:00:01'
     end
     acs.vm.provision 'shell',
-      inline: 'sudo apt-get update && apt-get install ansible git -y && git clone https://github.com/estenrye/ansible-rancher-lab.git'
+      inline: 'sudo apt-get update && apt-get install ansible git sshpass -y && git clone https://github.com/estenrye/ansible-rancher-lab.git && chown -R vagrant ansible-rancher-lab && chgrp -R vagrant ansible-rancher-lab'
   end
 
   machines.each do |hostname, info|
