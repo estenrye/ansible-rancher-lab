@@ -1,0 +1,25 @@
+---
+rsyslog_modules:
+  - imuxsock
+  - imklog
+  - imudp
+  - imtcp
+
+rsyslog_inputs:
+  - type: imtcp
+    port: 514
+  - type: imudp
+    port: 514
+
+rsyslog_file_owner: syslog
+rsyslog_file_group: adm
+rsyslog_file_create_mode: "0640"
+rsyslog_dir_create_mode: "0755"
+rsyslog_umask: "0022"
+
+rsyslog_enable:
+  nonkernel_facility_klog_messages: true
+  high_precision_timestamps: false
+  filter_duplicate_messages: true
+
+rsyslog_work_directory: /var/spool/rsyslog
