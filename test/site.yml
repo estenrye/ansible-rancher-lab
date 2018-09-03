@@ -2,3 +2,4 @@
 - hosts: datacenter
   roles:
     - rz.ntp
+    - rz.syslog

@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 /var/log/syslog
 {
         rotate 7
@@ -35,3 +37,17 @@
                 invoke-rc.d rsyslog rotate > /dev/null
         endscript
 }
+
+/var/log/client_logs/*
+{
+	rotate 12
+	monthly
+	missingok
+	notifempty
+	delaycompress
+	sharedscripts
+	postrotate
+	invoke-rc.d rsyslog rotate > /dev/null
+	endscript
+}
+

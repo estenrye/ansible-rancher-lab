@@ -1,15 +1,11 @@
 ---
+rsyslog_conf_file: /etc/rsyslog.conf
+
 rsyslog_modules:
   - imuxsock
   - imklog
-  - imudp
-  - imtcp
 
-rsyslog_inputs:
-  - type: imtcp
-    port: 514
-  - type: imudp
-    port: 514
+rsyslog_inputs: []
 
 rsyslog_file_owner: syslog
 rsyslog_file_group: adm

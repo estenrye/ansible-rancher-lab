@@ -55,3 +55,10 @@ $PrivDropToGroup {{ rsyslog_file_owner }}
 # Where to place spool and state files
 #
 $WorkDirectory {{ rsyslog_work_directory }}
+
+###########################
+####       RULES       ####
+###########################
+{% if not rsyslog_daemon_enabled %}
+*.* @{{rsyslog_server}}
+{% endif %}
