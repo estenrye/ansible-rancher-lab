@@ -6,3 +6,5 @@ ansible_python_interpreter: '/usr/bin/python2.7'
 ntp_area: 'ubuntu'
 ntp_servers: 
   - 10.9.8.15
+
+rsyslog_server: 10.9.8.15

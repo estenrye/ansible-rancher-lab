@@ -7,3 +7,5 @@ ntp_daemon_allow:
 
 ntp_servers: 
   - 127.0.0.1
+
+rsyslog_daemon_enabled: true

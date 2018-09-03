@@ -1,0 +1,29 @@
+---
+- name: Include OS-specific variables.
+  include_vars: "server.yml"
+  when: rsyslog_daemon_enabled
+
+- name: Ensure rsyslog packages are installed.
+  package:
+    name: rsyslog
+    state: present
+
+- name: Generate rsyslog template configuration file.
+  template:
+    src:  "rsyslog.remote_tmpl.conf.j2"
+    dest: "{{rsyslog_remote_template_file}}"
+  notify: restart rsyslog
+  when: rsyslog_daemon_enabled
+
+- name: Generate logrotate configuration file.
+  template:
+    src:  "logrotate.conf.j2"
+    dest: "{{rsyslog_logrotate_conf_file}}"
+  notify: restart rsyslog
+  when: rsyslog_daemon_enabled
+
+- name: Generate rsyslog configuration file.
+  template:
+    src:  "rsyslog.conf.j2"
+    dest: "{{rsyslog_conf_file}}"
+  notify: restart rsyslog
