@@ -10,7 +10,7 @@
 
 - name: Generate rsyslog template configuration file.
   template:
-    src:  "{{ansible_os_family}}.daemon.ntp.j2"
+    src:  "rsyslog.remote_tmpl.conf.j2"
     dest: "{{rsyslog_remote_template_file}}"
   when: rsyslog_daemon_enabled
 
