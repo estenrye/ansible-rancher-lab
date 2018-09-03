@@ -62,3 +62,8 @@ $WorkDirectory {{ rsyslog_work_directory }}
 {% if not rsyslog_daemon_enabled %}
 *.* @{{rsyslog_server}}
 {% endif %}
+
+#######################################
+#### Include /etc/rsyslog.d/*.conf ####
+#######################################
+$IncludeConfig /etc/rsyslog.d/*.conf
