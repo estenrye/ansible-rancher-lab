@@ -12,12 +12,14 @@
   template:
     src:  "rsyslog.remote_tmpl.conf.j2"
     dest: "{{rsyslog_remote_template_file}}"
+  notify: restart rsyslog
   when: rsyslog_daemon_enabled
 
 - name: Generate logrotate configuration file.
   template:
     src:  "logrotate.conf.j2"
     dest: "{{rsyslog_logrotate_conf_file}}"
+  notify: restart rsyslog
   when: rsyslog_daemon_enabled
 
 - name: Generate rsyslog configuration file.

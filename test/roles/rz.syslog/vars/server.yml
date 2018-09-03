@@ -1,5 +1,5 @@
 ---
-rsyslog_remote_template_file: /etc/rsyslog.d/remote_tmpl.conf
+rsyslog_remote_template_file: /etc/rsyslog.d/tmpl.conf
 rsyslog_logrotate_conf_file: /etc/logrotate.d/rsyslog
 
 rsyslog_modules:
