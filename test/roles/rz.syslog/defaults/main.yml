@@ -23,3 +23,6 @@ rsyslog_enable:
   filter_duplicate_messages: true
 
 rsyslog_work_directory: /var/spool/rsyslog
+
+rsyslog_daemon_enabled: false
+rsyslog_server: 127.0.0.1

@@ -1,0 +1,6 @@
+---
+- name: Ensure rsyslog packages are installed.
+  package:
+    name: rsyslog
+    state: present
+
