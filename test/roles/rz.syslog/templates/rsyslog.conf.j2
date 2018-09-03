@@ -56,14 +56,14 @@ $PrivDropToGroup {{ rsyslog_file_owner }}
 #
 $WorkDirectory {{ rsyslog_work_directory }}
 
+#######################################
+#### Include /etc/rsyslog.d/*.conf ####
+#######################################
+$IncludeConfig /etc/rsyslog.d/*.conf
+
 ###########################
 ####       RULES       ####
 ###########################
 {% if not rsyslog_daemon_enabled %}
 *.* @{{rsyslog_server}}
 {% endif %}
-
-#######################################
-#### Include /etc/rsyslog.d/*.conf ####
-#######################################
-$IncludeConfig /etc/rsyslog.d/*.conf
