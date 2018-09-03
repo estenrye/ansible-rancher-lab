@@ -24,9 +24,4 @@
   template:
     src:  "rsyslog.conf.j2"
     dest: "{{rsyslog_conf_file}}"
-
-- name: restart rsyslog
-  service:
-    name: rsyslog
-    state: restarted
-
+  notify: restart rsyslog
