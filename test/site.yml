@@ -1,4 +1,9 @@
 ---
+- hosts: ansible_control_servers
+  roles:
+    - rz.ntp
+    - rz.syslog
+
 - hosts: datacenter
   roles:
     - rz.ntp

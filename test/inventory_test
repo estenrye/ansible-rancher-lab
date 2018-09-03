@@ -5,6 +5,9 @@ rancher2 ansible_ssh_host=10.9.8.13
 rancher3 ansible_ssh_host=10.9.8.14
 utilserver ansible_ssh_host=10.9.8.15
 
+[ansible_control_servers]
+acs
+
 [utility_servers]
 utilserver
 
@@ -17,7 +20,6 @@ rancher2
 rancher3
 
 [datacenter:children]
-acs
 utility_servers
 rancher_cluster
 load_balancers
