@@ -65,5 +65,5 @@ $IncludeConfig /etc/rsyslog.d/*.conf
 ####       RULES       ####
 ###########################
 {% if not rsyslog_daemon_enabled %}
-*.* @{{rsyslog_server}}
+*.* @{{rsyslog_server}}:514
 {% endif %}
