@@ -13,7 +13,7 @@
 #################
 
 {% for item in rsyslog_modules %}
-module {{ item }}
+module(load="{{ item }}")
 {% endfor %}
 
 {% for item in rsyslog_inputs %}
