@@ -1,0 +1,40 @@
+---
+- name: Add a new user named provision
+  user:
+    name: provision
+    password: provision_password
+    # DOES THIS NEED TO BE PROTECTED IF WE ARE DISABLING PASSWORD AUTH?
+    # DOES IT NEED TO BE A VARIABLE?
+
+- name: Add provision user to the sudoers
+  copy:
+      dest: "/etc/sudoers.d/provision"
+      content: "provision  ALL=(ALL)  NOPASSWD: ALL"
+
+- name: Deploy SSH Key
+  authorized_key:
+    user: provision
+    key: "{{ lookup('file', '/home/provision/.ssh/id_rsa.pub') }}"
+    # NEED TO CONSIDER HOW THIS GETS GENERATED
+    # SHOULD THIS ROLE GENERATE THE SSH KEY ON THE ACS?
+    state: present
+
+- name: Disable Password Authentication
+  lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: "PasswordAuthentication no"
+        state: present
+        backup: yes
+  notify:
+    - restart ssh
+
+- name: Disable Root Login
+  lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin'
+        line: "PermitRootLogin no"
+        state: present
+        backup: yes
+  notify:
+    - restart ssh
