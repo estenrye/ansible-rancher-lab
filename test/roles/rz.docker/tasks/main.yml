@@ -3,20 +3,16 @@
   package:
     name: docker
     state: absent
-  # Need a when here.
-# docker docker-engine docker.io
 
 - name: Remove docker-engine
   package:
     name: docker-engine
     state: absent
-  # Need a when here
 
 - name: Remove docker.io
   package:
     name: docker.io
     state: absent
-  # Need a when here
 
 - name: Install apt-transport-https
   package:

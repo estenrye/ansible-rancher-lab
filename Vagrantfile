@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-VAGRANTFILE_API_VERSION = '2'
+vagrant_api_version = '2'
 
-HYPERV_NETWORK = 'Internet'
+hyperv_network = 'Internet'
 
 machines = {
   haproxy: {
@@ -41,11 +41,11 @@ machines = {
   },
 }
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+Vagrant.configure(vagrant_api_version) do |config|
   config.vm.define 'acs' do |acs|
     acs.vm.box = 'generic/ubuntu1604'
     acs.vm.hostname = 'acs'
-    acs.vm.network 'public_network', bridge: HYPERV_NETWORK
+    acs.vm.network 'public_network', bridge: hyperv_network
     acs.vm.provider 'hyperv' do |hv|
       hv.vmname = 'ansible-control-server'
       hv.memory = 2048
@@ -59,7 +59,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define hostname do |machine|
       machine.vm.box = info[:box]
       machine.vm.hostname = hostname
-      machine.vm.network 'public_network', bridge: HYPERV_NETWORK
+      machine.vm.network 'public_network', bridge: hyperv_network
       machine.vm.provider 'hyperv' do |hv|
         hv.vmname = info[:vmname]
         hv.memory = info[:mem]
