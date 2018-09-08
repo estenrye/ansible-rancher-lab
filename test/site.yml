@@ -11,4 +11,5 @@
 
 - hosts: rancher_cluster
   roles:
+    - rz.ssh_keys
     - rz.docker
