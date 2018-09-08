@@ -52,7 +52,7 @@ Vagrant.configure(vagrant_api_version) do |config|
       hv.cpus = 2
       hv.mac = '00:35:10:00:00:01'
     end
-    acs.vm.provision 'shell', privileged: true, path: 'https://raw.githubusercontent.com/estenrye/ansible-rancher-lab/master/scripts/provision_acs.sh'
+    acs.vm.provision 'shell', privileged: true, path: 'scripts/provision_acs.sh'
   end
 
   machines.each do |hostname, info|
