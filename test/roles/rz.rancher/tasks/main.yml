@@ -24,4 +24,6 @@
 
 - name: Run RKE
   shell: /usr/bin/rke up --config /home/{{username}}/rancher-cluster.yml
-    
+
+- name: Install kubectl
+  command: snap install kubectl --classic
