@@ -13,3 +13,4 @@
 - hosts: rancher_cluster
   roles:
     - rz.docker
+    - rz.rancher

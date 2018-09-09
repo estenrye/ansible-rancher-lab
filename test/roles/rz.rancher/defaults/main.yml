@@ -1,0 +1,4 @@
+---
+rke_version: v0.1.9
+rke_binary: rke_linux-amd64
+rke_sha256sum: ab2d37431b1bb88d86b79ecb507def2e7a1be7bd50b58246aa9d152f5ea657de
