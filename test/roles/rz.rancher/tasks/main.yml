@@ -22,8 +22,14 @@
     src: id_rsa
     dest: "/home/{{username}}/.ssh/id_rsa"
 
+- name: check for kubeconfig file.
+  stat:
+    path: "/home/{{username}}/kube_config_rancher-cluster.yml"
+  register: kube_config_result
+
 - name: Run RKE
-  shell: /usr/bin/rke up --config /home/{{username}}/rancher-cluster.yml
+  command: /usr/bin/rke up --config /home/{{username}}/rancher-cluster.yml
+  when: kube_config_result.stat.exists == false
 
 - name: Install kubectl
   command: snap install kubectl --classic
