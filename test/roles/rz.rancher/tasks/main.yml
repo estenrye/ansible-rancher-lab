@@ -11,7 +11,7 @@
     dest: "/home/{{username}}/rancher-cluster.yml"
 
 - name: add ssh key
-  file:
+  copy:
     src: id_rsa
     dest: "/home/{{username}}/.ssh/id_rsa"
 
