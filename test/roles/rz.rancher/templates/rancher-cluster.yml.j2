@@ -3,9 +3,9 @@ nodes:
 {% for item in rke_nodes %}
   - address: {{item.address}}
     user: {{username}}
-	ssh_key_path: {{ssh_key_path}}
-	role:
-	{% for role in item.roles %} 
-	  - {{role}}
-	{% endfor %}
+    ssh_key_path: {{ssh_key_path}}
+    role:
+{% for role in item.roles %} 
+      - {{role}}
+{% endfor %}
 {% endfor %}
