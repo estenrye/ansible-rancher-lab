@@ -5,6 +5,13 @@
     sha256sum: "{{rke_sha256sum}}"
     dest: /usr/bin/rke
 
+- name: Set permissions on RKE
+  file:
+    path: /usr/bin/rke
+    owner: "{{username}}"
+    group: "{{username}}"
+    mode: 0774
+
 - name: Create rancher-cluster.yml file.
   template:
     src:  "rancher-cluster.yml.j2"
