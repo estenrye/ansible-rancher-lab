@@ -4,8 +4,7 @@ nodes:
   - address: {{item.address}}
     user: {{username}}
     ssh_key_path: {{ssh_key_path}}
-    role:
-{% for role in item.roles %} 
+    role:{% for role in item.roles %} 
       - {{role}}
 {% endfor -%}
 {% endfor %}
