@@ -33,3 +33,4 @@
 
 - name: Install kubectl
   command: snap install kubectl --classic
+  when: kube_config_result.stat.exists == false
