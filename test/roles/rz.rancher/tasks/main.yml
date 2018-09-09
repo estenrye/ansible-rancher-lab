@@ -23,5 +23,5 @@
     dest: "/home/{{username}}/.ssh/id_rsa"
 
 - name: Run RKE
-  shell: /usr/bin/rke up --config /home/{{username}}/rancher-cluster.yml
+  shell: sudo /usr/bin/rke up --config /home/{{username}}/rancher-cluster.yml
     
