@@ -7,6 +7,6 @@
 
 - name: rancher servers
   debug: 
-    msg: "{{item}}"
+    msg: "{{item.ansible_ssh_host}}"
   with_items:
     - "{{ groups['rancher_cluster'] }}"
