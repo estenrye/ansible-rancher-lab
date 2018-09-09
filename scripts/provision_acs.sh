@@ -12,5 +12,7 @@ chown vagrant /home/vagrant/.ssh/id_rsa*
 chgrp vagrant /home/vagrant/.ssh/id_rsa*
 mkdir -p /home/vagrant/ansible-rancher-lab/test/roles/rz.ssh_keys/files
 cp /home/vagrant/.ssh/id_rsa.pub /home/vagrant/ansible-rancher-lab/test/roles/rz.ssh_keys/files/id_rsa.pub
+mkdir -p /home/vagrant/ansible-rancher-lab/test/roles/rz.rancher/files
+cp /home/vagrant/.ssh/id_rsa /home/vagrant/ansible-rancher-lab/test/roles/rz.rancher/files/id_rsa
 chown -R vagrant ansible-rancher-lab
 chgrp -R vagrant ansible-rancher-lab

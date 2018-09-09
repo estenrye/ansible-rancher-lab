@@ -9,3 +9,12 @@
   template:
     src:  "rancher-cluster.yml.j2"
     dest: "/home/{{username}}/rancher-cluster.yml"
+
+- name: add ssh key
+  file:
+    src: id_rsa
+    dest: "/home/{{username}}/.ssh/id_rsa"
+
+- name: Run RKE
+  shell: /usr/bin/rke up --config /home/{{username}}/rancher-cluster.yml
+    
