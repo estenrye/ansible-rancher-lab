@@ -5,8 +5,7 @@
     sha256sum: "{{rke_sha256sum}}"
     dest: /usr/bin/rke
 
-- name: rancher servers
-  debug: 
-    msg: "{{hostvars[item]['ansible_default_ipv4']['address']}}"
-  with_items:
-    - "{{ groups['rancher_cluster'] }}"
+- name: Create rancher-cluster.yml file.
+  template:
+    src:  "rancher-cluster.yml.j2"
+    dest: "/home/{{username}}/rancher-cluster.yml"
