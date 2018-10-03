@@ -4,40 +4,12 @@ vagrant_api_version = '2'
 hyperv_network = 'Internet'
 
 machines = {
-  haproxy: {
-    box: 'generic/ubuntu1604',
-    cpus: 2,
-    mem: 1024,
-    vmname: 'haproxy-load-balancer',
-    mac: '00:35:10:00:00:02',
-  },
-  rancher1: {
-    box: 'generic/ubuntu1604',
+  jdk: {
+    box: 'gusztavvargadr/ubuntudesktop16',
     cpus: 2,
     mem: 2048,
-    vmname: 'rancher-server-1',
-    mac: '00:35:10:00:00:03',
-  },
-  rancher2: {
-    box: 'generic/ubuntu1604',
-    cpus: 2,
-    mem: 2048,
-    vmname: 'rancher-server-2',
-    mac: '00:35:10:00:00:04',
-  },
-  rancher3: {
-    box: 'generic/ubuntu1604',
-    cpus: 2,
-    mem: 2048,
-    vmname: 'rancher-server-3',
-    mac: '00:35:10:00:00:05',
-  },
-  utilserver: {
-    box: 'generic/ubuntu1604',
-    cpus: 2,
-    mem: 2048,
-    vmname: 'utility-server-ntp-syslog',
-    mac: '00:35:10:00:00:06',
+    vmname: 'jdk',
+    mac: '00:35:10:01:00:02',
   },
 }
 
