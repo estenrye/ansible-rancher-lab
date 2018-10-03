@@ -4,3 +4,4 @@
     - rz.ssh_keys
     - rz.jdk_workstation
     - geerlingguy.java
+    - gantsign.visual-studio-code

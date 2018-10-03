@@ -1,3 +1,13 @@
 ---
 java_packages:
   - openjdk-8-jdk
+
+users:
+  - username: gui_user
+    visual_studio_code_extensions:
+      - vscjava.vscode-java-pack
+    visual_studio_code_settings: {
+      "editor.renderWhitespace": true,
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2
+    }
