@@ -11,3 +11,10 @@ users:
       "editor.insertSpaces": true,
       "editor.tabSize": 2
     }
+
+git_packages:
+  - git
+
+git_install_from_source: true
+git_version: "2.19.0"
+git_install_from_source_force_update: true
