@@ -6,3 +6,13 @@
     append: yes
     password: "{{password}}"
     uid: "{{uid}}"
+
+- name: Install ca-certificates
+  package:
+    name: ca-certificates
+    state: present
+
+- name: Install curl
+  package:
+    name: curl
+    state: present
