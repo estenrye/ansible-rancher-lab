@@ -5,7 +5,7 @@ hyperv_network = 'Internet'
 
 machines = {
   jdk: {
-    box: 'gusztavvargadr/ubuntudesktop16',
+    box: 'dinohead/ubuntu-1804-desktop-enhanced',
     cpus: 2,
     mem: 2048,
     vmname: 'jdk',
@@ -25,6 +25,7 @@ Vagrant.configure(vagrant_api_version) do |config|
         hv.cpus = info[:cpus]
         hv.mac = info[:mac]
       end
+      machine.vm.synced_folder '.', '/vagrant', disabled: true
       machine.vm.provision 'shell',
         inline: 'sudo apt-get update && apt-get install python2.7 -y'
     end

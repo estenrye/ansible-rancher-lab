@@ -1,0 +1,5 @@
+---
+- hosts: jdk_workstations
+  roles:
+    - rz.ssh_keys
+    - rz.jdk_workstation

@@ -1,0 +1,7 @@
+---
+- name: Add password authenticated user for gui access.
+  user:
+    name: "{{username}}"
+    groups: sudo
+    append: yes
+    password: "{{password}}"
