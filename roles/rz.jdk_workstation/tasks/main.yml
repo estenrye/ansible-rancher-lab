@@ -6,6 +6,7 @@
     append: yes
     password: "{{password}}"
     uid: "{{uid}}"
+    shell: /bin/bash
 
 - name: Install ca-certificates
   package:
