@@ -1,0 +1,24 @@
+---
+rsyslog_conf_file: /etc/rsyslog.conf
+
+rsyslog_modules:
+  - imuxsock
+  - imklog
+
+rsyslog_inputs: []
+
+rsyslog_file_owner: syslog
+rsyslog_file_group: adm
+rsyslog_file_create_mode: "0640"
+rsyslog_dir_create_mode: "0755"
+rsyslog_umask: "0022"
+
+rsyslog_enable:
+  nonkernel_facility_klog_messages: true
+  high_precision_timestamps: false
+  filter_duplicate_messages: true
+
+rsyslog_work_directory: /var/spool/rsyslog
+
+rsyslog_daemon_enabled: false
+rsyslog_server: 127.0.0.1
