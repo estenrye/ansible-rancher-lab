@@ -1,7 +1,0 @@
-# {{ ansible_managed }}
-
-$template TmplAuth, "/var/log/client_logs/%HOSTNAME%/%PROGRAMNAME%.log"
-$template TmplMsg, "/var/log/client_logs/%HOSTNAME%/%PROGRAMNAME%.log"
-
-authpriv.* ?TmplAuth
-*.info;mail.none;authpriv.none;cron.none ?TmplMsg

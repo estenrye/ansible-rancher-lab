@@ -8,3 +8,12 @@
   roles:
     - rz.ntp
     - rz.syslog
+    - rz.ssh_keys
+
+- hosts: rancher_cluster
+  roles:
+    - rz.docker
+
+- hosts: rancher1
+  roles:
+    - rz.rancher

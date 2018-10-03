@@ -1,0 +1,56 @@
+---
+- name: Remove docker
+  package:
+    name: docker
+    state: absent
+
+- name: Remove docker-engine
+  package:
+    name: docker-engine
+    state: absent
+
+- name: Remove docker.io
+  package:
+    name: docker.io
+    state: absent
+
+- name: Install apt-transport-https
+  package:
+    name: apt-transport-https
+    state: present
+
+- name: Install ca-certificates
+  package:
+    name: ca-certificates
+    state: present
+
+- name: Install curl
+  package:
+    name: curl
+    state: present
+
+- name: Install software-properties-common
+  package:
+    name: software-properties-common
+    state: present
+
+- name: Get Docker's official GPG key
+  apt_key :
+    url: https://download.docker.com/linux/ubuntu/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+
+- name: Add Docker CE Stable Repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+    state: present
+
+- name: Install docker-ce
+  package:
+    name: docker-ce=17.03.3~ce-0~ubuntu-xenial
+    state: present
+
+- name: Add user to docker group.
+  user:
+    name: "{{username}}"
+    groups: docker
+    append: yes

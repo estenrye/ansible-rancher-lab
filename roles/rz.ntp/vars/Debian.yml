@@ -1,0 +1,11 @@
+---
+ntp_daemon_package: "chrony"
+ntp_daemon: "chrony.service"
+ntp_client: "systemd-timesyncd.service"
+ntp_daemon_drift_file: "/var/lib/chrony/chrony.drift"
+ntp_daemon_conf_file: "/etc/chrony/chrony.conf"
+ntp_daemon_log_directory: "/var/log/chrony"
+ntp_daemon_dump_directory: "/var/lib/chrony"
+ntp_daemon_hwclock_file: "/etc/adjtime"
+ntp_client_conf_file: "/etc/systemd/timesyncd.conf"
+ntp_tzdata_package: "tzdata"
