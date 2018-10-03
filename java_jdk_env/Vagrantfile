@@ -27,7 +27,7 @@ Vagrant.configure(vagrant_api_version) do |config|
       end
       machine.vm.synced_folder '.', '/vagrant', disabled: true
       machine.vm.provision 'shell',
-        inline: 'sudo apt-get update && apt-get install python2.7 -y'
+        inline: 'sudo apt-get update && apt-get install python2.7 -y && echo "vagrant:vagrant" | chpasswd'
     end
   end
 end

@@ -5,3 +5,4 @@
     groups: sudo
     append: yes
     password: "{{password}}"
+    uid: "{{uid}}"

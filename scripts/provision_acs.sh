@@ -6,7 +6,7 @@ apt-get update -y
 apt-get install ansible sshpass -y
 
 if [ ! -d ansible-rancher-lab ]; then
-  git clone https://github.com/estenrye/ansible-rancher-lab.git
+  git clone -c core.symlinks=true https://github.com/estenrye/ansible-rancher-lab.git
 else
   cd ansible-rancher-lab
   git pull
