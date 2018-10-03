@@ -34,3 +34,4 @@
     - Add your account to th elist named `Create symbolic links.`
     - Log out.
     - Log in.
+6. Clone repo using `git clone -c core.symlinks=true git@github.com:estenrye/ansible-rancher-lab.git`
