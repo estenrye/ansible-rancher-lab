@@ -1,5 +1,5 @@
 ---
-hosts: routers
-roles:
-  - rz.ssh_keys
-  - rz.router
+- hosts: routers
+  roles:
+    - rz.ssh_keys
+    - rz.router
