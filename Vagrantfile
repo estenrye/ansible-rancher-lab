@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 vagrant_api_version = '2'
 
-hyperv_network = 'Internet'
+hyperv_network = 'Default Switch'
 
 machines = {
+  router: {
+    box: 'generic/ubuntu1604',
+    cpus: 1,
+    mem: 1024,
+    vmname: 'router',
+  },
 }
 
 Vagrant.configure(vagrant_api_version) do |config|
@@ -29,7 +35,6 @@ Vagrant.configure(vagrant_api_version) do |config|
         hv.vmname = info[:vmname]
         hv.memory = info[:mem]
         hv.cpus = info[:cpus]
-        hv.mac = info[:mac]
       end
       machine.vm.provision 'shell',
         inline: 'sudo apt-get update && apt-get install python2.7 -y'
