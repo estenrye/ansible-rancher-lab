@@ -11,3 +11,4 @@ acs
 jdk"
 
 $inventoryFile | Out-File -FilePath $PSScriptRoot\inventory -Force -Encoding utf8
+scp -i "$PSScriptRoot\..\.vagrant\machines\acs\hyperv\private_key" "$PSScriptRoot\inventory" vagrant@$($acsIP):~/ansible-rancher-lab
