@@ -1,0 +1,6 @@
+---
+- name: Set /etc/network/interfaces.
+  template:
+    src:  "interfaces.j2"
+    dest: "/etc/network/interfaces"
+  notify: restart networking service

@@ -1,0 +1,18 @@
+# {{ ansible_managed }}
+
+#loopback
+auto loopback
+iface lo inet loopback
+
+# WAN interface
+auto {{wanInterface}} inet dhcp
+
+# LAN interfaces
+{% for item in lanInterfaces %}
+auto {{item.interface}}
+iface {{item.interface}} inet static
+  address {{item.address}}
+  network {{item.network}}
+  netmask {{item.netmask}}
+  broadcast {{item.broadcast}}
+{% endfor %}
