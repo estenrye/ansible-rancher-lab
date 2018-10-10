@@ -16,7 +16,7 @@ option domain-name "{{dhcpdConf.option.domain_name}}";
 # this case its Google's public DNS.
 option domain-name-servers {% for item in dhcpdConf.option.domain_name_servers -%}
 {{item}}
-{%- if not loop.last %},{% endif %}
+{%- if not loop.last %}, {% endif %}
 {%- endfor -%};
 
 # How long clients are allowed to hold onto an IP address
