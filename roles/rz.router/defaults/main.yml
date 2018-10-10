@@ -8,14 +8,14 @@ dnsNameServers:
 
 dhcpdConf:
   option:
-    domain-name: rz.lab
-    domain-name-servers:
+    domain_name: rz.lab
+    domain_name_servers:
         - 1.1.1.1
         - 8.8.8.8
-  default-lease-time: 600  
-  max-lease-time: 7200
+  default_lease_time: 600  
+  max_lease_time: 7200
   authoritative: true
-  log-facility: local7
+  log_facility: local7
   subnets:
     - interface: eth1
       address: 10.100.10.1
