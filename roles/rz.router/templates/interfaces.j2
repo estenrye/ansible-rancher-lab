@@ -18,7 +18,7 @@ dns-nameserver {{nameServer}}
 pre-up sleep 2
 
 # LAN interfaces
-{% for item in lanInterfaces %}
+{% for item in dhcpdConf.subnets %}
 auto {{item.interface}}
 iface {{item.interface}} inet static
   address {{item.address}}

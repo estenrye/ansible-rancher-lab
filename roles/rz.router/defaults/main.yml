@@ -1,14 +1,27 @@
 ---
 wanInterface: eth0
 
-lanInterfaces:
-  - interface: eth1
-    address: 10.100.10.1
-    network: 10.100.10.0
-    netmask: 255.255.255.0
-    broadcast: 10.100.10.255
-
 dnsNameServers:
   - 1.1.1.1
   - 8.8.8.8
   - 8.8.4.4
+
+dhcpdConf:
+  option:
+    domain-name: rz.lab
+    domain-name-servers:
+        - 1.1.1.1
+        - 8.8.8.8
+  default-lease-time: 600  
+  max-lease-time: 7200
+  authoritative: true
+  log-facility: local7
+  subnets:
+    - interface: eth1
+      address: 10.100.10.1
+      network: 10.100.10.0
+      netmask: 255.255.255.0
+      broadcast: 10.100.10.255
+      range:
+        - 10.100.10.100
+        - 10.100.10.250

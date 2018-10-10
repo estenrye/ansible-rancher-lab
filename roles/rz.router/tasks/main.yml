@@ -9,3 +9,15 @@
   package:
     name: isc-dhcp-server
     state: present
+
+- name: Set /etc/default/isc-dhcp-server.
+  template:
+    src:  "isc-dhcp-server.j2"
+    dest: "/etc/default/isc-dhcp-server"
+#  notify: restart networking service
+
+- name: Set /etc/dhcp/dhcpd.conf.
+  template:
+    src:  "dhcpd.conf.j2"
+    dest: "/etc/dhcp/dhcpd.conf"
+#  notify: restart networking service
