@@ -25,3 +25,5 @@
 3. Click OK on the Select Users dialog.
 4. Click OK on the Hyper-V Administrators Dialog.
 5. Close `compmgmt.msc`.
+
+[Back to readme.md](../readme.md)

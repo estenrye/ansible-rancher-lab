@@ -31,3 +31,5 @@
 5. Close `gpedit.msc`
 
 ### Log out and log back in to apply the policy changes.
+
+[Back to readme.md](../readme.md)
