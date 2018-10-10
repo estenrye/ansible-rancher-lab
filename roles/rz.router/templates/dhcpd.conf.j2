@@ -2,3 +2,12 @@
 
 # /etc/dhcp/dhcpd.conf
 
+# Disable DDNS updating. DDNS can associate a dynamic IP,
+# like what your modem gives your router, with a domain
+# name. I'll talk more about this later.
+ddns-update-style-none;
+
+# Domain name given to clients. Can be anything that makes
+# you happy.
+option domain-name "{{dhcpdConf.option.domain-name}}";
+
