@@ -33,6 +33,7 @@
     - Navigate to: `Create symbolic links`
 
       ![gpedit screenshot of target policy](.imgs/setup/gpedit.PNG)
+      
     - Double-click: `Create symbolic links`
 
       ![Create symbolic links dialog](.imgs/setup/create-symbolic-links-dialog.PNG)
