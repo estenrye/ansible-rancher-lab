@@ -48,3 +48,7 @@ The vagrant driver for Hyper-V lacks two components that allow us to have a pred
 4. Run `vagrant ssh acs`
 5. `cd ansible-rancher-lab`
 6. `ansible-playbook -i inventory --become network.yml`
+
+## References
+
+Much of this project wouldn't be, if not for the great contributions of others.  Please check out their sites in the [references](.docs/references.md).
