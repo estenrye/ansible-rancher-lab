@@ -40,9 +40,6 @@ log-facility {{ dhcpdConf.log-facility}};
 # from in the {{subnet.network}} block with netmask {{subnet.netmask}}.
 subnet {{subnet.network}} netmask {{subnet.netmask}} {
 
-    # Tells the DHCP server it can hand out IPs from the
-    # range {{subnet.range[0]}} to {{subnet.range[1]}}. 
-    range {{subnet.range[0]}} {{subnet.range[1]}};
 
     # These two options should be the same as what your
     # configured in /etc/network/interfaces
