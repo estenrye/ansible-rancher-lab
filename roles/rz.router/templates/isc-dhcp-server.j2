@@ -20,4 +20,4 @@
 
 # On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
 #       Separate multiple interfaces with spaces, e.g. "eth0 eth1".
-INTERFACES="{% for item in lanInterfaces -%}{{item.interface}}{%- if not loop.last %} {% endif %}{% endfor -%}"
+INTERFACES="{% for item in dhcpdConf.subnets -%}{{item.interface}}{%- if not loop.last %} {% endif %}{% endfor -%}"
