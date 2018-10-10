@@ -68,7 +68,8 @@ subnet {{subnet.network}} netmask {{subnet.netmask}} {
 {% for host in dhcpdConf.hosts %}
 # Tells the DHCP server to always give out the same address to: {{host.name}}
 host {{host.name}} {
-    hardware ethernet {{host.mac_address}}
-    fixed-address {{host.fixed_address}}
+    hardware ethernet {{host.mac_address}};
+    fixed-address {{host.fixed_address}};
+    server-name "{{host.name}}.{{dhcpdConf.option.domain_name}}";
 }
 {% endfor %}
