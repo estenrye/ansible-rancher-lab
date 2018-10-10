@@ -33,6 +33,10 @@ authoritative;
 # Logging.
 log-facility {{ dhcpdConf.log_facility}};
 
+##################################
+##  Subnet Configurations
+##################################
+
 {% for subnet in dhcpdConf.subnets %}
 # IMPORTANT PART. This block tells the DHCP server which
 # IP addresses it can allocate to clients. This subnet and
@@ -54,5 +58,17 @@ subnet {{subnet.network}} netmask {{subnet.netmask}} {
     # address your configured for the router in
     # /etc/network/interfaces.
     option routers {{subnet.address}};
+}
+{% endfor %}
+
+##################################
+##  Reserved IP Addresses
+##################################
+
+{% for host in dhcpdConf.hosts %}
+# Tells the DHCP server to always give out the same address to: {{host.name}}
+host {{host.name}} {
+    hardware ethernet {{host.mac_address}}
+    fixed-address {{host.fixed_address}}
 }
 {% endfor %}

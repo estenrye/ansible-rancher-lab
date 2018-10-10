@@ -25,3 +25,20 @@ dhcpdConf:
       range:
         - 10.100.10.100
         - 10.100.10.250
+  hosts:
+    - name: haproxy
+      mac_address: 00:35:10:00:00:02
+      fixed_address: 10.100.10.10
+    - name: rancher1
+      mac_address: 00:35:10:00:00:03
+      fixed_address: 10.100.10.11
+    - name: rancher2
+      mac_address: 00:35:10:00:00:04
+      fixed_address: 10.100.10.12
+    - name: rancher3
+      mac_address: 00:35:10:00:00:05
+      fixed_address: 10.100.10.13
+    - name: utilserver
+      mac_address: 00:35:10:00:00:06
+      fixed_address: 10.100.10.2
+    

@@ -14,10 +14,16 @@
   template:
     src:  "isc-dhcp-server.j2"
     dest: "/etc/default/isc-dhcp-server"
-#  notify: restart networking service
+  notify: restart isc-dhcp-server
 
 - name: Set /etc/dhcp/dhcpd.conf.
   template:
     src:  "dhcpd.conf.j2"
     dest: "/etc/dhcp/dhcpd.conf"
-#  notify: restart networking service
+  notify: restart isc-dhcp-server
+
+- name: Enable and Start isc-dhcp-server
+  service:
+    name: isc-dhcp-server
+    state: started
+    enabled: yes
