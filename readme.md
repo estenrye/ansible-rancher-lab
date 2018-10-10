@@ -22,6 +22,7 @@
 
   - Option A: 
     - Open `gpedit.msc`
+    
     ![Run gpedit.msc](.imgs/setup/run-gpedit.PNG)
     - Navigate to: `Computer Configuration`
     - Navigate to: `Windows Settings`
