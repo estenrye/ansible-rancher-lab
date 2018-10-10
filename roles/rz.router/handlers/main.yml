@@ -8,3 +8,8 @@
   service:
     name: isc-dhcp-server
     state: restarted
+
+- name: restart procps service
+  service:
+    name: procps
+    state: restarted
