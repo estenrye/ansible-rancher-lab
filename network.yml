@@ -1,5 +1,6 @@
 ---
 - hosts: routers
   roles:
+    - rz.common
     - rz.ssh_keys
     - rz.router
