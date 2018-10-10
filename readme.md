@@ -22,17 +22,21 @@
 
   - Option A: 
     - Open `gpedit.msc`
-    
-    ![Run gpedit.msc](.imgs/setup/run-gpedit.PNG)
+
+      ![Run gpedit.msc](.imgs/setup/run-gpedit.PNG)
+
     - Navigate to: `Computer Configuration`
     - Navigate to: `Windows Settings`
     - Navigate to: `Security Settings`
     - Navigate to: `Local Policies`
     - Navigate to: `User Rights Assignment`
     - Navigate to: `Create symbolic links`
+
       ![gpedit screenshot of target policy](.imgs/setup/gpedit.PNG)
     - Double-click: `Create symbolic links`
+
       ![Create symbolic links dialog](.imgs/setup/create-symbolic-links-dialog.PNG)
+    
     - Click: `Add User or Group`
     ![Select Users Dialog](.imgs/setup/select-users-dialog.PNG)
     - Type your username in the Select Users Dialog.
