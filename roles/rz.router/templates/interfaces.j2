@@ -1,11 +1,21 @@
 # {{ ansible_managed }}
 
-#loopback
+source /etc/network/interfaces.d/*
+
+# The loopback newtwork interface
 auto lo
 iface lo inet loopback
 
 # WAN interface
-auto {{wanInterface}} inet dhcp
+auto {{wanInterface}}
+iface {{wanInterface}} inet dhcp
+
+# DNS Servers
+{% for nameServer in dnsNameServers %}
+dns-nameserver {{nameServer}}
+{% endfor %}
+
+pre-up sleep 2
 
 # LAN interfaces
 {% for item in lanInterfaces %}

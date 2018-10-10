@@ -7,3 +7,8 @@ lanInterfaces:
     network: 10.100.10.0
     netmask: 255.255.255.0
     broadcast: 10.100.10.255
+
+dnsNameServers:
+  - 1.1.1.1
+  - 8.8.8.8
+  - 8.8.4.4
