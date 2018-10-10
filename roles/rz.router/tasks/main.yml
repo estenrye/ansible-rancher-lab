@@ -4,3 +4,8 @@
     src:  "interfaces.j2"
     dest: "/etc/network/interfaces"
   notify: restart networking service
+
+- name: Install isc-dhcp-server
+  package:
+    name: isc-dhcp-server
+    state: present
