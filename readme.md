@@ -21,55 +21,9 @@
 5. Set Group Policy to allow your user to create symbolic links without an elevated shell using one of the following options.
 
   - Option A: [Update policy using gpedit.msc](.docs/gpedit-symbolic-links.md)
-  - Option B: 
-    - Open `secpol.msc`
-    
-      ![Run secpol.msc](.imgs/setup/run-secpol.PNG)
-    
-    - Navigate to: `Local Policies`
-    - Navigate to: `User Rights Assignment`
-    - Navigate to: `Create symbolic links`
-    
-      ![secpol.msc window](.imgs/setup/secpol.PNG)
-    
-    - Double-click: `Create symbolic links`
-    
-      ![Create symbolic links dialog](.imgs/setup/create-symbolic-links-dialog.PNG)
-    
-    - Click: `Add User or Group`
-    
-      ![Select Users Dialog](.imgs/setup/select-users-dialog.PNG)
-    
-    - Type your username in the Select Users Dialog.
-    - Click `OK` on the Select Users dialog.
-    - Click `OK` on the Create symbolic links Dialog.
-    - Close `secpol.msc`
-    - Log out.
-    - Log in.
+  - Option B: [Update policy using secpol.msc](.docs/secpol-symbolic-links.md)
 
-6. Add your user to the list of Hyper-V Administrators.  This will allow you to use vagrant without opening an Administrative PowerShell prompt.
-
-  - Open `compmgmt.msc`
-    
-    ![Windows Run Command Dialog Box](.imgs/setup/compmgmt.PNG)
-  
-  - Navigate to: `Local Users and Groups`
-  - Navigate to: `Groups`
-  
-    ![Hyper-V Administrators Group in compmgmt.msc](.imgs/setup/hyperv-administrators.PNG)
-  
-  - Double-click the `Hyper-V Administrators` group.
-  
-    ![Hyper-V Administrators Dialog](.imgs/setup/group-dialog.PNG)
-  
-  - Click Add.
-  
-    ![Select Users Dialog](.imgs/setup/select-users-dialog.PNG)
-  
-  - Type your username in the Select Users Dialog.
-  - Click OK on the Select Users dialog.
-  - Click OK on the Hyper-V Administrators Dialog.
-  - Close `compmgmt.msc`.
+6. [Add your user to the list of Hyper-V Administrators.](.docs/hyperv-administrators-group.md)  This will allow you to use vagrant without opening an Administrative PowerShell prompt.
 
 7. Clone repo using `git clone -c core.symlinks=true git@github.com:estenrye/ansible-rancher-lab.git`
 8. Add the bin directory installed with git to your path:
