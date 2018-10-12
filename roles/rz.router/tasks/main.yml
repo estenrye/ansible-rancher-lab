@@ -1,4 +1,9 @@
 ---
+- name: Install DHCP Server
+  package:
+    name: isc-dhcp-server
+    state: present
+
 - name: Enable IPv4 forwarding
   sysctl:
     name: net.ipv4.ip_forward
@@ -16,11 +21,6 @@
     jump: MASQUERADE
     protocol: '{{ masquerade_protocol }}'
     comment: Ansible NAT Masquerade
-
-- name: Install DHCP Server
-  package:
-    name: isc-dhcp-server
-    state: present
 
 - name: Configure interfaces DHCP Server will listen on.
   template:
