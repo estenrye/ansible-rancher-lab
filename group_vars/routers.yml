@@ -22,7 +22,6 @@ netplan_configuration:
         dhcp6: false
         addresses:
           - 10.100.10.1/24
-        gateway4: 10.100.10.1
         optional: true
         nameservers:
           addresses:
