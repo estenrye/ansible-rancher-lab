@@ -1,0 +1,29 @@
+---
+# defaults file for ansible-netplan
+netplan_config_file:      /etc/netplan/config.yaml
+netplan_pri_domain:       rz.lab
+netplan_remove_existing:  true
+netplan_configuration:
+  network:
+    version: 2
+    renderer: networkd
+    ethernets:
+      eth0:
+        dhcp4: true
+        dhcp6: false
+        optional: true
+        nameservers:
+          addresses:
+            - 1.1.1.1
+            - 1.0.0.1
+            - 8.8.8.8
+            - 8.8.8.4
+      eth1:
+        dhcp4: false
+        dhcp6: false
+        addresses:
+          - 10.100.10.1/24
+        gateway4: 10.100.10.1
+        optional: true
+        search:
+          - {{netplan_pri_domain}}
