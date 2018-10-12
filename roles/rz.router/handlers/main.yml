@@ -1,15 +1,5 @@
 ---
-- name: restart networking service
-  service:
-    name: networking
-    state: restarted
-
 - name: restart isc-dhcp-server
   service:
     name: isc-dhcp-server
-    state: restarted
-
-- name: restart procps service
-  service:
-    name: procps
     state: restarted
