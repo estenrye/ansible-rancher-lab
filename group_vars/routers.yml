@@ -24,5 +24,9 @@ netplan_configuration:
           - 10.100.10.1/24
         gateway4: 10.100.10.1
         optional: true
-        search:
-          - rz.lab
+        nameservers:
+          addresses:
+            - 1.1.1.1
+            - 1.0.0.1
+          search:
+            - rz.lab
