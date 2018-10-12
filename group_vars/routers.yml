@@ -1,7 +1,6 @@
 ---
 # defaults file for ansible-netplan
 netplan_config_file:      /etc/netplan/config.yaml
-netplan_pri_domain:       rz.lab
 netplan_remove_existing:  true
 netplan_configuration:
   network:
@@ -26,4 +25,4 @@ netplan_configuration:
         gateway4: 10.100.10.1
         optional: true
         search:
-          - {{netplan_pri_domain}}
+          - rz.lab
