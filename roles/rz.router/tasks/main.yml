@@ -11,17 +11,6 @@
     state: present
     reload: True
 
-- name: Create Iptables NAT chain
-  iptables:
-    table: nat
-    chain: POSTROUTING
-    out_interface: '{{ masquerade_out_interface }}'
-    source: '{{ masquerade_source }}'
-    destination: '{{ masquerade_destination }}'
-    jump: MASQUERADE
-    protocol: '{{ masquerade_protocol }}'
-    comment: Ansible NAT Masquerade
-
 - name: Configure interfaces DHCP Server will listen on.
   template:
     src:  "isc-dhcp-server.j2"
@@ -39,3 +28,65 @@
     name: isc-dhcp-server
     state: started
     enabled: yes
+
+- name: Default policy to drop all incoming packets
+  iptables:
+    table: filter
+    chain: INPUT
+    policy: DROP
+
+- name: Default policy to drop all forwarded packets
+  iptables:
+    table: filter
+    chain: FORWARD
+    policy: DROP
+
+- name: Accept incoming packets from localhost interface
+  iptables:
+    table: filter
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+
+- name: Accept incoming packets from LAN interface
+  iptables:
+    table: filter
+    chain: INPUT
+    in_interface: eth1
+    jump: ACCEPT
+
+- name: Accept incoming packets from the WAN if the router initiated the connection
+  iptables:
+    table: filter
+    chain: INPUT
+    in_interface: eth0
+    ctstate: ESTABLISHED, RELATED
+    jump: ACCEPT
+
+- name: Forward LAN packets to the WAN
+  iptables:
+    table: filter
+    chain: FORWARD
+    in_interface: eth1
+    out_interface: eth0
+    jump: ACCEPT
+
+- name: Forward WAN packets to the LAN if the LAN initiated the connection
+  iptables:
+    table: filter
+    chain: FORWARD
+    in_interface: eth0
+    out_interface: eth1'
+    ctstate: ESTABLISHED, RELATED
+    jump: ACCEPT
+
+- name: Create Iptables NAT chain
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    out_interface: '{{ masquerade_out_interface }}'
+    source: '{{ masquerade_source }}'
+    destination: '{{ masquerade_destination }}'
+    jump: MASQUERADE
+    protocol: '{{ masquerade_protocol }}'
+    comment: Ansible NAT Masquerade
