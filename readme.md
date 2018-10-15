@@ -1,5 +1,9 @@
 # Ansible Lab
 
+## Network Diagram
+
+![ansible rancher lab network diagram](.imgs/network_diagrams/network.svg)
+
 ## Host Machine Setup
 
 1. Enable Hyper-V
