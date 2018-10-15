@@ -1,0 +1,49 @@
+---
+wanInterface: eth0
+
+masquerade_out_interface: eth0
+masquerade_source: 10.100.10.0/24
+masquerade_destination: 0.0.0.0/0
+masquerade_protocol: all
+
+dnsNameServers:
+  - 1.1.1.1
+  - 8.8.8.8
+  - 8.8.4.4
+
+dhcpdConf:
+  option:
+    domain_name: rz.lab
+    domain_name_servers:
+        - 1.1.1.1
+        - 8.8.8.8
+  default_lease_time: 600  
+  max_lease_time: 7200
+  authoritative: true
+  log_facility: local7
+  subnets:
+    - interface: eth1
+      address: 10.100.10.1
+      network: 10.100.10.0
+      netmask: 255.255.255.0
+      broadcast: 10.100.10.255
+      range:
+        - 10.100.10.100
+        - 10.100.10.250
+  hosts:
+    - name: haproxy
+      mac_address: 00:35:10:00:00:02
+      fixed_address: 10.100.10.10
+    - name: rancher1
+      mac_address: 00:35:10:00:00:03
+      fixed_address: 10.100.10.11
+    - name: rancher2
+      mac_address: 00:35:10:00:00:04
+      fixed_address: 10.100.10.12
+    - name: rancher3
+      mac_address: 00:35:10:00:00:05
+      fixed_address: 10.100.10.13
+    - name: utilserver
+      mac_address: 00:35:10:00:00:06
+      fixed_address: 10.100.10.2
+    

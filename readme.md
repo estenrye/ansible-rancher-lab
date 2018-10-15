@@ -1,6 +1,10 @@
 # Ansible Lab
 
-## Setup
+## Network Diagram
+
+![ansible rancher lab network diagram](.imgs/network_diagrams/network.svg)
+
+## Host Machine Setup
 
 1. Enable Hyper-V
 2. Install Vagrant
@@ -19,19 +23,36 @@
 
 4. Enable Developer Mode for Windows 10.
 5. Set Group Policy to allow your user to create symbolic links without an elevated shell using one of the following options.
-  - Option A: `gpedit.msc`
-    - Navigate to: `Computer Configuration`
-    - Navigate to: `Windows Settings`
-    - Navigate to: `Security Settings`
-    - Navigate to: `Local Policies`
-    - Navigate to: `User Rights Assignment`
-    - Add your account to the list named `Create symbolic links.`
-    - Log out.
-    - Log in.
-  - Option B: `secpol.msc`
-    - Navigate to: `Local Policies`
-    - Navigate to: `User Rights Assignment`
-    - Add your account to th elist named `Create symbolic links.`
-    - Log out.
-    - Log in.
-6. Clone repo using `git clone -c core.symlinks=true git@github.com:estenrye/ansible-rancher-lab.git`
+
+  - Option A: [Update policy using gpedit.msc](.docs/gpedit-symbolic-links.md)
+  - Option B: [Update policy using secpol.msc](.docs/secpol-symbolic-links.md)
+
+6. [Add your user to the list of Hyper-V Administrators.](.docs/hyperv-administrators-group.md)  This will allow you to use vagrant without opening an Administrative PowerShell prompt.
+
+7. Clone repo using `git clone -c core.symlinks=true git@github.com:estenrye/ansible-rancher-lab.git`
+8. Add the bin directory installed with git to your path:
+
+```powershell
+# From http://www.hurryupandwait.io/blog/need-an-ssh-client-on-windows-dont-use-putty-or-cygwinuse-git
+if (-not $env:PATH.Contains('C:/Program Files/Git/usr/bin'))
+{
+    $new_path = "$env:PATH;C:/Program Files/Git/usr/bin"
+    $env:PATH=$new_path
+    [Environment]::SetEnvironmentVariable("path", $new_path, "user")
+}
+```
+
+## Launching the Ansible Control Server and Lab Router
+
+The vagrant driver for Hyper-V lacks two components that allow us to have a predictable lab setup.  The first is that the Hyper-V vagrant driver does not provide a mechanism for specifying multiple Network Interface Adapters on a guest VM.  The second is that the Hyper-V vagrant driver does not provide a mechnanism for specifying a static IP address for a guest VM on any network type.  This project addresses the first problem by using a combination of vagrant commands and PowerShell commandlets to add a second Network Interface Adapter to the router guest VM.  It addresses the second by dynamically generating the inventory on the host machine and copying it to the acs guest VM.
+
+1. Run `vagrant up` from the root of the repository.
+2. Run `.\scripts\Provision-SecondAdaptor.ps1 -VMName router -VMSwitchName Private -VMNetworkAdapterName LAN`
+3. Run `.\test\Generate-Ansible-Inventory.ps1`
+4. Run `vagrant ssh acs`
+5. `cd ansible-rancher-lab`
+6. `ansible-playbook -i inventory --become network.yml`
+
+## References
+
+Much of this project wouldn't be, if not for the great contributions of others.  Please check out their sites in the [references](.docs/references.md).

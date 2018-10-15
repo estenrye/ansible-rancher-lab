@@ -1,0 +1,7 @@
+---
+- hosts: routers
+  roles:
+    - rz.common
+    - rz.ssh_keys
+    - mrlesmithjr.netplan
+    - rz.router

@@ -1,0 +1,41 @@
+---
+- name: Install DHCP Server
+  package:
+    name: isc-dhcp-server
+    state: present
+
+- name: Enable IPv4 forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    state: present
+    reload: True
+
+- name: Create Iptables NAT chain
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    out_interface: '{{ masquerade_out_interface }}'
+    source: '{{ masquerade_source }}'
+    destination: '{{ masquerade_destination }}'
+    jump: MASQUERADE
+    protocol: '{{ masquerade_protocol }}'
+    comment: Ansible NAT Masquerade
+
+- name: Configure interfaces DHCP Server will listen on.
+  template:
+    src:  "isc-dhcp-server.j2"
+    dest: "/etc/default/isc-dhcp-server"
+  notify: restart isc-dhcp-server
+
+- name: Configure Subnets hosted by the DHCP Server
+  template:
+    src:  "dhcpd.conf.j2"
+    dest: "/etc/dhcp/dhcpd.conf"
+  notify: restart isc-dhcp-server
+
+- name: Enable and Start DHCP Server
+  service:
+    name: isc-dhcp-server
+    state: started
+    enabled: yes

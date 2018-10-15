@@ -1,8 +1,0 @@
-﻿acs ansible_ssh_host=10.9.8.10
-jdk ansible_ssh_host=10.9.8.222
-
-[ansible_control_servers]
-acs
-
-[jdk_workstations]
-jdk

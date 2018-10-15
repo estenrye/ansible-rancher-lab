@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 vagrant_api_version = '2'
 
-hyperv_network = 'Internet'
+hyperv_network = 'Private'
 
 machines = {
   haproxy: {

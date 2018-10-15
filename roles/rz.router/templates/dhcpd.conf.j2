@@ -1,0 +1,75 @@
+# {{ ansible_managed }}
+
+# /etc/dhcp/dhcpd.conf
+
+# Disable DDNS updating. DDNS can associate a dynamic IP,
+# like what your modem gives your router, with a domain
+# name. I'll talk more about this later.
+ddns-update-style-none;
+
+# Domain name given to clients. Can be anything that makes
+# you happy.
+option domain-name "{{dhcpdConf.option.domain_name}}";
+
+# DNS server that will be advertised to clients. Clients
+# will use this DNS server for resolving domain names. In
+# this case its Google's public DNS.
+option domain-name-servers {% for item in dhcpdConf.option.domain_name_servers -%}
+{{item}}
+{%- if not loop.last %}, {% endif %}
+{%- endfor -%};
+
+# How long clients are allowed to hold onto an IP address
+# before checking in with the DHCP server again.
+default-lease-time {{dhcpdConf.default_lease_time}};
+max-lease-time {{dhcpdConf.max_lease_time}};
+
+{% if dhcpdConf.authoritative %}
+# This DHCP server is the authoritative source for IP
+# addresses. It runs shit, use the IP it gives you or else.
+authoritative;
+{% endif %}
+
+# Logging.
+log-facility {{ dhcpdConf.log_facility}};
+
+##################################
+##  Subnet Configurations
+##################################
+
+{% for subnet in dhcpdConf.subnets %}
+# IMPORTANT PART. This block tells the DHCP server which
+# IP addresses it can allocate to clients. This subnet and
+# netmask block says there are some addresses to allocate
+# from in the {{subnet.network}} block with netmask {{subnet.netmask}}.
+subnet {{subnet.network}} netmask {{subnet.netmask}} {
+
+    # Tells the DHCP server it can hand out IPs from the
+    # range {{subnet.range[0]}} to {{subnet.range[1]}}. 
+    range {{subnet.range[0]}} {{subnet.range[1]}};
+
+    # These two options should be the same as what your
+    # configured in /etc/network/interfaces
+    option subnet-mask {{subnet.netmask}};
+    #option broadcast-address {{subnet.broadcast}};
+
+    # The IP address of the router clients should send their
+    # traffic to. This should be the same as the static IP
+    # address your configured for the router in
+    # /etc/network/interfaces.
+    option routers {{subnet.address}};
+}
+{% endfor %}
+
+##################################
+##  Reserved IP Addresses
+##################################
+
+{% for host in dhcpdConf.hosts %}
+# Tells the DHCP server to always give out the same address to: {{host.name}}
+host {{host.name}} {
+    hardware ethernet {{host.mac_address}};
+    fixed-address {{host.fixed_address}};
+    server-name "{{host.name}}.{{dhcpdConf.option.domain_name}}";
+}
+{% endfor %}
