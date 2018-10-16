@@ -29,16 +29,6 @@
     state: started
     enabled: yes
 
-- name: Accept new SSH Connections.
-  iptables:
-    chain: INPUT
-    protocol: tcp
-    source: 172.28.14.0/24
-    destination_port: 22
-    ctstate: NEW,ESTABLISHED
-    jump: ACCEPT
-    comment: Accept new SSH connections.
-
 - name: Default policy to drop all incoming packets
   iptables:
     table: filter
@@ -89,6 +79,16 @@
     out_interface: eth1'
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
+
+- name: Accept new SSH Connections.
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    source: 172.28.14.0/24
+    destination_port: 22
+    ctstate: NEW,ESTABLISHED
+    jump: ACCEPT
+    comment: Accept new SSH connections.
 
 - name: Create Iptables NAT chain
   iptables:
