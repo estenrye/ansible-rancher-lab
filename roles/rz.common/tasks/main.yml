@@ -11,3 +11,8 @@
   package:
     name: fail2ban
     state: present
+
+- name: install iptables-persistent
+  package: 
+    name: iptables-persistent
+    state: present
