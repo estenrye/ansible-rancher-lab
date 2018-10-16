@@ -94,9 +94,7 @@
   iptables:
     table: nat
     chain: POSTROUTING
-    out_interface: '{{ masquerade_out_interface }}'
-    source: '{{ masquerade_source }}'
-    destination: '{{ masquerade_destination }}'
+    out_interface: eth0
+    in_interface: eth1
     jump: MASQUERADE
-    protocol: '{{ masquerade_protocol }}'
     comment: Ansible NAT Masquerade
