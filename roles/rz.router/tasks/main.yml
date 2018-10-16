@@ -64,7 +64,7 @@
     table: filter
     chain: FORWARD
     in_interface: eth0
-    out_interface: eth1'
+    out_interface: eth1
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 
