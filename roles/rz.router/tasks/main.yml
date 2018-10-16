@@ -29,18 +29,6 @@
     state: started
     enabled: yes
 
-- name: Default policy to drop all incoming packets
-  iptables:
-    table: filter
-    chain: INPUT
-    policy: DROP
-
-- name: Default policy to drop all forwarded packets
-  iptables:
-    table: filter
-    chain: FORWARD
-    policy: DROP
-
 - name: Accept incoming packets from localhost interface
   iptables:
     table: filter
@@ -97,3 +85,15 @@
     out_interface: eth0
     jump: MASQUERADE
     comment: Ansible NAT Masquerade
+
+- name: Default policy to drop all incoming packets
+  iptables:
+    table: filter
+    chain: INPUT
+    policy: DROP
+
+- name: Default policy to drop all forwarded packets
+  iptables:
+    table: filter
+    chain: FORWARD
+    policy: DROP
