@@ -3,6 +3,7 @@
 ## References
 
 - !robot.  (2018).  [Configure Static IP Addresses On Ubuntu 18.04 LTS Server](https://websiteforstudents.com/configure-static-ip-addresses-on-ubuntu-18-04-beta/)
+- Anicas, M. (2015). [Iptables essentials: Common firewall rules and commands.](https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands)
 - Brailovsky, N. (2013). [Setting up a linux gateway/router, a guide for non network admins.](https://monoinfinito.wordpress.com/series/setting-up-a-linux-gatewayrouter-a-guide-for-non-network-admins/)
 - Doug. (2018). [Ubuntu 18.04 as a router.](https://askubuntu.com/questions/1050816/ubuntu-18-04-as-a-router)
 - Ducea, M. (2006). [How to enable IP forwarding in linux.](http://www.ducea.com/2006/08/01/how-to-enable-ip-forwarding-in-linux/)

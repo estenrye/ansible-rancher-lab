@@ -29,6 +29,16 @@
     state: started
     enabled: yes
 
+- name: Accept new SSH Connections.
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    source: 172.28.14.0/24
+    destination_port: 22
+    ctstate: NEW,ESTABLISHED
+    jump: ACCEPT
+    comment: Accept new SSH connections.
+
 - name: Default policy to drop all incoming packets
   iptables:
     table: filter
@@ -60,7 +70,7 @@
     table: filter
     chain: INPUT
     in_interface: eth0
-    ctstate: ESTABLISHED, RELATED
+    ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 
 - name: Forward LAN packets to the WAN
@@ -77,7 +87,7 @@
     chain: FORWARD
     in_interface: eth0
     out_interface: eth1'
-    ctstate: ESTABLISHED, RELATED
+    ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 
 - name: Create Iptables NAT chain
