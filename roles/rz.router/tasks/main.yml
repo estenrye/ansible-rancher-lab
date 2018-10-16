@@ -3,6 +3,7 @@
   package:
     name: isc-dhcp-server
     state: present
+  become: yes
 
 - name: Enable IPv4 forwarding
   sysctl:
@@ -10,17 +11,20 @@
     value: 1
     state: present
     reload: True
+  become: yes
 
 - name: Configure interfaces DHCP Server will listen on.
   template:
     src:  "isc-dhcp-server.j2"
     dest: "/etc/default/isc-dhcp-server"
+  become: yes
   notify: restart isc-dhcp-server
 
 - name: Configure Subnets hosted by the DHCP Server
   template:
     src:  "dhcpd.conf.j2"
     dest: "/etc/dhcp/dhcpd.conf"
+  become: yes
   notify: restart isc-dhcp-server
 
 - name: Enable and Start DHCP Server
@@ -28,6 +32,7 @@
     name: isc-dhcp-server
     state: started
     enabled: yes
+  become: yes
 
 - name: Accept incoming packets from localhost interface
   iptables:
@@ -35,6 +40,10 @@
     chain: INPUT
     in_interface: lo
     jump: ACCEPT
+    comment: Ansible[router] - Accept incoming packets from localhost interface
+  become: yes
+  notify:
+    - persist iptables
 
 - name: Accept incoming packets from LAN interface
   iptables:
@@ -42,6 +51,10 @@
     chain: INPUT
     in_interface: eth1
     jump: ACCEPT
+    comment: Ansible[router] - Accept incoming packets from LAN interface
+  become: yes
+  notify:
+    - persist iptables
 
 - name: Accept incoming packets from the WAN if the router initiated the connection
   iptables:
@@ -50,6 +63,10 @@
     in_interface: eth0
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
+    comment: Ansible[router] - Accept incoming packets from the WAN if the router initiated the connection
+  become: yes
+  notify:
+    - persist iptables
 
 - name: Forward LAN packets to the WAN
   iptables:
@@ -58,6 +75,10 @@
     in_interface: eth1
     out_interface: eth0
     jump: ACCEPT
+    comment: Ansible[router] - Forward LAN packets to the WAN
+  become: yes
+  notify:
+    - persist iptables
 
 - name: Forward WAN packets to the LAN if the LAN initiated the connection
   iptables:
@@ -67,6 +88,10 @@
     out_interface: eth1
     ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
+    comment: Ansible[router] - Forward WAN packets to the LAN if the LAN initiated the connection
+  become: yes
+  notify:
+    - persist iptables
 
 - name: Accept new SSH Connections.
   iptables:
@@ -76,7 +101,10 @@
     destination_port: 22
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
-    comment: Accept new SSH connections.
+    comment: Ansible[router] - Accept new SSH connections.
+  become: yes
+  notify:
+    - persist iptables
 
 - name: Create Iptables NAT chain
   iptables:
@@ -84,16 +112,29 @@
     chain: POSTROUTING
     out_interface: eth0
     jump: MASQUERADE
-    comment: Ansible NAT Masquerade
+    comment: Ansible[router] - NAT Masquerade
+  become: yes
+  notify:
+    - persist iptables
 
-- name: Default policy to drop all incoming packets
+- name: Default policy to drop all incoming ipv4 packets
   iptables:
     table: filter
     chain: INPUT
     policy: DROP
+    comment: Ansible[router] - Default policy to drop all incoming ipv4 packets
+  become: yes
+  notify:
+    - persist iptables
 
-- name: Default policy to drop all forwarded packets
+
+- name: Default policy to drop all forwarded ipv4 packets
   iptables:
     table: filter
     chain: FORWARD
     policy: DROP
+    comment: Ansible[router] - Default policy to drop all forwarded ipv4 packets
+  become: yes
+  notify:
+    - persist iptables
+
