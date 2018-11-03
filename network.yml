@@ -5,3 +5,4 @@
     - rz.ssh_keys
     - mrlesmithjr.netplan
     - rz.router
+    - bertvv.bind

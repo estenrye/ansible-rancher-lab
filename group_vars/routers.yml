@@ -25,7 +25,75 @@ netplan_configuration:
         optional: true
         nameservers:
           addresses:
-            - 1.1.1.1
-            - 1.0.0.1
+            - 127.0.0.1
           search:
             - rz.lab
+
+bind_acls:
+  - name: acl1
+    match_list:
+      - 10.100.10.0/24
+bind_allow_query:
+  - any
+bind_allow_recursion:
+  - any
+bind_dnssec_enable: true
+bind_dnssec_validation: true
+bind_forward_only: false
+bind_forwarders:
+  - '1.1.1.1'
+  - '1.0.0.1'
+bind_listen_ipv4:
+  - any
+bind_listen_ipv6:
+  - any
+bind_log: '/var/log/bind/named.run'
+bind_query_log: '/var/log/bind/query.log'
+bind_recursion: true
+bind_rrset_order: random
+bind_zone_domains:
+  - name: 'rz.lab'
+    hosts:
+      - name: 'router'
+        ip: 10.100.10.1
+        aliases:
+          - ns
+bind_zone_file_mode: '0640'
+bind_zone_master_server_ip: '10.100.10.1'
+bind_zone_minimum_ttl: 1D
+bind_zone_time_to_expire: 1W
+bind_zone_time_to_refresh: 1D
+bind_zone_time_to_retry: 1H
+bind_zone_ttl: 1W
+
+dhcpdConf:
+  option:
+    domain_name: rz.lab
+    domain_name_servers:
+        - 10.100.10.1
+  default_lease_time: 600  
+  max_lease_time: 7200
+  authoritative: true
+  log_facility: local7
+  subnets:
+    - interface: eth1
+      address: 10.100.10.1
+      network: 10.100.10.0
+      netmask: 255.255.255.0
+      broadcast: 10.100.10.255
+      range:
+        - 10.100.10.100
+        - 10.100.10.250
+  hosts:
+    - name: utility_server
+      mac_address: 00:35:10:00:01:01
+      fixed_address: 10.100.10.2
+    - name: directory_server
+      mac_address: 00:35:10:00:01:02
+      fixed_address: 10.100.10.3
+    - name: swarm_master
+      mac_address: 00:35:10:00:01:03
+      fixed_address: 10.100.10.11
+    - name: swarm_worker
+      mac_address: 00:35:10:00:01:04
+      fixed_address: 10.100.10.12
