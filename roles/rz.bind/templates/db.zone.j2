@@ -11,4 +11,4 @@ $TTL    {{item.TTL}}
 @        IN    NS     {{item.nameserver}}.
 {% for record in item.records %}
 {{record.name}}    {{record.class}}    {{record.type}}  {{record.target}}
-{% endfor %}}
+{% endfor %}
