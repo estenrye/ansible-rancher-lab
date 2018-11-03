@@ -3,3 +3,9 @@
   package:
     name: bind9
     state: present
+
+- name: Apply named.conf.options configuration.
+  template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+  notify: Restart bind9
