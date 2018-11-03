@@ -44,4 +44,4 @@
   file:
     path: /var/log/bind
     state: directory
-    mode: 0640
+    mode: 0755
