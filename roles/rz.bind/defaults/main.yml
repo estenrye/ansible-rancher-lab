@@ -8,3 +8,16 @@ bind:
   listen_on_v4:
     - 127.0.0.1
     - 10.100.10.1
+  zones:
+    - name: rz.lab
+      TTL: 604800
+      serial: 1
+      refresh: 604800
+      retry: 86400
+      expire: 2419200
+      negative_cache_ttl: 604800
+      records:
+        - name: router
+          class: IN
+          type: A
+          target: 10.100.10.1

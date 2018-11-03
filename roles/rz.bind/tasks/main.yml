@@ -9,3 +9,9 @@
     src: named.conf.options.j2
     dest: /etc/bind/named.conf.options
   notify: Restart bind9
+
+- name: "Apply db.{{item.name}} configuration."
+  template:
+    src: db.zone.j2
+    dest: "/etc/bind/db.{{item.name}}"
+  with_items: "{{bind.zones}}"
