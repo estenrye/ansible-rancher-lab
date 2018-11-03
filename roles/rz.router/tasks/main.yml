@@ -39,3 +39,9 @@
 
 - name: Include IPV6 Firewall Rule tasks
   include_tasks: ipv6.yml
+
+- name: Create Log Directory for bind service
+  file:
+    path: /var/log/bind
+    state: directory
+    mode: 0640
