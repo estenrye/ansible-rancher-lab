@@ -3,3 +3,8 @@ bind:
   forwarders:
     - 1.1.1.1
     - 1.0.0.1
+  listen_on_v6:
+    - none
+  listen_on_v4:
+    - 127.0.0.1
+    - 10.100.10.1

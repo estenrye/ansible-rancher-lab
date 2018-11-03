@@ -5,9 +5,9 @@ options {
 
 
         forwarders {
-            {% for forwarder in bind.forwarders %}
+{% for forwarder in bind.forwarders %}
             {{forwarder}};
-            {% endfor %}}
+{% endfor %}}
         };
 
         //========================================================================
@@ -17,5 +17,14 @@ options {
         dnssec-validation auto;
 
         auth-nxdomain no;    # conform to RFC1035
-        listen-on-v6 { any; };
+        listen-on-v6 {
+{% for listenAddr in bind.listen_on_v6 %}
+            {{listenAddr}};
+{% endfor %}}
+        };
+        listen-on {
+{% for listenAddr in bind.listen_on_v4 %}
+            {{listenAddr}};
+{% endfor %}}
+        };
 };
