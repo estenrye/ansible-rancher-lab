@@ -1,13 +1,13 @@
 ---
-- name: Flush all filter chain rules
-  iptables:
-    table: filter
-    flush: true
+# - name: Flush all filter chain rules
+#   iptables:
+#     table: filter
+#     flush: true
 
-- name: Flush all nat chain rules
-  iptables:
-    table: nat
-    flush: true
+# - name: Flush all nat chain rules
+#   iptables:
+#     table: nat
+#     flush: true
   
 - name: Accept incoming packets from localhost interface
   iptables:

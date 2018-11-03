@@ -1,15 +1,15 @@
 ---
-- name: IPV6 - Flush all filter chain rules
-  iptables:
-    table: filter
-    ip_version: ipv6
-    flush: true
+# - name: IPV6 - Flush all filter chain rules
+#   iptables:
+#     table: filter
+#     ip_version: ipv6
+#     flush: true
 
-- name: IPV6 - Flush all nat chain rules
-  iptables:
-    table: nat
-    ip_version: ipv6
-    flush: true
+# - name: IPV6 - Flush all nat chain rules
+#   iptables:
+#     table: nat
+#     ip_version: ipv6
+#     flush: true
 
 - name: IPV6 - Default policy to drop all incoming ipv6 packets
   iptables:
