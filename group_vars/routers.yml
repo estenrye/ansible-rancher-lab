@@ -56,8 +56,6 @@ bind_zone_domains:
     hosts:
       - name: 'router'
         ip: 10.100.10.1
-        aliases:
-          - ns
 bind_zone_file_mode: '0640'
 bind_zone_master_server_ip: '10.100.10.1'
 bind_zone_minimum_ttl: 1D
