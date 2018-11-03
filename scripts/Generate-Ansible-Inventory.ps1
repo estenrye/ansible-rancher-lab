@@ -38,4 +38,4 @@ $groups.Keys | ForEach-Object {
 }
 
 $acsIP = (Get-VM ansible-control-server).NetworkAdapters[0].IPAddresses[0]
-scp -i "$PSScriptRoot\.vagrant\machines\acs\hyperv\private_key" "$PSScriptRoot\inventory" vagrant@$($acsIP):~/ansible-rancher-lab
+scp -i "$PSScriptRoot\..\.vagrant\machines\acs\hyperv\private_key" "$PSScriptRoot\inventory" vagrant@$($acsIP):~/ansible-rancher-lab

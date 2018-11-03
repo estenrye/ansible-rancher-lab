@@ -48,7 +48,7 @@ The vagrant driver for Hyper-V lacks two components that allow us to have a pred
 
 1. Run `vagrant up acs router` from the root of the repository.
 2. Run `.\scripts\Provision-SecondAdaptor.ps1 -VMName router -VMSwitchName Private -VMNetworkAdapterName LAN`
-3. Run `.\Generate-Ansible-Inventory.ps1`
+3. Run `.\scripts\Generate-Ansible-Inventory.ps1`
 4. Run `vagrant ssh acs`
 5. `cd ansible-rancher-lab`
 6. `ansible-playbook -i inventory --become network.yml`
