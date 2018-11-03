@@ -5,7 +5,9 @@ options {
 
 
         forwarders {
-            {% for forwarder in bind.forwarders %}{{forwarder}};{% endfor %}}
+            {% for forwarder in bind.forwarders %}
+            {{forwarder}};
+            {% endfor %}}
         };
 
         //========================================================================
