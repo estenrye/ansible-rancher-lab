@@ -11,7 +11,7 @@ bind:
   zones:
     - name: rz.lab
       TTL: 604800
-      serial: 2
+      serial: 3
       refresh: 604800
       retry: 86400
       expire: 2419200
@@ -24,7 +24,7 @@ bind:
           target: 10.100.10.1
     - name: home
       TTL: 604800
-      serial: 2
+      serial: 3
       refresh: 604800
       retry: 86400
       expire: 2419200
