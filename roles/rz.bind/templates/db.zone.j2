@@ -8,7 +8,7 @@ $TTL    {{item.TTL}}
                            {{item.retry}}; Retry
                            {{item.expire}}; Expire
                            {{item.negative_cache_ttl}}); Negative Cache TTL
-@        IN    NS     {{item.name}}.
+@        IN    NS     {{item.nameserver}}.
 {% for record in item.records %}
 {{record.name}}    {{record.class}}    {{record.type}}  {{record.target}}
 {% endfor %}}
