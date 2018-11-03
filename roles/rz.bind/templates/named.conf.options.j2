@@ -20,11 +20,11 @@ options {
         listen-on-v6 {
 {% for listenAddr in bind.listen_on_v6 %}
             {{listenAddr}};
-{% endfor %}}
+{% endfor %}
         };
         listen-on {
 {% for listenAddr in bind.listen_on_v4 %}
             {{listenAddr}};
-{% endfor %}}
+{% endfor %}
         };
 };
