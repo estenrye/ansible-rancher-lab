@@ -22,3 +22,16 @@ bind:
           class: IN
           type: A
           target: 10.100.10.1
+    - name: home
+      TTL: 604800
+      serial: 2
+      refresh: 604800
+      retry: 86400
+      expire: 2419200
+      negative_cache_ttl: 604800
+      nameserver: router.home
+      records:
+        - name: router
+          class: IN
+          type: A
+          target: 10.100.10.1
