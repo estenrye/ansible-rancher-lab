@@ -11,7 +11,7 @@ bind:
   zones:
     - name: rz.lab
       TTL: 604800
-      serial: 3
+      serial: 5
       refresh: 604800
       retry: 86400
       expire: 2419200
@@ -22,3 +22,24 @@ bind:
           class: IN
           type: A
           target: 10.100.10.1
+        - name: acs
+          class: IN
+          type: A
+          target: 10.100.10.2
+        - name: utility
+          class: IN
+          type: A
+          target: 10.100.10.3
+        - name: ntp
+          class: IN
+          type: CNAME
+          target: utility
+        - name: syslog
+          class: IN
+          type: CNAME
+          target: utility
+        - name: dc
+          class: IN
+          type: A
+          target: 10.100.10.4
+        

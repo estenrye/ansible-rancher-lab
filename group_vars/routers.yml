@@ -48,12 +48,15 @@ dhcpdConf:
         - 10.100.10.100
         - 10.100.10.250
   hosts:
+    - name: ansible_control_server
+      mac_address: 00:35:10:00:01:00
+      fixed_address: 10.100.10.2
     - name: utility_server
       mac_address: 00:35:10:00:01:01
-      fixed_address: 10.100.10.2
+      fixed_address: 10.100.10.3
     - name: directory_server
       mac_address: 00:35:10:00:01:02
-      fixed_address: 10.100.10.3
+      fixed_address: 10.100.10.4
     - name: swarm_master
       mac_address: 00:35:10:00:01:03
       fixed_address: 10.100.10.11
