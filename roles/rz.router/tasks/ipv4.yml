@@ -73,7 +73,7 @@
     chain: INPUT
     protocol: tcp
     source: 172.28.14.0/24
-    destination_port: 22
+    destination_port: '22'
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
     comment: Ansible[router] - Accept new SSH connections.
