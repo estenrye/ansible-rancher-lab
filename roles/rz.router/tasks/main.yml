@@ -8,7 +8,7 @@
 - name: Enable IPv4 forwarding
   sysctl:
     name: net.ipv4.ip_forward
-    value: 1
+    value: '1'
     state: present
     reload: True
   become: yes
@@ -35,9 +35,7 @@
   become: yes
 
 - name: Include IPV4 Firewall Rule tasks
-  tasks:
-    include_tasks: ipv4.yml
+  include_tasks: ipv4.yml
 
 - name: Include IPV6 Firewall Rule tasks
-  tasks:
-    include_tasks: ipv6.yml
+  include_tasks: ipv6.yml

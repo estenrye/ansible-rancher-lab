@@ -1,13 +1,13 @@
 ---
-- name: Flush all filter chain rules
-  iptables:
-    table: filter
-    flush: true
+# - name: Flush all filter chain rules
+#   iptables:
+#     table: filter
+#     flush: true
 
-- name: Flush all nat chain rules
-  iptables:
-    table: nat
-    flush: true
+# - name: Flush all nat chain rules
+#   iptables:
+#     table: nat
+#     flush: true
   
 - name: Accept incoming packets from localhost interface
   iptables:
@@ -72,8 +72,8 @@
   iptables:
     chain: INPUT
     protocol: tcp
-    source: 172.28.14.0/24
-    destination_port: 22
+    source: 172.16.0.0/12
+    destination_port: '22'
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
     comment: Ansible[router] - Accept new SSH connections.

@@ -1,0 +1,14 @@
+//
+// Do any local configuration here
+// {{ansible_managed}}
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+{% for zone in bind.zones %}
+zone "{{zone.name}}" {
+    type master;
+    file "/etc/bind/db.{{zone.name}}";
+};
+{% endfor %}

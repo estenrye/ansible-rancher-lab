@@ -1,0 +1,14 @@
+; /etc/bind/db.{{item.name}}
+; {{ansible_managed}}
+
+$TTL    {{item.TTL}}
+@        IN    SOA    {{item.name}}.    root.{{item.name}}. (
+                           {{item.serial}}; Serial
+                           {{item.refresh}}; Refresh
+                           {{item.retry}}; Retry
+                           {{item.expire}}; Expire
+                           {{item.negative_cache_ttl}}); Negative Cache TTL
+@        IN    NS     {{item.nameserver}}.
+{% for record in item.records %}
+{{record.name}}    {{record.class}}    {{record.type}}  {{record.target}}
+{% endfor %}
