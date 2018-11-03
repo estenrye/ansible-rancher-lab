@@ -12,6 +12,7 @@
 - Kennedy, B. (2013). [My first 5 minutes on A server; or, essential security for linux servers.](https://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers)
 - killtacknine. (2017a). [Building an ubuntu 16.04 router part 1: Network interfaces.](https://killtacknine.com/building-an-ubuntu-16-04-router-part-1-network-interfaces/)
 - killtacknine. (2017b). [Building an Ubuntu 16.04 Router Part 2: DHCP](https://killtacknine.com/building-an-ubuntu-16-04-router-part-2-dhcp/)
+- killtacknine. (2017c). [Building an ubuntu 16.04 router part 3: Firewalls.](https://killtacknine.com/building-an-ubuntu-16-04-router-part-3-firewalls)
 - Laurenson, T. (2018). [Building a linux gateway using ubuntu server 18.04](https://www.thomaslaurenson.com/blog/2018/07/05/building-a-ubuntu-linux-gateway/)
 - Schroder, C. (2017a). [Building IPv6 firewalls: IPv6 security myths.](https://www.linux.com/learn/intro-to-linux/2017/7/building-ipv6-firewalls-ipv6-security-myths)
 - Schroder, C. (2017b). [How to write iptables rules for IPv6.](https://www.linux.com/learn/intro-to-linux/2017/8/iptables-rules-ipv6)
