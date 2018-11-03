@@ -1,0 +1,91 @@
+---
+- name: IPV6 - Flush all filter chain rules
+  iptables:
+    table: filter
+    ip_version: ipv6
+    flush: true
+
+- name: IPV6 - Flush all nat chain rules
+  iptables:
+    table: nat
+    ip_version: ipv6
+    flush: true
+
+- name: IPV6 - Default policy to drop all incoming ipv6 packets
+  iptables:
+    table: filter
+    ip_version: ipv6
+    chain: INPUT
+    policy: DROP
+    comment: Ansible[router] - Default policy to drop all incoming ipv6 packets
+  become: yes
+  notify:
+    - persist iptables
+
+- name: IPV6 - Default policy to drop all forwarded ipv6 packets
+  iptables:
+    table: filter
+    ip_version: ipv6
+    chain: FORWARD
+    policy: DROP
+    comment: Ansible[router] - Default policy to drop all forwarded ipv6 packets
+  become: yes
+  notify:
+    - persist iptables
+
+- name: IPV6 - Default policy to accept all outputed ipv6 packets
+  iptables:
+    table: filter
+    ip_version: ipv6
+    chain: OUTPUT
+    policy: ACCEPT
+    comment: Ansible[router] - Default policy to accept all outputed ipv4 packets
+  become: yes
+  notify:
+    - persist iptables
+
+- name: IPV6 - Accept incoming packets from localhost interface
+  iptables:
+    table: filter
+    ip_version: ipv6
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+    comment: Ansible[router] - Accept incoming packets from localhost interface
+  become: yes
+  notify:
+    - persist iptables
+
+- name: IPV6 - Reject connection attempts not initiated from the host
+  iptables:
+    table: filter
+    ip_version: ipv6
+    chain: INPUT
+    protocol: tcp
+    syn: match
+    jump: DROP
+  become: yes
+  notify:
+    - persist iptables
+
+- name: IPV6 - Allow return connections initiated from the host
+  iptables:
+    table: filter
+    ip_version: ipv6
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+  become: yes
+  notify:
+    - persist iptables
+
+- name: IPV6 - Accept all ICMP v6 packets
+  iptables:
+    table: filter
+    ip_version: ipv6
+    protocol: ipv6-icmp
+    jump: ACCEPT
+  become: yes
+  notify:
+    - persist iptables
+
