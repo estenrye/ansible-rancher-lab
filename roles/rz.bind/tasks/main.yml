@@ -15,3 +15,9 @@
     src: db.zone.j2
     dest: "/etc/bind/db.{{item.name}}"
   with_items: "{{bind.zones}}"
+
+- name: Apply named.conf.local configuration.
+  template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+  notify: Restart bind9
