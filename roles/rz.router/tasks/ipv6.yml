@@ -82,7 +82,7 @@
 - name: IPV6 - Accept all ICMP v6 packets
   iptables:
     table: filter
-    chain: input
+    chain: INPUT
     ip_version: ipv6
     protocol: ipv6-icmp
     jump: ACCEPT

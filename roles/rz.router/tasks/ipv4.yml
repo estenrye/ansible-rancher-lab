@@ -72,7 +72,7 @@
   iptables:
     chain: INPUT
     protocol: tcp
-    source: 172.28.14.0/24
+    source: 172.16.0.0/12
     destination_port: '22'
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
