@@ -26,6 +26,11 @@ netplan_configuration:
             - 127.0.0.1
           search:
             - rz.lab
+    nameservers:
+      addresses:
+        - 127.0.0.1
+      search:
+        - rz.lab
 
 dhcpdConf:
   option:
