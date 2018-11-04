@@ -23,6 +23,8 @@
   file:
     path: /opt/elastic_stack/storage
     group: "{{elastic_stack.group}}"
-    user: "{{elastic_stack.user}}"
+    owner: "{{elastic_stack.user}}"
+    state: directory
+    mode: 0755
 
 
