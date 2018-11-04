@@ -2,3 +2,4 @@
 - hosts: local
   roles:
     - mrlesmithjr.netplan
+    - rz.disable_systemd_resolved

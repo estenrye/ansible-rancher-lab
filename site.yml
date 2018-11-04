@@ -6,6 +6,7 @@
     - mrlesmithjr.netplan
     - rz.ntp
     - rz.syslog
+    - rz.disable_systemd_resolved
 
 - hosts: routers
   roles:
