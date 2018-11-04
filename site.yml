@@ -12,3 +12,7 @@
   roles:
     - rz.router
     - rz.bind
+
+- hosts: utility_servers
+  roles:
+    - rz.docker
