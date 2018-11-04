@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 vagrant_api_version = '2'
 
-hyperv_network = 'Default Switch'
-
 machines = {
   openvas: {
-    box: 'generic/ubuntu1604',
+    box: 'generic/ubuntu1804',
     cpus: 2,
     mem: 2048,
     vmname: 'open-vas',
@@ -22,7 +20,7 @@ machines = {
     script_path: 'scripts/provision_target.sh',
   },
   acs: {
-    box: 'generic/ubuntu1604',
+    box: 'generic/ubuntu1804',
     cpus: 2,
     mem: 2048,
     vmname: 'acs.rz.lab',
@@ -31,7 +29,7 @@ machines = {
     script_path: 'scripts/provision_acs.sh',
   },
   utilityServer: {
-    box: 'generic/ubuntu1604',
+    box: 'generic/ubuntu1804',
     cpus: 2,
     mem: 2048,
     vmname: 'utility.rz.lab',
