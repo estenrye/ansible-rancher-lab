@@ -4,3 +4,31 @@ ansible_ssh_pass: vagrant
 ansible_python_interpreter: '/usr/bin/python2.7'
 dnsNameServers:
   - 10.100.10.1
+
+ntp_area: 'us'
+ntp_servers: 
+  - ntp.rz.lab
+
+rsyslog_server: syslog.rz.lab
+
+netplan_config_file:      /etc/netplan/config.yaml
+netplan_remove_existing:  true
+netplan_configuration:
+  network:
+    version: 2
+    renderer: networkd
+    ethernets:
+      eth0:
+        dhcp4: true
+        dhcp6: false
+        optional: true
+        nameservers:
+          addresses:
+            - 10.100.10.1
+
+systemd_resolved:
+  disabled: true
+  nameservers:
+    - 10.100.10.1
+  search_zones:
+    - rz.lab

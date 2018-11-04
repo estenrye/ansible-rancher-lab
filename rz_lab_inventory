@@ -1,0 +1,16 @@
+[ansible_control_servers]
+acs.rz.lab
+
+[routers]
+router.rz.lab
+
+[utility_servers]
+utility.rz.lab
+
+[datacenter:children]
+utility_servers
+ansible_control_servers
+routers
+
+[local]
+127.0.0.1

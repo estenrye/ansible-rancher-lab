@@ -1,0 +1,13 @@
+---
+- name: Stop and Disable systemd-resolved
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+  when: systemd_resolved.disabled
+
+- name: Overwrite /etc/resolv.conf
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+  when: systemd_resolved.disabled

@@ -6,3 +6,4 @@
     - mrlesmithjr.netplan
     - rz.router
     - rz.bind
+    - rz.disable_systemd_resolved
