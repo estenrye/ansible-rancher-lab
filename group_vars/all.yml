@@ -25,3 +25,10 @@ netplan_configuration:
         nameservers:
           addresses:
             - 10.100.10.1
+
+systemd_resolved:
+  disabled: true
+  nameservers:
+    - 10.100.10.1
+  search_zones:
+    - rz.lab

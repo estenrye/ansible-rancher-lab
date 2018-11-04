@@ -105,3 +105,12 @@ bind:
           class: IN
           type: A
           target: 10.100.10.4
+
+systemd_resolved:
+  disabled: true
+  nameservers:
+    - 10.100.10.1
+    - 1.1.1.1
+    - 1.0.0.1
+  search_zones:
+    - rz.lab
