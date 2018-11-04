@@ -13,7 +13,6 @@ netplan_configuration:
         optional: true
         nameservers:
           addresses:
-            - 127.0.0.1
             - 1.1.1.1
             - 1.0.0.1
       eth1:
