@@ -1,0 +1,28 @@
+---
+- name: Add elasticsearch user.
+  user:
+    name: elasticsearch
+    uid: "1000"
+    state: present
+
+- name: Add elasticsearch group.
+  group:
+    name: elasticsearch
+    uid: "1000"
+    group: elasticsearch
+    append: yes
+    state: present
+
+- name: Clone Elastic Stack Repository
+  git:
+    dest: /opt/elastic_stack/config
+    repo: https://github.com/estenrye/docker-elk.git
+    version: deploy
+
+- name: Add elastic_stack directory.
+  file:
+    path: /opt/elastic_stack/storage
+    group: elasticsearch
+    user: elasticsearch
+
+
