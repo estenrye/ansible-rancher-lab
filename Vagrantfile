@@ -21,12 +21,22 @@ machines = {
     network: 'Default Switch',
     script_path: 'scripts/provision_target.sh',
   },
-  test: {
-    box: 'generic/ubuntu1804',
+  acsInternal: {
+    box: 'generic/ubuntu1604',
     cpus: 2,
-    mem: 1024,
-    vmname: 'test',
+    mem: 2048,
+    vmname: 'acs.rz.lab',
     network: 'Private',
+    hv_mac: '00:35:10:00:01:00',
+    script_path: 'scripts/provision_acs.sh',
+  },
+  utilityServer: {
+    box: 'generic/ubuntu1604',
+    cpus: 2,
+    mem: 2048,
+    vmname: 'utility.rz.lab',
+    network: 'Private',
+    hv_mac: '00:35:10:00:01:01',
     script_path: 'scripts/provision_target.sh',
   },
 }

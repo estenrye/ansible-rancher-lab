@@ -1,0 +1,13 @@
+[ansible_control_servers]
+acs.rz.lab
+
+[routers]
+router.rz.lab
+
+[utility_servers]
+utility.rz.lab
+
+[datacenter:children]
+ansible_control_servers
+routers
+utility_servers

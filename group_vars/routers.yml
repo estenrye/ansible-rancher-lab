@@ -63,3 +63,47 @@ dhcpdConf:
     - name: swarm_worker
       mac_address: 00:35:10:00:01:04
       fixed_address: 10.100.10.12
+
+bind:
+  forwarders:
+    - 1.1.1.1
+    - 1.0.0.1
+  listen_on_v6:
+    - none
+  listen_on_v4:
+    - 127.0.0.1
+    - 10.100.10.1
+  zones:
+    - name: rz.lab
+      TTL: 604800
+      serial: 5
+      refresh: 604800
+      retry: 86400
+      expire: 2419200
+      negative_cache_ttl: 604800
+      nameserver: router.rz.lab
+      records:
+        - name: router
+          class: IN
+          type: A
+          target: 10.100.10.1
+        - name: acs
+          class: IN
+          type: A
+          target: 10.100.10.2
+        - name: utility
+          class: IN
+          type: A
+          target: 10.100.10.3
+        - name: ntp
+          class: IN
+          type: CNAME
+          target: utility
+        - name: syslog
+          class: IN
+          type: CNAME
+          target: utility
+        - name: dc
+          class: IN
+          type: A
+          target: 10.100.10.4

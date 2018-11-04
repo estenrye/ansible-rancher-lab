@@ -1,0 +1,13 @@
+---
+ntpd_enabled: True
+
+ntp_area: 'us'
+
+ntp_daemon_allow:
+  - "127.0.0.1"
+  - "10.100.10"
+
+ntp_servers: 
+  - 127.0.0.1
+
+rsyslog_daemon_enabled: true

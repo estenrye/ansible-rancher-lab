@@ -1,0 +1,13 @@
+---
+- hosts: datacenter
+  roles:
+    - rz.common
+    - rz.ssh_keys
+    - mrlesmithjr.netplan
+    - rz.ntp
+    - rz.syslog
+
+- hosts: routers
+  roles:
+    - rz.router
+    - rz.bind
