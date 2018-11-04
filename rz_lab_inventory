@@ -8,6 +8,6 @@ router.rz.lab
 utility.rz.lab
 
 [datacenter:children]
+utility_servers
 ansible_control_servers
 routers
-utility_servers

@@ -13,10 +13,9 @@ netplan_configuration:
         optional: true
         nameservers:
           addresses:
+            - 127.0.0.1
             - 1.1.1.1
             - 1.0.0.1
-            - 8.8.8.8
-            - 8.8.8.4
       eth1:
         dhcp4: false
         dhcp6: false

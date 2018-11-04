@@ -1,0 +1,16 @@
+---
+netplan_configuration:
+  network:
+    version: 2
+    renderer: networkd
+    ethernets:
+      eth0:
+        dhcp4: true
+        dhcp6: false
+        optional: true
+        nameservers:
+          addresses:
+            - 1.1.1.1
+            - 1.0.0.1
+            - 8.8.8.8
+            - 8.8.8.4

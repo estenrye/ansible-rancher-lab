@@ -4,11 +4,11 @@ vagrant_api_version = '2'
 hyperv_network = 'Default Switch'
 
 machines = {
-  acs: {
+  openvas: {
     box: 'generic/ubuntu1604',
     cpus: 2,
     mem: 2048,
-    vmname: 'ansible-control-server',
+    vmname: 'open-vas',
     network: 'Default Switch',
     hv_mac: '00:35:10:00:00:01',
     script_path: 'scripts/provision_acs.sh',
@@ -21,7 +21,7 @@ machines = {
     network: 'Default Switch',
     script_path: 'scripts/provision_target.sh',
   },
-  acsInternal: {
+  acs: {
     box: 'generic/ubuntu1604',
     cpus: 2,
     mem: 2048,
@@ -47,6 +47,8 @@ Vagrant.configure(vagrant_api_version) do |config|
       machine.vm.box = info[:box]
       machine.vm.hostname = hostname
       machine.vm.network 'public_network', bridge: info[:network]
+      machine.vm.provision 'file', source: 'scripts/id_rsa', destination: '/home/vagrant/.ssh/id_rsa' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
+      machine.vm.provision 'file', source: 'scripts/id_rsa.pub', destination: '/home/vagrant/.ssh/id_rsa.pub' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
       machine.vm.provision 'shell', privileged: true, path: info[:script_path]
       machine.vm.provider 'hyperv' do |hv|
         hv.vmname = info[:vmname]

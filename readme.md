@@ -46,12 +46,15 @@ if (-not $env:PATH.Contains('C:/Program Files/Git/usr/bin'))
 
 The vagrant driver for Hyper-V lacks two components that allow us to have a predictable lab setup.  The first is that the Hyper-V vagrant driver does not provide a mechanism for specifying multiple Network Interface Adapters on a guest VM.  The second is that the Hyper-V vagrant driver does not provide a mechnanism for specifying a static IP address for a guest VM on any network type.  This project addresses the first problem by using a combination of vagrant commands and PowerShell commandlets to add a second Network Interface Adapter to the router guest VM.  It addresses the second by dynamically generating the inventory on the host machine and copying it to the acs guest VM.
 
-1. Run `vagrant up acs router` from the root of the repository.
-2. Run `.\scripts\Provision-SecondAdaptor.ps1 -VMName router -VMSwitchName Private -VMNetworkAdapterName LAN`
-3. Run `.\scripts\Generate-Ansible-Inventory.ps1`
-4. Run `vagrant ssh acs`
-5. `cd ansible-rancher-lab`
-6. `ansible-playbook -i inventory --become network.yml`
+1. Run `.\scripts\Launch.ps1`
+2. Run `vagrant ssh openvas`
+3. `cd ansible-rancher-lab`
+4. `ansible-playbook -i inventory --become network.yml`
+5. Exit out of the openvas VM.
+6. Run `vagrant up acs utilityServer`
+7. Run `vagrant ssh acs`
+8. `cd ansible-rancher-lab`
+9. `ansible-playbook -i rz_lab_inventory --become site.yml`
 
 ## References
 

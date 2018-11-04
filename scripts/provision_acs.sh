@@ -13,11 +13,7 @@ else
   cd ..
 fi
 
-if [ ! -f /home/vagrant/.ssh/id_rsa ]; then
-  ssh-keygen -f /home/vagrant/.ssh/id_rsa -t rsa -N '' -b 4096
-  chown vagrant /home/vagrant/.ssh/id_rsa*
-  chgrp vagrant /home/vagrant/.ssh/id_rsa*
-fi
+chmod 600 /home/vagrant/.ssh/id_rsa
 mkdir -p /home/vagrant/ansible-rancher-lab/roles/rz.ssh_keys/files
 cp /home/vagrant/.ssh/id_rsa.pub /home/vagrant/ansible-rancher-lab/roles/rz.ssh_keys/files/id_rsa.pub
 mkdir -p /home/vagrant/ansible-rancher-lab/roles/rz.rancher/files
