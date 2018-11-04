@@ -1,0 +1,4 @@
+---
+elastic_stack:
+  user: elasticsearch
+  group: elasticsearch

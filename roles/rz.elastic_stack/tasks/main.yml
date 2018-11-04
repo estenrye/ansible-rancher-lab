@@ -1,15 +1,15 @@
 ---
-- name: Add elasticsearch user.
-  user:
-    name: elasticsearch
-    uid: "1000"
+- name: Add elastic group.
+  group:
+    name: "{{elastic_stack.group}}"
+    gid: "1000"
     state: present
 
-- name: Add elasticsearch group.
-  group:
-    name: elasticsearch
+- name: Add elastic user.
+  user:
+    name: "{{elastic_stack.user}}"
     uid: "1000"
-    group: elasticsearch
+    group: "{{elastic_stack.group}}"
     append: yes
     state: present
 
@@ -22,7 +22,7 @@
 - name: Add elastic_stack directory.
   file:
     path: /opt/elastic_stack/storage
-    group: elasticsearch
-    user: elasticsearch
+    group: "{{elastic_stack.group}}"
+    user: "{{elastic_stack.user}}"
 
 
