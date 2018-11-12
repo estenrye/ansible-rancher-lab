@@ -48,14 +48,13 @@ The vagrant driver for Hyper-V lacks two components that allow us to have a pred
 
 1. Run `.\scripts\Launch.ps1`
 2. Run `vagrant ssh openvas`
-3. `cd ansible-rancher-lab`
-4. `ansible-playbook -i inventory --become network.yml`
-5. Exit out of the openvas VM.
-6. Run `vagrant up acs utilityServer`
-7. Run `vagrant ssh acs`
-8. `cd ansible-rancher-lab`
-9. `ansible-playbook -i rz_lab_inventory --become net-plan.internal.yml`
-10. `ansible-playbook -i rz_lab_inventory --become site.yml`
+3. `ansible-playbook -i inventory --become playbooks/network.yml`
+4. Exit out of the openvas VM.
+5. Run `vagrant up acs utilityServer`
+6. Run `vagrant ssh acs`
+7. `cd ansible-rancher-lab`
+8. `ansible-playbook -i rz_lab_inventory --become net-plan.internal.yml`
+9. `ansible-playbook -i rz_lab_inventory --become site.yml`
 
 ## References
 

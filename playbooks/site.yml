@@ -1,0 +1,19 @@
+---
+- hosts: datacenter
+  roles:
+    - rz.common
+    - rz.ssh_keys
+    - mrlesmithjr.netplan
+    - rz.ntp
+    - rz.syslog
+    - rz.disable_systemd_resolved
+
+- hosts: routers
+  roles:
+    - rz.router
+    - rz.bind
+
+- hosts: utility_servers
+  roles:
+    - rz.docker
+    - rz.elastic_stack
