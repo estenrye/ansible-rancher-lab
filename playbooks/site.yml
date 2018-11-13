@@ -18,3 +18,4 @@
   roles:
     - rz.docker
     - rz.elastic_stack
+    - rz.elastic_stack.file_beat
