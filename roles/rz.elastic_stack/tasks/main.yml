@@ -32,6 +32,11 @@
     state: present
     advertise_addr: "{{ansible_eth0.ipv4.address}}"
 
+- name: build elastic search image.
+  command: "docker build -f /opt/elastic_stack/config/elasticsearch/Dockerfile -t rz.lab/elasticsearch:{{elastic_stack.version}} --build-arg ELK_VERSION={{elastic_stack.elk_version}} ."
+  args:
+    chdir: /opt/elastic_stack/config/elasticsearch
+  become: yes
 
 - name: Deploy elastic stack
   command: docker stack deploy -c docker-stack.yml -c docker-stack.persistance.yml elk

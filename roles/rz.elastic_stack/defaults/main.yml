@@ -2,3 +2,5 @@
 elastic_stack:
   user: elasticsearch
   group: elasticsearch
+  version: "{{ ansible_date_time.date }}T{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}-{{ ansible_date_time.second }}"
+  elk_version: 6.4.2
