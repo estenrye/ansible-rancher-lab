@@ -62,3 +62,13 @@
     dest: /usr/local/bin/docker-compose
     mode: 0755
     checksum: "{{docker.compose.checksum}}"
+
+- name: Install python-pip
+  package:
+    name: python-pip
+    state: present
+
+- name: Install docker python module.
+  pip:
+    name: docker
+    state: present
