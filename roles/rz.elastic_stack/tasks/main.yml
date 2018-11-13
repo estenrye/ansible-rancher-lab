@@ -30,6 +30,8 @@
 - name: Ensure docker swarm is present.
   docker_swarm:
     state: present
+    advertise_addr: "{{ansible_eth0.ipv4.address}}"
+
 
 - name: Deploy elastic stack
   command: docker stack deploy -c docker-stack.yml -c docker-stack.persistance.yml elk

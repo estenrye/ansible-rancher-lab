@@ -14,6 +14,7 @@
     - rz.bind
 
 - hosts: utility_servers
+  gather_facts: true
   roles:
     - rz.docker
     - rz.elastic_stack
