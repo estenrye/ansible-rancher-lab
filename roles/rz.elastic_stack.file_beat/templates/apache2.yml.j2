@@ -1,0 +1,7 @@
+# {{ansible_managed}}
+- module: apache2
+  # Access logs
+  {{access | to_yaml}
+
+  # Error logs
+  {{error | to_yaml}}

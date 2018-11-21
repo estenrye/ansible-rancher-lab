@@ -1,4 +1,19 @@
 ---
-file_beat:
+beat:
   version: 6.4.3
   checksum: "sha256:0bcdb127760d1af54ccd0c76667dfc0983817c5f40c6c949235781a2292ae2b5"
+  filebeat:
+    output.elasticsearch:
+      hosts:
+        - utility.rz.lab:9200
+      protocol: http
+      username: elastic
+      password: changeme
+  apache2:
+    enabled: false
+    access:
+      enabled: true
+      var.paths: []
+    error:
+      enabled: true
+      var.paths: []
