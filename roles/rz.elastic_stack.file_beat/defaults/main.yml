@@ -8,7 +8,7 @@ beat:
       modules:
         path: modules.d/*.yml
         reload:
-          enabled: true
+          enabled: false
           period: 10s
     output:
       elasticsearch:
