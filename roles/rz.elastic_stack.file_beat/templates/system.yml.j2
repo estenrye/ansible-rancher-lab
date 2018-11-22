@@ -1,12 +1,12 @@
 # {{ansible_managed}}
 - module: system
   syslog:
-    enabled: {{beat.system.syslog.enabled}}
+    enabled: {{filebeat.system.syslog.enabled}}
     var:
-      paths: {{beat.system.syslog.var.paths}}
+      paths: {{filebeat.system.syslog.var.paths}}
       convert_timezone: {{beat.system.syslog.var.convert_timezone}}
   auth:
-    enabled: {{beat.system.auth.enabled}}
+    enabled: {{filebeat.system.auth.enabled}}
     var:
-      paths: {{beat.system.auth.var.paths}}
+      paths: {{filebeat.system.auth.var.paths}}
       convert_timezone: {{beat.system.auth.var.convert_timezone}}

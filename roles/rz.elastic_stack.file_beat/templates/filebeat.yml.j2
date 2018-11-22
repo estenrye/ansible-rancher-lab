@@ -10,9 +10,9 @@
 # Modules management path:
 filebeat.config:
   modules:
-    path: {{beat.filebeat.config.modules.path}}
-    reload.enabled: {{beat.filebeat.config.modules.reload.enabled}}
-    reload.period: {{beat.filebeat.config.modules.reload.period}}
+    path: {{filebeat.config.modules.path}}
+    reload.enabled: {{filebeat.config.modules.reload.enabled}}
+    reload.period: {{filebeat.config.modules.reload.period}}
 
 #================================ Outputs =====================================
 
@@ -22,13 +22,13 @@ filebeat.config:
 output.elasticsearch:
   # Array of hosts to connect to.
   hosts: 
-{% for host in beat.filebeat.output.elasticsearch.hosts %}
+{% for host in filebeat.output.elasticsearch.hosts %}
     - {{host}}
 {% endfor %}
   # Optional protocol and basic auth credentials.
-  protocol: {{beat.filebeat.output.elasticsearch.protocol}}
-  username: {{beat.filebeat.output.elasticsearch.username}}
-  password: {{beat.filebeat.output.elasticsearch.password}}
+  protocol: {{filebeat.output.elasticsearch.protocol}}
+  username: {{filebeat.output.elasticsearch.username}}
+  password: {{filebeat.output.elasticsearch.password}}
 
 #============================== Kibana =====================================
 
@@ -40,12 +40,12 @@ setup.kibana:
   # Scheme and port can be left out and will be set to the default (http and 5601)
   # In case you specify and additional path, the scheme is required: http://localhost:5601/path
   # IPv6 addresses should always be defined as: https://[2001:db8::1]:5601
-  host: {{beat.filebeat.setup.kibana.host}}
+  host: {{filebeat.setup.kibana.host}}
 
   # Optional protocol and basic auth credentials.
-  protocol: {{beat.filebeat.setup.kibana.protocol}}
-  username: {{beat.filebeat.setup.kibana.username}}
-  password: {{beat.filebeat.setup.kibana.password}}
+  protocol: {{filebeat.setup.kibana.protocol}}
+  username: {{filebeat.setup.kibana.username}}
+  password: {{filebeat.setup.kibana.password}}
 
   # Optional HTTP Path
   #path: ""
@@ -86,7 +86,7 @@ setup.kibana:
 # These settings control loading the sample dashboards to the Kibana index. Loading
 # the dashboards are disabled by default and can be enabled either by setting the
 # options here, or by using the `-setup` CLI flag or the `setup` command.
-setup.dashboards.enabled: {{beat.filebeat.setup.dashboards.enabled}}
+setup.dashboards.enabled: {{filebeat.setup.dashboards.enabled}}
 
 # The directory from where to read the dashboards. The default is the `kibana`
 # folder in the home path.

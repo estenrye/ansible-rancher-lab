@@ -1,30 +1,29 @@
 ---
-beat:
+filebeat:
   version: 6.4.3
   checksum: "sha256:0bcdb127760d1af54ccd0c76667dfc0983817c5f40c6c949235781a2292ae2b5"
   config_path: /etc/filebeat
-  filebeat:
-    config:
-      modules:
-        path: modules.d/*.yml
-        reload:
-          enabled: false
-          period: 10s
-    setup:
-      dashboards:
-        enabled: true
-      kibana:
-        host: utility.rz.lab:5601
-        protocol: http
-        username: elastic
-        password: changeme
-    output:
-      elasticsearch:
-        hosts:
-          - utility.rz.lab:9200
-        protocol: http
-        username: elastic
-        password: changeme
+  config:
+    modules:
+      path: modules.d/*.yml
+      reload:
+        enabled: false
+        period: 10s
+  setup:
+    dashboards:
+      enabled: true
+    kibana:
+      host: utility.rz.lab:5601
+      protocol: http
+      username: elastic
+      password: changeme
+  output:
+    elasticsearch:
+      hosts:
+        - utility.rz.lab:9200
+      protocol: http
+      username: elastic
+      password: changeme
   apache2:
     enabled: false
     access:
