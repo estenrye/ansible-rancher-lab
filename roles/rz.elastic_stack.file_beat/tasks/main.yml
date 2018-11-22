@@ -14,3 +14,10 @@
   template:
     src: filebeat.yml.j2
     dest: /etc/filebeat/filebeat.yml
+
+- name: Update system.yml module
+  template:
+    src: system.yml.j2
+    dest: "{{beat.filebeat.config.modules.path}}/system.yml.disabled"
+  when: beat.system.enabled
+  notify: Enable System Module

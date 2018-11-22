@@ -1,0 +1,3 @@
+---
+- name: Enable System Module
+  command: "mv {{beat.filebeat.config.modules.path}}/system.yml.disabled {{beat.filebeat.config.modules.path}}/system.yml"
