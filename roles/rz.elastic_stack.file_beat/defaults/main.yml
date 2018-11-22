@@ -10,6 +10,14 @@ beat:
         reload:
           enabled: false
           period: 10s
+    setup:
+      dashboards:
+        enabled: true
+      kibana:
+        host: utility.rz.lab:5601
+        protocol: http
+        username: elastic
+        password: changeme
     output:
       elasticsearch:
         hosts:
