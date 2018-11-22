@@ -6,6 +6,14 @@
 # `output.elasticsearch.password` settings. The format is `<user>:<pass>`.
 #cloud.auth:
 
+#================================ Config  =====================================
+# Modules management path:
+filebeat.config:
+  modules:
+    path: {{beat.filebeat.config.modules.path}}
+    reload.enabled: {{beat.filebeat.config.modules.reload.enabled}}
+    reload.period: {{beat.filebeat.config.modules.reload.period}}
+
 #================================ Outputs =====================================
 
 # Configure what output to use when sending the data collected by the beat.
