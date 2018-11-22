@@ -1,4 +1,6 @@
 # {{ansible_managed}}
 - module: system
-  {{beat.system.syslog | to_yaml}}
-  {{beat.system.auth | to_yaml}}
+  syslog:
+{{beat.system.syslog | to_yaml(indent=4)}}
+  auth:
+{{beat.system.auth | to_yaml(indent=4)}}
