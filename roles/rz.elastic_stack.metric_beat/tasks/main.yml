@@ -10,23 +10,21 @@
     deb: "/tmp/metricbeat-{{beat.metricbeat.version}}-amd64.deb"
     state: present
 
-# - name: Update metricbeat.yml configuration template.
-#   template:
-#     src: metricbeat.yml.j2
-#     dest: "{{beat.metricbeat.config_path}}/metricbeat.yml"
+- name: Update metricbeat.yml configuration template.
+  template:
+    src: metricbeat.yml.j2
+    dest: "{{beat.metricbeat.config_path}}/metricbeat.yml"
 
-# - name: Update system.yml module
-#   template:
-#     src: system.yml.j2
-#     dest: "{{beat.metricbeat.config_path}}/modules.d/system.yml.disabled"
-#   when: metricbeat.system.enabled
-#   notify: 
-#     - Enable System Module
-#     - Restart Metricbeat Service
+- name: Update system.yml module
+  template:
+    src: system.yml.j2
+    dest: "{{beat.metricbeat.config_path}}/modules.d/system.yml"
+  notify: 
+    - Restart Metricbeat Service
 
-# - name: Enable and Start Metricbeat Service
-#   service:
-#     name: metricbeat
-#     state: started
-#     enabled: yes
-#   become: yes
+- name: Enable and Start Metricbeat Service
+  service:
+    name: metricbeat
+    state: started
+    enabled: yes
+  become: yes

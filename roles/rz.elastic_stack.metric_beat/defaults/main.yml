@@ -27,14 +27,35 @@ beat:
 
 metricbeat:
   system:
-    enabled: true
-    syslog:
+    - module: system
       enabled: true
-      var:
-        paths: []
-        convert_timezone: false
-    auth:
+      period: 10s
+      metricsets:
+        - cpu             # CPU usage
+        - load            # CPU load averages
+        - memory          # Memory usage
+        - network         # Network IO
+        - process         # Per process metrics
+        - process_summary # Process summary
+        - uptime          # System Uptime
+        #- core           # Per CPU core usage
+        #- diskio         # Disk IO
+        #- filesystem     # File system usage for each mountpoint
+        #- fsstat         # File system summary metrics
+        #- raid           # Raid
+        #- socket         # Sockets and connection info (linux only)
+      process:
+        include_top_n:
+          enabled: true
+          by_cpu: 5      # include top 5 processes by CPU
+          by_memory: 5   # include top 5 processes by memory
+
+    - module: system
       enabled: true
-      var:
-        paths: []
-        convert_timezone: false
+      period: 1m
+      metricsets:
+        - filesystem
+        - fsstat
+      processors:
+      - drop_event.when.regexp:
+          system.filesystem.mount_point: '^/(sys|cgroup|proc|dev|etc|host|lib)($|/)'

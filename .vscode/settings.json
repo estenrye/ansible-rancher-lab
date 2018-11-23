@@ -1,0 +1,8 @@
+{
+  "editor.autoClosingBrackets": "never",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.renderWhitespace": "all",
+  "editor.renderControlCharacters": true,
+  "editor.detectIndentation": true
+}
