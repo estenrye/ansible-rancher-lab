@@ -4,9 +4,9 @@
     enabled: {{filebeat.system.syslog.enabled}}
     var:
       paths: {{filebeat.system.syslog.var.paths}}
-      convert_timezone: {{beat.system.syslog.var.convert_timezone}}
+      convert_timezone: {{filebeat.system.syslog.var.convert_timezone}}
   auth:
     enabled: {{filebeat.system.auth.enabled}}
     var:
       paths: {{filebeat.system.auth.var.paths}}
-      convert_timezone: {{beat.system.auth.var.convert_timezone}}
+      convert_timezone: {{filebeat.system.auth.var.convert_timezone}}

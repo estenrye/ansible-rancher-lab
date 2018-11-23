@@ -1,25 +1,25 @@
 ---
 - name: Download File Beat Package
   get_url:
-    url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{filebeat.version}}-amd64.deb"
-    dest: "/tmp/filebeat-{{filebeat.version}}-amd64.deb"
-    checksum: "{{filebeat.checksum}}"
+    url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{beat.filebeat.version}}-amd64.deb"
+    dest: "/tmp/filebeat-{{beat.filebeat.version}}-amd64.deb"
+    checksum: "{{beat.filebeat.checksum}}"
 
 - name: Install File Beat Package
   apt:
-    deb: "/tmp/filebeat-{{filebeat.version}}-amd64.deb"
+    deb: "/tmp/filebeat-{{beat.filebeat.version}}-amd64.deb"
     state: present
 
 - name: Update filebeat.yml configuration template.
   template:
     src: filebeat.yml.j2
-    dest: "{{filebeat.config_path}}/filebeat.yml"
+    dest: "{{beat.filebeat.config_path}}/filebeat.yml"
 
 - name: Update system.yml module
   template:
     src: system.yml.j2
-    dest: "{{filebeat.config_path}}/modules.d/system.yml.disabled"
-  when: beat.system.enabled
+    dest: "{{beat.filebeat.config_path}}/modules.d/system.yml.disabled"
+  when: filebeat.system.enabled
   notify: 
     - Enable System Module
     - Restart Filebeat Service

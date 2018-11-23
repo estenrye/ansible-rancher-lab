@@ -20,12 +20,12 @@ beat:
       protocol: http
       username: elastic
       password: changeme
-  filebeat:
+  metricbeat:
     version: 6.4.3
-    checksum: "sha256:0bcdb127760d1af54ccd0c76667dfc0983817c5f40c6c949235781a2292ae2b5"
-    config_path: /etc/filebeat
+    checksum: "sha256:3b4d3b309ca0cc13fed2ddcf40300cc67ffc726ca202a3dac7ace9b99520b77a"
+    config_path: /etc/metricbeat
 
-filebeat:
+metricbeat:
   system:
     enabled: true
     syslog:

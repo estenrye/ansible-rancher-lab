@@ -41,3 +41,33 @@ docker:
   package: docker-ce
   users:
     - vagrant
+
+beat:
+  config:
+    modules:
+      reload:
+        enabled: false
+        period: 10s
+  setup:
+      dashboards:
+        enabled: true
+      kibana:
+        host: utility.rz.lab:5601
+        protocol: http
+        username: elastic
+        password: changeme
+  output:
+    elasticsearch:
+      hosts:
+        - utility.rz.lab:9200
+      protocol: http
+      username: elastic
+      password: changeme
+  filebeat:
+    version: 6.4.3
+    checksum: "sha256:0bcdb127760d1af54ccd0c76667dfc0983817c5f40c6c949235781a2292ae2b5"
+    config_path: /etc/filebeat
+  metricbeat:
+    version: 6.4.3
+    checksum: "sha256:3b4d3b309ca0cc13fed2ddcf40300cc67ffc726ca202a3dac7ace9b99520b77a"
+    config_path: /etc/metricbeat
