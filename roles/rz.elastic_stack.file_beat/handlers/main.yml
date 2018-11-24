@@ -1,7 +1,4 @@
 ---
-- name: Enable System Module
-  command: "mv {{beat.filebeat.config_path}}/modules.d/system.yml.disabled {{beat.filebeat.config_path}}/modules.d/system.yml"
-
 - name: Restart Filebeat Service
   service:
     name: filebeat

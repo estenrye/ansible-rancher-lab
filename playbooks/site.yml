@@ -5,8 +5,8 @@
     - rz.ssh_keys
     - mrlesmithjr.netplan
     - rz.ntp
-    - rz.syslog  # replace with filebeat?  currently forwards logs to utility server
     - rz.disable_systemd_resolved
+    - rz.elastic_stack.file_beat
     - rz.elastic_stack.metric_beat
 
 - hosts: routers
@@ -19,4 +19,3 @@
   roles:
     - rz.docker
     - rz.elastic_stack
-    - rz.elastic_stack.file_beat

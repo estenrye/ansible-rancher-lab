@@ -9,8 +9,6 @@ ntp_area: 'us'
 ntp_servers: 
   - ntp.rz.lab
 
-rsyslog_server: syslog.rz.lab
-
 netplan_config_file:      /etc/netplan/config.yaml
 netplan_remove_existing:  true
 netplan_configuration:

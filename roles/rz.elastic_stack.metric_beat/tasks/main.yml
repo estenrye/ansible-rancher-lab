@@ -20,7 +20,7 @@
     src: system.yml.j2
     dest: "{{beat.metricbeat.config_path}}/modules.d/system.yml"
   notify: 
-    - Restart Metricbeat Service
+    - Restart MetricBeat Service
 
 - name: Enable and Start Metricbeat Service
   service:

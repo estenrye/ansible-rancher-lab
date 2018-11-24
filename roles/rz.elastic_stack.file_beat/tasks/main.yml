@@ -15,13 +15,19 @@
     src: filebeat.yml.j2
     dest: "{{beat.filebeat.config_path}}/filebeat.yml"
 
+- name: Enable System Module
+  command: "/usr/share/filebeat/bin/filebeat -path.config {{beat.filebeat.config_path}} modules enable system"
+  when: filebeat.system.enabled
+  become: yes
+  notify: 
+    - Restart Filebeat Service
+
 - name: Update system.yml module
   template:
     src: system.yml.j2
-    dest: "{{beat.filebeat.config_path}}/modules.d/system.yml.disabled"
+    dest: "{{beat.filebeat.config_path}}/modules.d/system.yml"
   when: filebeat.system.enabled
   notify: 
-    - Enable System Module
     - Restart Filebeat Service
 
 - name: Enable and Start Filebeat Service
