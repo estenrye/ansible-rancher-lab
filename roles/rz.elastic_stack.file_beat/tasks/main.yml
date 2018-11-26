@@ -22,6 +22,19 @@
   notify: 
     - Restart Filebeat Service
 
+- name: Create inputs.d Directory
+  file:
+    path: "{{beat.filebeat.config_path}}/inputs.d"
+    state: directory
+
+- name: Update docker.yml input
+  template:
+    src: docker.yml.j2
+    dest: "{{beat.filebeat.config_path}}/inputs.d/docker.yml"
+  when: filebeat.docker.enabled
+  notify:
+    - Restart Filebeat Service
+
 - name: Update system.yml module
   template:
     src: system.yml.j2

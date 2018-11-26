@@ -26,6 +26,18 @@ beat:
     config_path: /etc/filebeat
 
 filebeat:
+  docker:
+    enabled: false
+    containers:
+      ids:
+        - '*'
+      path: /var/lib/docker/containers
+      stream: all
+    combine_partial: true
+    json:
+      keys_under_root: true
+      add_error_key: true
+      message_key: log
   system:
     enabled: true
     syslog:

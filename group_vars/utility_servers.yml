@@ -13,3 +13,29 @@ ntp_servers:
 elastic_stack:
   user: vagrant
   group: vagrant
+
+filebeat:
+  docker:
+    enabled: true
+    containers:
+      ids:
+        - '*'
+      path: /var/lib/docker/containers
+      stream: all
+    combine_partial: true
+    json:
+      keys_under_root: true
+      add_error_key: true
+      message_key: log
+  system:
+    enabled: true
+    syslog:
+      enabled: true
+      var:
+        paths: [ "/var/log/syslog" ]
+        convert_timezone: false
+    auth:
+      enabled: true
+      var:
+        paths: [ "/var/log/auth.log"]
+        convert_timezone: false
