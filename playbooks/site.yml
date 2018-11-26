@@ -1,4 +1,10 @@
 ---
+- hosts: utility_servers
+  gather_facts: true
+  roles:
+    - rz.docker
+    - rz.elastic_stack
+
 - hosts: datacenter
   roles:
     - rz.common
@@ -14,8 +20,3 @@
     - rz.router
     - rz.bind
 
-- hosts: utility_servers
-  gather_facts: true
-  roles:
-    - rz.docker
-    - rz.elastic_stack
