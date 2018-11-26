@@ -21,8 +21,8 @@ beat:
       username: elastic
       password: changeme
   metricbeat:
-    version: 6.4.3
-    checksum: "sha256:3b4d3b309ca0cc13fed2ddcf40300cc67ffc726ca202a3dac7ace9b99520b77a"
+    version: 6.5.1
+    checksum: "sha256:729ed2cc19c6ed06a704f1aab91b2a2eb6267012303f7061544b6b59a70422a0"
     config_path: /etc/metricbeat
 
 metricbeat:

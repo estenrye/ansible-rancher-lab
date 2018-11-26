@@ -3,10 +3,19 @@
   syslog:
     enabled: {{filebeat.system.syslog.enabled}}
     var:
-      paths: {{filebeat.system.syslog.var.paths}}
+{% if filebeat.system.syslog.var.paths %}
+      paths:
+{% for path in filebeat.system.syslog.var.paths %}
+        - {{path}}
+{% endfor %}
+{% endif%}
       convert_timezone: {{filebeat.system.syslog.var.convert_timezone}}
   auth:
     enabled: {{filebeat.system.auth.enabled}}
     var:
-      paths: {{filebeat.system.auth.var.paths}}
-      convert_timezone: {{filebeat.system.auth.var.convert_timezone}}
+{% if filebeat.system.syslog.var.paths %}
+      paths:
+{% for path in filebeat.system.auth.var.paths %}
+        - {{path}}
+{% endfor %}
+{% endif%}      convert_timezone: {{filebeat.system.auth.var.convert_timezone}}
