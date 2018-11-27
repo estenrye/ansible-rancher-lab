@@ -21,7 +21,7 @@ machines = {
   },
   acs: {
     box: 'generic/ubuntu1804',
-    cpus: 2,
+    cpus: 1,
     mem: 2048,
     vmname: 'acs.rz.lab',
     network: 'Private',

@@ -17,6 +17,7 @@
 - name: Set timezone.
   timezone:
     name: "{{ntp_timezone}}"
+  notify: restart syslog
 
 - name: Ensure NTP Daemon is running and enabled as configured.
   service:

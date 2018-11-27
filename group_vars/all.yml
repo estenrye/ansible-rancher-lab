@@ -69,3 +69,39 @@ beat:
     version: 6.5.1
     checksum: "sha256:729ed2cc19c6ed06a704f1aab91b2a2eb6267012303f7061544b6b59a70422a0"
     config_path: /etc/metricbeat
+
+
+metricbeat:
+  system:
+    - module: system
+      enabled: true
+      period: 10s
+      metricsets:
+        - cpu             # CPU usage
+        - load            # CPU load averages
+        - memory          # Memory usage
+        - network         # Network IO
+        - process         # Per process metrics
+        - process_summary # Process summary
+        - uptime          # System Uptime
+        #- core           # Per CPU core usage
+        #- diskio         # Disk IO
+        #- filesystem     # File system usage for each mountpoint
+        #- fsstat         # File system summary metrics
+        #- raid           # Raid
+        #- socket         # Sockets and connection info (linux only)
+      process:
+        include_top_n:
+          enabled: true
+          by_cpu: 5      # include top 5 processes by CPU
+          by_memory: 5   # include top 5 processes by memory
+
+    - module: system
+      enabled: true
+      period: 1m
+      metricsets:
+        - filesystem
+        - fsstat
+      processors:
+      - drop_event.when.regexp:
+          system.filesystem.mount_point: '^/(sys|cgroup|proc|dev|etc|host|lib)($|/)'

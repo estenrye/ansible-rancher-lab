@@ -1,22 +1,19 @@
 ---
+- hosts: datacenter
+  roles:
+    - rz.ntp
+    - mrlesmithjr.netplan
+    - rz.disable_systemd_resolved
+    - rz.common
+    - rz.ssh_keys
+
 - hosts: utility_servers
   gather_facts: true
   roles:
     - rz.docker
     - rz.elastic_stack
 
-- hosts: datacenter
-  roles:
-    - rz.common
-    - rz.ssh_keys
-    - mrlesmithjr.netplan
-    - rz.ntp
-    - rz.disable_systemd_resolved
-    - rz.elastic_stack.file_beat
-    - rz.elastic_stack.metric_beat
-
 - hosts: routers
   roles:
     - rz.router
     - rz.bind
-
