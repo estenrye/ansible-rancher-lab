@@ -19,7 +19,7 @@ filebeat:
     enabled: true
     containers:
       ids:
-        - '*'
+        - "'*'"
       path: /var/lib/docker/containers
       stream: all
     combine_partial: true
