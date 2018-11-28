@@ -1,9 +1,10 @@
 ---
 - hosts: routers
   roles:
+    - rz.ntp
+    - mrlesmithjr.netplan
+    - rz.disable_systemd_resolved
     - rz.common
     - rz.ssh_keys
-    - mrlesmithjr.netplan
     - rz.router
     - rz.bind
-    - rz.disable_systemd_resolved

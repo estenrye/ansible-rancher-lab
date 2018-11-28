@@ -1,0 +1,13 @@
+- type: docker
+  containers:
+    ids:
+{% for id in filebeat.docker.containers.ids %}
+      - {{id}}
+{% endfor %}
+    path: {{filebeat.docker.containers.path|default('/var/lib/docker/containers')}}
+    stream: {{filebeat.docker.containers.stream|default('all')}}
+  combine_partial: {{filebeat.docker.combine_partial|default('true')}}
+  json:
+    keys_under_root: {{filebeat.docker.json.keys_under_root|default('true')}}
+    add_error_key: {{filebeat.docker.json.add_error_key|default('true')}}
+    message_key: {{filebeat.docker.json.message_key|default('log')}}

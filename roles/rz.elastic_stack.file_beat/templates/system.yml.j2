@@ -1,0 +1,21 @@
+# {{ansible_managed}}
+- module: system
+  syslog:
+    enabled: {{filebeat.system.syslog.enabled}}
+    var:
+{% if filebeat.system.syslog.var.paths %}
+      paths:
+{% for path in filebeat.system.syslog.var.paths %}
+        - {{path}}
+{% endfor %}
+{% endif%}
+      convert_timezone: {{filebeat.system.syslog.var.convert_timezone}}
+  auth:
+    enabled: {{filebeat.system.auth.enabled}}
+    var:
+{% if filebeat.system.syslog.var.paths %}
+      paths:
+{% for path in filebeat.system.auth.var.paths %}
+        - {{path}}
+{% endfor %}
+{% endif%}      convert_timezone: {{filebeat.system.auth.var.convert_timezone}}

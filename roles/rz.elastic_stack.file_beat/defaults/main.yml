@@ -1,0 +1,52 @@
+---
+beat:
+  config:
+    modules:
+      reload:
+        enabled: false
+        period: 10s
+  setup:
+      dashboards:
+        enabled: true
+      kibana:
+        host: utility.rz.lab:5601
+        protocol: http
+        username: elastic
+        password: changeme
+  output:
+    elasticsearch:
+      hosts:
+        - utility.rz.lab:9200
+      protocol: http
+      username: elastic
+      password: changeme
+  filebeat:
+    version: 6.5.1
+    checksum: "sha256:010f590ca8a672bcd018583547888f237b96438cc9c07bd6a80f4f8d2aec0db4"
+    config_path: /etc/filebeat
+
+filebeat:
+  docker:
+    enabled: false
+    containers:
+      ids:
+        - '*'
+      path: /var/lib/docker/containers
+      stream: all
+    combine_partial: true
+    json:
+      keys_under_root: true
+      add_error_key: true
+      message_key: log
+  system:
+    enabled: true
+    syslog:
+      enabled: true
+      var:
+        paths: [ "/var/log/syslog" ]
+        convert_timezone: false
+    auth:
+      enabled: true
+      var:
+        paths: [ "/var/log/auth.log"]
+        convert_timezone: false

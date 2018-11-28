@@ -1,45 +1,4 @@
 ---
-ansible_ssh_user: vagrant
-ansible_ssh_pass: vagrant
-ansible_python_interpreter: '/usr/bin/python2.7'
-dnsNameServers:
-  - 10.100.10.1
-
-ntp_area: 'us'
-ntp_servers: 
-  - ntp.rz.lab
-
-netplan_config_file:      /etc/netplan/config.yaml
-netplan_remove_existing:  true
-netplan_configuration:
-  network:
-    version: 2
-    renderer: networkd
-    ethernets:
-      eth0:
-        dhcp4: true
-        dhcp6: false
-        optional: true
-        nameservers:
-          addresses:
-            - 10.100.10.1
-
-systemd_resolved:
-  disabled: true
-  nameservers:
-    - 10.100.10.1
-  search_zones:
-    - rz.lab
-
-docker:
-  compose:
-    version: 1.23.1
-    checksum: "sha256:c176543737b8aea762022245f0f4d58781d3cb1b072bc14f3f8e5bb96f90f1a2"
-  repository: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
-  package: docker-ce
-  users:
-    - vagrant
-
 beat:
   config:
     modules:
@@ -61,15 +20,10 @@ beat:
       protocol: http
       username: elastic
       password: changeme
-  filebeat:
-    version: 6.5.1
-    checksum: "sha256:010f590ca8a672bcd018583547888f237b96438cc9c07bd6a80f4f8d2aec0db4"
-    config_path: /etc/filebeat
   metricbeat:
     version: 6.5.1
     checksum: "sha256:729ed2cc19c6ed06a704f1aab91b2a2eb6267012303f7061544b6b59a70422a0"
     config_path: /etc/metricbeat
-
 
 metricbeat:
   system:

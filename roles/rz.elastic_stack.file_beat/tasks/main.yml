@@ -1,0 +1,51 @@
+---
+- name: Download File Beat Package
+  get_url:
+    url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{beat.filebeat.version}}-amd64.deb"
+    dest: "/tmp/filebeat-{{beat.filebeat.version}}-amd64.deb"
+    checksum: "{{beat.filebeat.checksum}}"
+
+- name: Install File Beat Package
+  apt:
+    deb: "/tmp/filebeat-{{beat.filebeat.version}}-amd64.deb"
+    state: present
+
+- name: Update filebeat.yml configuration template.
+  template:
+    src: filebeat.yml.j2
+    dest: "{{beat.filebeat.config_path}}/filebeat.yml"
+
+- name: Enable System Module
+  command: "/usr/share/filebeat/bin/filebeat -path.config {{beat.filebeat.config_path}} modules enable system"
+  when: filebeat.system.enabled
+  become: yes
+  notify: 
+    - Restart Filebeat Service
+
+- name: Create inputs.d Directory
+  file:
+    path: "{{beat.filebeat.config_path}}/inputs.d"
+    state: directory
+
+- name: Update docker.yml input
+  template:
+    src: docker.yml.j2
+    dest: "{{beat.filebeat.config_path}}/inputs.d/docker.yml"
+  when: filebeat.docker.enabled
+  notify:
+    - Restart Filebeat Service
+
+- name: Update system.yml module
+  template:
+    src: system.yml.j2
+    dest: "{{beat.filebeat.config_path}}/modules.d/system.yml"
+  when: filebeat.system.enabled
+  notify: 
+    - Restart Filebeat Service
+
+- name: Enable and Start Filebeat Service
+  service:
+    name: filebeat
+    state: started
+    enabled: yes
+  become: yes

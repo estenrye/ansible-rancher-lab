@@ -41,16 +41,34 @@
 
 - name: Add Docker CE Stable Repository
   apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+    repo: "{{docker.repository}}"
     state: present
 
 - name: Install docker-ce
   package:
-    name: docker-ce=17.03.3~ce-0~ubuntu-xenial
+    name: "{{docker.package}}"
     state: present
 
 - name: Add user to docker group.
   user:
-    name: "{{username}}"
+    name: "{{item}}"
     groups: docker
     append: yes
+  with_items: docker.users
+
+- name: Install docker-compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{docker.compose.version}}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+    checksum: "{{docker.compose.checksum}}"
+
+- name: Install python-pip
+  package:
+    name: python-pip
+    state: present
+
+- name: Install docker python module.
+  pip:
+    name: docker
+    state: present

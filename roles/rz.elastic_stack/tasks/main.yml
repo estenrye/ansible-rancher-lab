@@ -1,0 +1,40 @@
+---
+- name: Add elastic group.
+  group:
+    name: "{{elastic_stack.group}}"
+    gid: "1000"
+    state: present
+
+- name: Add elastic user.
+  user:
+    name: "{{elastic_stack.user}}"
+    uid: "1000"
+    group: "{{elastic_stack.group}}"
+    append: yes
+    state: present
+
+- name: Clone Elastic Stack Repository
+  git:
+    dest: /opt/elastic_stack/config
+    repo: https://github.com/estenrye/docker-elk.git
+    version: deploy
+
+- name: Add elastic_stack directory.
+  file:
+    path: /opt/elastic_stack/storage
+    group: "{{elastic_stack.group}}"
+    owner: "{{elastic_stack.user}}"
+    state: directory
+    mode: 0755
+
+- name: Ensure docker swarm is present.
+  docker_swarm:
+    state: present
+    advertise_addr: "{{ansible_eth0.ipv4.address}}"
+
+
+- name: Deploy elastic stack
+  command: docker stack deploy -c docker-stack.yml -c docker-stack.persistance.yml elk
+  args:
+    chdir: /opt/elastic_stack/config
+  become: yes

@@ -1,0 +1,8 @@
+---
+- name: Enable System Module
+  command: "mv {{beat.metricbeat.config_path}}/modules.d/system.yml.disabled {{beat.metricbeat.config_path}}/modules.d/system.yml"
+
+- name: Restart MetricBeat Service
+  service:
+    name: metricbeat
+    state: restarted

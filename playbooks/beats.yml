@@ -1,0 +1,5 @@
+---
+- hosts: datacenter
+  roles:
+    - rz.elastic_stack.file_beat
+    - rz.elastic_stack.metric_beat
