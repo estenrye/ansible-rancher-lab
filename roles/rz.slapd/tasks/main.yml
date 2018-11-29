@@ -1,0 +1,7 @@
+---
+- include: debconf_slapd.yml
+
+- name: Install slapd packages
+  apt:
+    name: "{{slapd.packages}}"
+    state: present

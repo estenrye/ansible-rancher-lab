@@ -1,0 +1,20 @@
+---
+slapd:
+  packages:
+    - ldap-utils
+    - slapd
+  tld: lab
+  org: rz
+  base: "dc=rz,dc=lab"
+  debconf:
+    backend: MDB
+    default_admin_password: password
+    domain: rz.lab
+    dump_database: when needed
+    dump_database_destdir: /var/backups/slapd-VERSION
+    invalid_config: true
+    move_old_database: true
+    organization: rz
+    no_configuration: false
+    ppolicy_schema_needs_update: abort installation
+    purge_database: false

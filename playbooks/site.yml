@@ -7,6 +7,10 @@
     - rz.common
     - rz.ssh_keys
 
+- hosts: directory_servers
+  roles:
+    - rz.slapd
+
 - hosts: utility_servers
   gather_facts: true
   roles:

@@ -1,0 +1,119 @@
+---
+- name: Answer slapd install questions - slapd/internal/adminpw
+  debconf:
+    name: slapd
+    question: slapd/internal/adminpw
+    value: "{{slapd.debconf.default_admin_password}}"
+    vtype: password
+
+- name: Answer slapd install questions - slapd/password2
+  debconf:
+    name: slapd
+    question: slapd/password2
+    value: "{{slapd.debconf.default_admin_password}}"
+    vtype: password
+
+- name: Answer slapd install questions - slapd/internal/generated_adminpw
+  debconf:
+    name: slapd
+    question: slapd/internal/generated_adminpw
+    value: "{{slapd.debconf.default_admin_password}}"
+    vtype: password
+
+- name: Answer slapd install questions - slapd/password1
+  debconf:
+    name: slapd
+    question: slapd/password1
+    value: "{{slapd.debconf.default_admin_password}}"
+    vtype: password
+
+- name: Answer slapd install questions - slapd/unsafe_selfwrite_acl
+  debconf:
+    name: slapd
+    question: slapd/unsafe_selfwrite_acl
+    value: note
+    vtype: note
+
+- name: Answer slapd install questions - slapd/purge_database
+  debconf:
+    name: slapd
+    question: slapd/purge_database
+    value: "{{slapd.debconf.purge_database}}"
+    vtype: boolean
+
+- name: Answer slapd install questions - slapd/domain
+  debconf:
+    name: slapd
+    question: slapd/domain
+    value: "{{slapd.debconf.domain}}"
+    vtype: string
+
+- name: Answer slapd install questions - shared/organization
+  debconf:
+    name: slapd
+    question: shared/organization
+    value: "{{slapd.debconf.organization}}"
+    vtype: string
+
+- name: Answer slapd install questions - slapd/backend
+  debconf:
+    name: slapd
+    question: slapd/backend
+    value: "{{slapd.debconf.backend}}"
+    vtype: select
+
+- name: Answer slapd install questions - slapd/no_configuration
+  debconf:
+    name: slapd
+    question: slapd/no_configuration
+    value: "{{slapd.debconf.no_configuration}}"
+    vtype: boolean
+
+- name: Answer slapd install questions - slapd/password_mismatch
+  debconf:
+    name: slapd
+    question: slapd/password_mismatch
+    value: note
+    vtype: note
+
+- name: Answer slapd install questions - slapd/upgrade_slapcat_failure
+  debconf:
+    name: slapd
+    question: slapd/upgrade_slapcat_failure
+    value: error
+    vtype: error
+
+- name: Answer slapd install questions - slapd/ppolicy_schema_needs_update
+  debconf:
+    name: slapd
+    question: slapd/ppolicy_schema_needs_update
+    value: "{{slapd.debconf.ppolicy_schema_needs_update}}"
+    vtype: select
+
+- name: Answer slapd install questions - slapd/dump_database_destdir
+  debconf:
+    name: slapd
+    question: slapd/dump_database_destdir
+    value: "{{slapd.debconf.dump_database_destdir}}"
+    vtype: string
+
+- name: Answer slapd install questions - slapd/invalid_config
+  debconf:
+    name: slapd
+    question: slapd/invalid_config
+    value: "{{slapd.debconf.invalid_config}}"
+    vtype: boolean
+
+- name: Answer slapd install questions - slapd/dump_database
+  debconf:
+    name: slapd
+    question: slapd/dump_database
+    value: "{{slapd.debconf.dump_database}}"
+    vtype: select
+
+- name: Answer slapd install questions - slapd/move_old_database
+  debconf:
+    name: slapd
+    question: slapd/move_old_database
+    value: "{{slapd.debconf.move_old_database}}"
+    vtype: boolean
