@@ -28,7 +28,7 @@ machines = {
     hv_mac: '00:35:10:00:01:00',
     script_path: 'scripts/provision_acs.sh',
   },
-  utilityServer: {
+  utility: {
     box: 'generic/ubuntu1804',
     cpus: 2,
     mem: 2048,
@@ -37,14 +37,22 @@ machines = {
     hv_mac: '00:35:10:00:01:01',
     script_path: 'scripts/provision_target.sh',
   },
+  dc: {
+    box: 'generic/ubuntu1804',
+    cpus: 1,
+    mem: 2048,
+    vmname: 'dc.rz.lab',
+    network: 'Private',
+    hv_mac: '00:35:10:00:01:02',
+    script_path: 'scripts/provision_target.sh',
+  },
 }
 
 Vagrant.configure(vagrant_api_version) do |config|
-
   config.trigger.before :up do |t|
     t.info = 'Initializing environment'
-    if !(File.exist? 'scripts/id_rsa')
-      %x(ssh-keygen -f scripts/id_rsa -t rsa -b 4096)
+    unless File.exist? 'scripts/id_rsa'
+      `%x(ssh-keygen -f scripts/id_rsa -t rsa -b 4096)`
     end
   end
 

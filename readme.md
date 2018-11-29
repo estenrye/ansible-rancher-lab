@@ -52,7 +52,7 @@ The vagrant driver for Hyper-V lacks two components that allow us to have a pred
 4. `Start-VM router`
 5. `./scripts/Generate-Ansible-Inventory.ps1`
 6. `vagrant ssh openvas -c "ansible-playbook -i inventory --become playbooks/network.yml"`
-7. `vagrant up acs utilityServer`
+7. `vagrant up acs utility dc`
 8. `vagrant ssh acs -c "ansible-playbook -i rz_lab_inventory --become playbooks/net-plan.internal.yml"`
 9. `vagrant ssh acs -c "ansible-playbook -i rz_lab_inventory --become playbooks/site.yml"`
 10. Wait for ELK Stack to fully deploy and initialize before proceeding.  http://utility.rz.lab:5601
