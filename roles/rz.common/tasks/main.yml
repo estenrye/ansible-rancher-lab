@@ -19,7 +19,7 @@
 
 - name: Set hostname
   hostname:
-    name: "${hostname}.${domain}"
+    name: "{{hostname}}.{{domain}}"
 
 - name: Set hosts file
   template:
