@@ -5,7 +5,23 @@ slapd:
     - slapd
   tld: lab
   org: rz
-  base: "dc=rz,dc=lab"
+  olcLogLevel: stats
+  inetOrgPersons:
+    - username: joeSchmoe
+      surname: Schmoe
+      givenName: Joe
+      password: Password1
+  posixGroups:
+    - name: ldapUsers
+      gid: 4000
+  posixUsers:
+    - username: jdoe
+      surname: Doe
+      givenName: John
+      password: Password1
+      uid: 5000
+      gid: 4000
+      shell: /bin/bash
   debconf:
     backend: MDB
     default_admin_password: password

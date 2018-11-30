@@ -1,0 +1,7 @@
+{% for group in slapd.posixGroups %}
+dn: cn={{group.name}},ou=groups,dc={{slapd.org}},dc={{slapd.tld}}
+objectClass: posixGroup
+cn: {{group.name}}
+gidNumber: {{group.gid}}
+
+{% endfor %}

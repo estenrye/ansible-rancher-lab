@@ -5,3 +5,35 @@
   apt:
     name: "{{slapd.packages}}"
     state: present
+
+- name: Create ldif templates directory
+  file:
+    path: /etc/ldap/ldif
+    state: directory
+    mode: "u=rw,g=rw"
+
+- name: Write ldif templates
+  template:
+    src: "{{item}}.j2"
+    dest: "/etc/ldap/ldif/{{item}}"
+  with_items:
+    - inetOrgPerson.ldif
+    - loglevel.ldif
+    - posixGroup.ldif
+    - posixUser.ldif
+    - structure.ldif
+
+- name: Apply global configuration files.
+  command: ldapmodify -a -Q -Y EXTERNAL -H ldapi:/// -f /etc/ldap/ldif/{{item}}
+  become: yes
+  with_items:
+    - loglevel.ldif
+
+- name: Apply directory configuration files.
+  command: ldapmodify -a -w{{slapd.debconf.default_admin_password}} -D cn=admin,dc={{slapd.org}},dc={{slapd.tld}} -H ldapi:/// -f /etc/ldap/ldif/{{item}}
+  become: yes
+  with_items:
+    - structure.ldif
+    - inetOrgPerson.ldif
+    - posixGroup.ldif
+    - posixUser.ldif

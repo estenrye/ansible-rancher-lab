@@ -1,0 +1,16 @@
+{% for user in slapd.posixUsers %}
+dn: uid={{user.username}},ou=users,dc={{slapd.org}},dc={{slapd.tld}}
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: {{user.username}}
+sn: {{user.surname}}
+givenName: {{user.givenName}}
+cn: {{user.username}}
+uidNumber: {{user.uid}}
+gidNumber: {{user.gid}}
+userPassword: {{user.password}}
+loginShell: {{user.shell}}
+homeDirectory: /home/{{user.username}}
+
+{% endfor %}
