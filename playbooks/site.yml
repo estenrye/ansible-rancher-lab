@@ -21,3 +21,7 @@
   roles:
     - rz.router
     - rz.bind
+
+- hosts: datacenter
+  roles:
+    - rz.slapd

@@ -9,6 +9,14 @@ dnsNameServers:
 common:
   flags: /opt/ansible/flags
 
+ldap:
+  tld: lab
+  org: rz
+  directoryAdminPassword: Password1
+
+slapd:
+  installDaemon: false
+
 ntp_area: 'us'
 ntp_servers: 
   - ntp.rz.lab

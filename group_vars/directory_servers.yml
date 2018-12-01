@@ -1,12 +1,4 @@
 ---
-common:
-  flags: /opt/ansible/flags
-
-ldap:
-  tld: lab
-  org: rz
-  directoryAdminPassword: Password1
-
 slapd:
   installDaemon: true
   packages:
