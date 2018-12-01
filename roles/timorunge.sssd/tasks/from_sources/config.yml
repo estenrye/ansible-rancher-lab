@@ -1,0 +1,35 @@
+---
+
+- name: Copy SSSD defaults file
+  copy:
+    dest: "{{ sssd_environment_file }}"
+    group: "{{ sssd_group }}"
+    mode: 0644
+    owner: "{{ sssd_user }}"
+    src: "{{ sssd_environment_src_file }}"
+
+- name: Create SSSD systemd configuration
+  template:
+    dest: /lib/systemd/system/sssd.service
+    mode: 0644
+    src: "{{ sssd_service_template }}"
+  notify:
+    - systemctl daemon-reload
+    - restart sssd
+
+- name: Create SSSD init script
+  template:
+    dest: /etc/init.d/sssd
+    mode: 0755
+    src: "{{ sssd_init_template }}"
+  notify:
+    - systemctl daemon-reload
+    - restart sssd
+
+- name: Copy SSSD logrotate file
+  copy:
+    dest: /etc/logrotate.d/sssd
+    group: root
+    mode: 0644
+    owner: root
+    src: "{{ sssd_logrotate_src_file }}"

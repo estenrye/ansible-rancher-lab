@@ -1,0 +1,12 @@
+---
+
+- name: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+  when: ansible_service_mgr == "systemd"
+
+- name: restart sssd
+  service:
+    enabled: "{{ sssd_service_enabled | default('yes') }}"
+    name: sssd
+    state: "{{ sssd_service_state | default('restarted') }}"

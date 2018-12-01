@@ -1,0 +1,24 @@
+---
+
+- name: Compile SSSD
+  make:
+    chdir: "{{ sssd_install_dir }}/build/sssd-sssd-{{ sssd_version_src_schema }}"
+    params:
+      NUM_THREADS: "{{ sssd_build_threads }}"
+  register: sssd_compile
+  when: sssd_build.changed
+  tags:
+    - skip_ansible_lint
+
+- name: Install SSSD
+  make:
+    chdir: "{{ sssd_install_dir }}/build/sssd-sssd-{{ sssd_version_src_schema }}"
+    target: install
+    params:
+      NUM_THREADS: "{{ sssd_build_threads }}"
+  notify:
+    - systemctl daemon-reload
+    - restart sssd
+  when: sssd_compile.changed
+  tags:
+    - skip_ansible_lint

@@ -1,0 +1,252 @@
+---
+
+# SSSD packages
+# Type: List
+sssd_pkgs:
+  - sssd
+  - sssd-ad
+  - sssd-ad-common
+  - sssd-common
+  - sssd-ipa
+  - sssd-krb5
+  - sssd-krb5-common
+  - sssd-ldap
+  - sssd-proxy
+
+# SSSD build dependency packages
+# Type: List
+sssd_build_dependency_pkgs:
+  - autoconf
+  - automake
+  - autopoint
+  - build-essential
+  - check
+  - cifs-utils
+  - clang
+  - dbus
+  - dh-apparmor
+  - dnsutils
+  - docbook-xml
+  - docbook-xsl
+  - fakeroot
+  - gettext
+  - gir1.2-glib-2.0
+  - git
+  - gnutls-bin
+  - krb5-admin-server
+  - krb5-config
+  - krb5-kdc
+  - krb5-user
+  - ldap-utils
+  - libc-ares-dev
+  - libcmocka-dev
+  - libcollection-dev
+  - libcurl4-openssl-dev
+  - libdbus-1-dev
+  - libdhash-dev
+  - libgirepository-1.0-1
+  - libglib2.0-dev
+  - libhttp-parser-dev
+  - libini-config-dev
+  - libjansson-dev
+  - libkeyutils-dev
+  - libkrb5-dev
+  - libldap2-dev
+  - libldb-dev
+  - libltdl-dev
+  - libnfsidmap-dev
+  - libnl-3-dev
+  - libnl-route-3-dev
+  - libnspr4-dev
+  - libnss-wrapper
+  - libnss3-dev
+  - libp11-kit-dev
+  - libpam0g-dev
+  - libpcre3-dev
+  - libpopt-dev
+  - libsasl2-dev
+  - libselinux1-dev
+  - libsemanage1-dev
+  - libsmbclient-dev
+  - libssl-dev
+  - libsystemd-dev
+  - libtalloc-dev
+  - libtdb-dev
+  - libtevent-dev
+  - libtool
+  - libtool-bin
+  - libuid-wrapper
+  - libxml2-utils
+  - lsb-release
+  - make
+  - pep8
+  # - python-dbus # pip
+  - python-dev
+  - python-gi
+  # - python-ldap # pip
+  - python-ldb
+  - python-psutil
+  # - python-pyasn1 # pip
+  # - python-pyasn1-modules # pip
+  - python-pytest
+  - python-requests
+  - python-setuptools
+  - python3-dev
+  - python3-setuptools
+  - samba-dev
+  - slapd
+  - softhsm2
+  - systemd
+  - systemtap-sdt-dev
+  - uuid-dev
+  - xml-core
+  - xsltproc
+
+# Delete files
+# Type: List
+sssd_files_to_remove:
+  - "/usr/lib/{{ sssd_dpkg_architecture }}/ldb/modules/ldb/memberof.la"
+
+# Directories
+# Type: Dict
+sssd_dirs:
+  "{{ sssd_install_dir }}/build":
+    group: root
+    mode: !!str 0755
+    owner: root
+  "{{ sssd_install_dir }}/download":
+    group: root
+    mode: !!str 0755
+    owner: root
+  "{{ sssd_install_dir }}/tmp":
+    group: root
+    mode: !!str 0755
+    owner: root
+  "/etc/sssd":
+    group: "{{ sssd_group }}"
+    mode: !!str 0711
+    owner: "{{ sssd_user }}"
+  "/etc/sssd/conf.d":
+    group: "{{ sssd_group }}"
+    mode: !!str 0711
+    owner: "{{ sssd_user }}"
+  "/var/lib/sss":
+    group: "{{ sssd_group }}"
+    mode: !!str 0755
+    owner: root
+  "/var/log/sssd":
+    group: "{{ sssd_group }}"
+    mode: !!str 0700
+    owner: "{{ sssd_user }}"
+
+# Install architecture-dependent files in EPREFIX
+# Type: Str
+sssd_exec_prefix: /usr
+
+# SSSD default build options
+# Type: List
+sssd_default_build_options:
+  - "--datadir=/usr/share"
+  - "--disable-rpath"
+  - "--disable-silent-rules"
+  - "--disable-static"
+  - "--enable-krb5-locator-plugin"
+  - "--enable-nsslibdir=/lib/{{ sssd_dpkg_architecture }}"
+  - "--enable-pac-responder"
+  - "--enable-pammoddir=/lib/{{ sssd_dpkg_architecture }}/security"
+  - "--enable-sss-default-nss-plugin"
+  - "--enable-systemtap"
+  - "--includedir=/usr/include"
+  - "--infodir=/usr/share/info"
+  - "--libdir=/usr/lib/{{ sssd_dpkg_architecture }}"
+  - "--libexecdir=/usr/lib/{{ sssd_dpkg_architecture }}"
+  - "--localstatedir=/var"
+  - "--mandir=/usr/local/share/man"
+  - "--prefix=/usr"
+  - "--sysconfdir=/etc"
+  - "--with-autofs"
+  - "--with-environment-file={{ sssd_environment_file }}"
+  - "--with-initscript=systemd"
+  - "--with-krb5-conf=/etc/krb5.conf"
+  - "--with-krb5-plugin-path=/usr/lib/{{ sssd_dpkg_architecture }}/krb5/plugins/libkrb5"
+  - "--with-ldb-lib-dir=/usr/lib/{{ sssd_dpkg_architecture }}/ldb/modules/ldb"
+  - "--with-log-path=/var/log/sssd"
+  - "--with-pid-path=/var/run"
+  - "--with-plugin-path=/usr/lib/{{ sssd_dpkg_architecture }}/sssd"
+  - "--with-samba"
+  - "--with-secrets"
+  - "--with-secrets-db-path=/var/lib/sss/secrets"
+  - "--with-smb-idmap-interface-version=6"
+  - "--with-ssh"
+  - "--with-sudo"
+  - "--with-sudo-lib-path=/usr/lib/{{ sssd_dpkg_architecture }}"
+  - "--with-systemdunitdir=/lib/systemd/system"
+  - "--without-python3-bindings"
+
+# Set correct permissions for files and folders
+# Type: Dict
+sssd_postinst_set_permissions:
+  "/etc/sssd":
+    group: "{{ sssd_group }}"
+    mode: !!str 0711
+    owner: "{{ sssd_user }}"
+  "/etc/sssd/conf.d":
+    group: "{{ sssd_group }}"
+    mode: !!str 0711
+    owner: "{{ sssd_user }}"
+  "/usr/lib/{{ sssd_dpkg_architecture }}/sssd/krb5_child":
+    group: "{{ sssd_group }}"
+    mode: !!str 4754
+    owner: root
+  "/usr/lib/{{ sssd_dpkg_architecture }}/sssd/ldap_child":
+    group: "{{ sssd_group }}"
+    mode: !!str 4754
+    owner: root
+  "/usr/lib/{{ sssd_dpkg_architecture }}/sssd/p11_child":
+    group: "{{ sssd_group }}"
+    mode: !!str 4754
+    owner: root
+  "/usr/lib/{{ sssd_dpkg_architecture }}/sssd/proxy_child":
+    group: "{{ sssd_group }}"
+    mode: !!str 4754
+    owner: root
+  "/usr/lib/{{ sssd_dpkg_architecture }}/sssd/selinux_child":
+    group: "{{ sssd_group }}"
+    mode: !!str 4754
+    owner: root
+  "/var/lib/sss/db":
+    group: "{{ sssd_group }}"
+    mode: !!str 0700
+    owner: "{{ sssd_user }}"
+  "/var/lib/sss/gpo_cache":
+    group: "{{ sssd_group }}"
+    mode: !!str 0755
+    owner: "{{ sssd_user }}"
+  "/var/lib/sss/keytabs":
+    group: "{{ sssd_group }}"
+    mode: !!str 0700
+    owner: "{{ sssd_user }}"
+  "/var/lib/sss/mc":
+    group: "{{ sssd_group }}"
+    mode: !!str 0755
+    owner: "{{ sssd_user }}"
+  "/var/lib/sss/pipes":
+    group: "{{ sssd_group }}"
+    mode: !!str 0755
+    owner: "{{ sssd_user }}"
+  "/var/lib/sss/pipes/private":
+    group: root
+    mode: !!str 0700
+    owner: root
+  "/var/lib/sss/pubconf":
+    group: "{{ sssd_group }}"
+    mode: !!str 0755
+    owner: "{{ sssd_user }}"
+  "/var/lib/sss/secrets":
+    group: "{{ sssd_group }}"
+    mode: !!str 0700
+    owner: "{{ sssd_user }}"
+  "/var/log/sssd":
+    group: "{{ sssd_group }}"
+    mode: !!str 0700
+    owner: "{{ sssd_user }}"
