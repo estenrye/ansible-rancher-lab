@@ -65,7 +65,7 @@ Vagrant.configure(vagrant_api_version) do |config|
       machine.vm.provision 'file', source: 'host_vars', destination: '/home/vagrant/host_vars' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
       machine.vm.provision 'file', source: 'roles', destination: '/home/vagrant/roles' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
       machine.vm.provision 'file', source: 'playbooks', destination: '/home/vagrant/playbooks' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
-      machine.vm.provision 'file', source: 'rz_lab_inventory', destination: '/home/vagrant/rz_lab_inventory' if (hostname.to_s.eql? 'acs')
+      machine.vm.provision 'file', source: 'rz_lab_inventory', destination: '/home/vagrant/rz_lab_inventory' if hostname.to_s.eql? 'acs'
       machine.vm.provision 'file', source: 'ansible.cfg', destination: '/home/vagrant/ansible.cfg' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
       machine.vm.provision 'file', source: 'scripts/id_rsa', destination: '/home/vagrant/.ssh/id_rsa' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
       machine.vm.provision 'file', source: 'scripts/id_rsa.pub', destination: '/home/vagrant/.ssh/id_rsa.pub' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
