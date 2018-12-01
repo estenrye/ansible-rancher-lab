@@ -2,4 +2,61 @@
 - include: install_slapd.yml
   when: slapd.installDaemon
 
-- include: enable_ldap_auth.yml
+- name: Set olcLogLevel
+  ldap_attr:
+      dn: "cn=config"
+      name: olcLogLevel
+      values: "{{slapd.olcLogLevel}}"
+      state: present
+
+- name: Create Top Level OU Structure
+  ldap_entry:
+    dn: "ou={{item}},dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass: organizationalUnit
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+  loop: "{{slapd.organizationalUnits}}"
+
+- name: Create POSIX Groups
+  ldap_entry:
+    dn: "cn={{item.name}},ou=groups,dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass: posixGroup
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+    attributes:
+      gidNumber: "{{item.gid}}"
+  loop: "{{slapd.posixGroups}}"
+
+- name: Create POSIX Users
+  ldap_entry:
+    dn: "uid={{item.username}},ou=users,dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass:
+      - inetOrgPerson
+      - posixAccount
+      - shadowAccount
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+    attributes:
+      uid: "{{item.username}}"
+      sn: "{{item.surname}}"
+      givenName: "{{item.givenName}}"
+      cn: "{{item.username}}"
+      uidNumber: "{{item.uid}}"
+      gidNumber: "{{item.gid}}"
+      userPassword: "{{item.password}}"
+      loginShell: "{{item.shell}}"
+      homeDirectory: "/home/{{item.username}}"
+  loop: "{{slapd.posixUsers}}"
+
+- name: Create InetOrgPerson Users
+  ldap_entry:
+    dn: "cn={{item.username}},ou=users,dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass: inetOrgPerson
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+    attributes:
+      sn: "{{item.surname}}"
+      givenName: "{{item.givenName}}"
+      cn: "{{item.username}}"
+      userPassword: "{{item.password}}"
+  loop: "{{slapd.inetOrgPersons}}"

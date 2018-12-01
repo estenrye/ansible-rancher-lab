@@ -24,4 +24,4 @@
 
 - hosts: datacenter
   roles:
-    - rz.slapd
+    - rz.libnss-ldap
