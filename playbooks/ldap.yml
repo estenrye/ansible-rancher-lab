@@ -1,0 +1,61 @@
+- hosts: directory_servers
+  tasks:
+  - name: be sure packages are install
+    package:
+      name:
+        - python-pip
+        - libldap2-dev
+      state: latest
+
+  - name: be sure python packages are installed
+    command: "{{ ansible_python_interpreter | default('/usr/bin/python') }} -m pip install python-ldap"
+    become: yes
+    
+  - command: "whoami"
+    vars:
+      module: ldap
+    register: test
+  - debug:
+      var: test.stdout
+
+  - command: "{{ ansible_python_interpreter | default('/usr/bin/python') }} -c 'import {{ module }}; print({{ module }}.__version__); print({{module}}.__file__)'"
+    vars:
+      module: ldap
+    register: test
+  - debug:
+      var: test.stdout
+
+  - command: "{{ ansible_python_interpreter | default('/usr/bin/python') }} -c 'import {{ module }}; print({{ module }}.__version__)'"
+    vars:
+      module: ldap.modlist
+    register: test
+  - debug:
+      var: test.stdout
+
+  - name: verify python-ldap installed correctly - import ldap
+    command: python -c 'import ldap'
+    register: result
+
+  - name: verify python-ldap installed correctly - import ldap.modlist
+    command: python -c 'import ldap.modlist'
+
+  - ldap_entry:
+      dn: uid=edoe,ou=users,dc=rz,dc=lab
+      objectClass:
+        - inetOrgPerson
+        - posixAccount
+        - shadowAccount
+      bind_dn: "cn=admin,dc=rz,dc=lab"
+      server_uri: ldapi:///
+      state: present
+      bind_pw: "password"
+      attributes:
+        uid: jdoe
+        sn: Doe
+        givenName: John
+        cn: jdoe
+        uidNumber: 5000
+        gidNumber: 4000
+        userPassword: Password1
+        loginShell: /bin/bash
+        homeDirectory: /home/jdoe
