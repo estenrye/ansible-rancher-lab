@@ -1,39 +1,95 @@
 ---
+- name: Check for configure flag
+  stat:
+    path: "{{common.flags}}/slapd.installed"
+  register: stat_result
+
 - include: debconf_slapd.yml
+  when: stat_result.stat.exists == false
 
 - name: Install slapd packages
   apt:
     name: "{{slapd.packages}}"
     state: present
 
-- name: Create ldif templates directory
-  file:
-    path: /etc/ldap/ldif
-    state: directory
-    mode: "u=rw,g=rw"
-
-- name: Write ldif templates
-  template:
-    src: "{{item}}.j2"
-    dest: "/etc/ldap/ldif/{{item}}"
-  with_items:
-    - inetOrgPerson.ldif
-    - loglevel.ldif
-    - posixGroup.ldif
-    - posixUser.ldif
-    - structure.ldif
-
-- name: Apply global configuration files.
-  command: ldapmodify -a -Q -Y EXTERNAL -H ldapi:/// -f /etc/ldap/ldif/{{item}}
+- name: Ensure python-ldap package is installed
+  command: "{{ ansible_python_interpreter | default('/usr/bin/python') }} -m pip install python-ldap"
   become: yes
-  with_items:
-    - loglevel.ldif
+  when: stat_result.stat.exists == false
 
-- name: Apply directory configuration files.
-  command: ldapmodify -a -w{{slapd.debconf.default_admin_password}} -D cn=admin,dc={{slapd.org}},dc={{slapd.tld}} -H ldapi:/// -f /etc/ldap/ldif/{{item}}
+- name: Set password for LDAP Admin User.
+  ldap_passwd:
+    dn: "cn=admin,dc={{slapd.org}},dc={{slapd.tld}}"
+    passwd: "{{slapd.directoryAdminPassword}}"
+    bind_dn: "cn=admin,dc={{slapd.org}},dc={{slapd.tld}}"
+    bind_pw: "{{slapd.debconf.default_admin_password}}"
   become: yes
-  with_items:
-    - structure.ldif
-    - inetOrgPerson.ldif
-    - posixGroup.ldif
-    - posixUser.ldif
+  when: stat_result.stat.exists == false
+
+- name: add install flag
+  copy:
+    content: ""
+    dest: "{{common.flags}}/slapd.installed"
+    force: no
+    owner: root
+    group: root
+    mode: "u=rw,g=rw,o=r"
+
+- name: Set olcLogLevel
+  ldap_attr:
+      dn: "cn=config"
+      name: olcLogLevel
+      values: "{{slapd.olcLogLevel}}"
+      state: present
+
+- name: Create Top Level OU Structure
+  ldap_entry:
+    dn: "ou={{item}},dc={{slapd.org}},dc={{slapd.tld}}"
+    objectClass: organizationalUnit
+    bind_dn: "cn=admin,dc={{slapd.org}},dc={{slapd.tld}}"
+    bind_pw: "{{slapd.directoryAdminPassword}}"
+  loop: "{{slapd.organizationalUnits}}"
+
+- name: Create POSIX Groups
+  ldap_entry:
+    dn: "cn={{item.name}},ou=groups,dc={{slapd.org}},dc={{slapd.tld}}"
+    objectClass: posixGroup
+    bind_dn: "cn=admin,dc={{slapd.org}},dc={{slapd.tld}}"
+    bind_pw: "{{slapd.directoryAdminPassword}}"
+    attributes:
+      gidNumber: "{{item.gid}}"
+  loop: "{{slapd.posixGroups}}"
+
+- name: Create POSIX Users
+  ldap_entry:
+    dn: "uid={{item.username}},ou=users,dc={{slapd.org}},dc={{slapd.tld}}"
+    objectClass:
+      - inetOrgPerson
+      - posixAccount
+      - shadowAccount
+    bind_dn: "cn=admin,dc={{slapd.org}},dc={{slapd.tld}}"
+    bind_pw: "{{slapd.directoryAdminPassword}}"
+    attributes:
+      uid: "{{item.username}}"
+      sn: "{{item.surname}}"
+      givenName: "{{item.givenName}}"
+      cn: "{{item.username}}"
+      uidNumber: "{{item.uid}}"
+      gidNumber: "{{item.gid}}"
+      userPassword: "{{item.password}}"
+      loginShell: "{{item.shell}}"
+      homeDirectory: "/home/{{item.username}}"
+  loop: "{{slapd.posixUsers}}"
+
+- name: Create InetOrgPerson Users
+  ldap_entry:
+    dn: "cn={{item.username}},ou=users,dc={{slapd.org}},dc={{slapd.tld}}"
+    objectClass: inetOrgPerson
+    bind_dn: "cn=admin,dc={{slapd.org}},dc={{slapd.tld}}"
+    bind_pw: "{{slapd.directoryAdminPassword}}"
+    attributes:
+      sn: "{{item.surname}}"
+      givenName: "{{item.givenName}}"
+      cn: "{{item.username}}"
+      userPassword: "{{item.password}}"
+  loop: "{{slapd.inetOrgPersons}}"

@@ -1,16 +1,27 @@
 ---
+common:
+  flags: /opt/ansible/flags
+
 slapd:
   packages:
     - ldap-utils
     - slapd
+    - python-pip
+    - libldap2-dev
+    - python2.7-dev
+    - libsasl2-dev
   tld: lab
   org: rz
   olcLogLevel: stats
+  directoryAdminPassword: Password1
+  organizationalUnits:
+    - users
+    - groups
   inetOrgPersons:
     - username: joeSchmoe
       surname: Schmoe
       givenName: Joe
-      password: Password1
+      password: '{SSHA}mm7AhcbWv7h8V8oZffzrRwdMFIiMZ9dF'
   posixGroups:
     - name: ldapUsers
       gid: 4000

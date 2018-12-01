@@ -6,6 +6,9 @@ domain: rz.lab
 dnsNameServers:
   - 10.100.10.1
 
+common:
+  flags: /opt/ansible/flags
+
 ntp_area: 'us'
 ntp_servers: 
   - ntp.rz.lab

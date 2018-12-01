@@ -1,9 +1,0 @@
-{% for inetOrgPerson in slapd.inetOrgPersons %}
-dn: cn={{inetOrgPerson.username}},ou=users,dc={{slapd.org}},dc={{slapd.tld}}
-objectClass: inetOrgPerson
-sn: {{inetOrgPerson.surname}}
-givenName: {{inetOrgPerson.givenName}}
-cn: {{inetOrgPerson.username}}
-userPassword: {{inetOrgPerson.password}}
-
-{% endfor %}
