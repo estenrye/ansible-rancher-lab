@@ -4,7 +4,7 @@
     path: "{{common.flags}}/ldap.installed"
   register: stat_result
 
-- name: Answer slapd install questions
+- name: Answer ldap install questions
   debconf:
     name: ldap-auth-config
     question: "{{item.question}}"
@@ -58,6 +58,52 @@
   copy:
     content: ""
     dest: "{{common.flags}}/ldap.installed"
+    force: no
+    owner: root
+    group: root
+    mode: "u=rw,g=rw,o=r"
+
+- name: Check for configure flag
+  stat:
+    path: "{{common.flags}}/ldap.configured"
+  register: stat_result
+
+- name: Answer libpam install questions
+  debconf:
+    name: libpam-runtime
+    question: "{{item.question}}"
+    value: "{{item.value}}"
+    vtype: "{{item.vtype}}"
+  loop:
+    - question: libpam-runtime/profiles
+      value: "unix, ldap, systemd, mkhomedir, capability"
+      vtype: multiselect
+  when: stat_result.stat.exists == false
+
+- name: update /usr/share/pam-configs/mkhomedir default setting
+  lineinfile:
+    path: /usr/share/pam-configs/mkhomedir
+    state: present
+    regexp: "Default: no"
+    line: "Default: yes"
+  when: stat_result.stat.exists == false
+
+- name: remove mkhomedir from /var/lib/pam/seen
+  lineinfile:
+    path: /var/lib/pam/seen
+    state: absent
+    regex: mkhomedir
+  when: stat_result.stat.exists == false
+
+- name: update pam auth to enable home directory creation
+  command: pam-auth-update --package
+  become: yes
+  when: stat_result.stat.exists == false
+
+- name: add install flag
+  copy:
+    content: ""
+    dest: "{{common.flags}}/ldap.configured"
     force: no
     owner: root
     group: root
