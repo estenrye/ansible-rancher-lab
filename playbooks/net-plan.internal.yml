@@ -3,3 +3,4 @@
   roles:
     - mrlesmithjr.netplan
     - rz.disable_systemd_resolved
+    - rz.certs
