@@ -30,6 +30,7 @@
     objectClass: organizationalUnit
     bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
     bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
   loop: "{{slapd.organizationalUnits}}"
 
 - name: Create POSIX Groups
@@ -38,6 +39,7 @@
     objectClass: posixGroup
     bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
     bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
     attributes:
       gidNumber: "{{item.gid}}"
   loop: "{{slapd.posixGroups}}"
@@ -51,6 +53,7 @@
       - shadowAccount
     bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
     bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
     attributes:
       uid: "{{item.username}}"
       sn: "{{item.surname}}"
@@ -69,6 +72,7 @@
     objectClass: inetOrgPerson
     bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
     bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
     attributes:
       sn: "{{item.surname}}"
       givenName: "{{item.givenName}}"
