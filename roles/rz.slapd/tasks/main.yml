@@ -4,10 +4,38 @@
 
 - name: Set olcLogLevel
   ldap_attr:
-      dn: "cn=config"
-      name: olcLogLevel
-      values: "{{slapd.olcLogLevel}}"
-      state: present
+    dn: "cn=config"
+    name: olcLogLevel
+    values: "{{slapd.olcLogLevel}}"
+    state: present
+
+- name: Set olcTLSCertificateKeyFile
+  ldap_attr:
+    dn: "cn=config"
+    name: olcTLSCertificateKeyFile
+    values: "/etc/ldap/certs/{{ldap.org}}.{{ldap.tld}}/{{ldap.org}}.{{ldap.tld}}.pem"
+    state: present
+
+- name: Set olcTLSCertificateFile
+  ldap_attr:
+    dn: "cn=config"
+    name: olcTLSCertificateFile
+    values: "/etc/ldap/certs/{{ldap.org}}.{{ldap.tld}}/{{ldap.org}}.{{ldap.tld}}.crt"
+    state: present
+
+- name: Set olcTLSCACertificateFile
+  ldap_attr:
+    dn: "cn=config"
+    name: olcTLSCACertificateFile
+    values: "/etc/ldap/certs/{{ldap.org}}.{{ldap.tld}}/{{ldap.org}}.{{ldap.tld}}.crt"
+    state: present
+
+- name: Set olcSecurity
+  ldap_attr:
+    dn: "olcDatabase={1}hdb,cn=config"
+    name: olcSecurity
+    values: "tls=1"
+    state: present
 
 - name: Create Top Level OU Structure
   ldap_entry:
