@@ -1,0 +1,59 @@
+---
+- name: Check for configure flag
+  stat:
+    path: "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.crt"
+  register: stat_result
+
+- name: Install pip
+  package:
+    name: python-pip
+    state: present
+  when: stat_result.stat.exists == false
+
+- name: Ensure pyOpenSSL package is installed
+  command: "{{ ansible_python_interpreter | default('/usr/bin/python') }} -m pip install pyOpenSSL"
+  become: yes
+  when: stat_result.stat.exists == false
+
+- name: create files directory
+  file:
+      path: "{{ role_path }}/files"
+      state: directory
+      mode: 'u=rwx,g=rwx'
+      owner: vagrant
+  when: stat_result.stat.exists == false
+
+# Generate an OpenSSL private key with the default values (4096 bits, RSA)
+# and a passphrase
+- name: generate private key
+  openssl_privatekey:
+    path: "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.pem"
+    size: 4096
+    type: RSA
+    owner: vagrant
+    mode: 0644
+  become: yes
+  when: stat_result.stat.exists == false
+
+# Generate an OpenSSL Certificate Signing Request with Subject information
+- name: generate csr
+  openssl_csr:
+    path: "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.csr"
+    privatekey_path: "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.pem"
+    common_name: "*.{{ldap.org}}.{{ldap.tld}}"
+  when: stat_result.stat.exists == false
+
+- name: Generate a Self Signed OpenSSL certificate
+  openssl_certificate:
+    path: "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.crt"
+    privatekey_path: "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.pem"
+    csr_path: "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.csr"
+    provider: selfsigned
+  when: stat_result.stat.exists == false
+
+# Examples for some checks one could use the assertonly provider for:
+- name: Verify that the existing certificate is currently still valid
+  openssl_certificate:
+    path: "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.crt"
+    provider: assertonly
+    has_expired: False
