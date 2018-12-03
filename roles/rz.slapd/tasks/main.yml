@@ -9,26 +9,13 @@
     values: "{{slapd.olcLogLevel}}"
     state: present
 
-- name: Set olcTLSCertificateKeyFile
-  ldap_attr:
-    dn: "cn=config"
-    name: olcTLSCertificateKeyFile
-    values: "/etc/ldap/certs/{{ldap.org}}.{{ldap.tld}}/{{ldap.org}}.{{ldap.tld}}.pem"
-    state: present
+- name: write enable_TLS.ldif
+  template:
+    src: enable_TLS.ldif.j2
+    dest: /etc/ldap/enable_TLS.ldif
 
-- name: Set olcTLSCertificateFile
-  ldap_attr:
-    dn: "cn=config"
-    name: olcTLSCertificateFile
-    values: "/etc/ldap/certs/{{ldap.org}}.{{ldap.tld}}/{{ldap.org}}.{{ldap.tld}}.crt"
-    state: present
-
-- name: Set olcTLSCACertificateFile
-  ldap_attr:
-    dn: "cn=config"
-    name: olcTLSCACertificateFile
-    values: "/etc/ldap/certs/{{ldap.org}}.{{ldap.tld}}/{{ldap.org}}.{{ldap.tld}}.crt"
-    state: present
+- name: enable ldap over TLS
+  shell: ldapmodify -H ldapi:// -Y EXTERNAL -f /etc/ldap/enable_TLS.ldif
 
 - name: Set olcSecurity
   ldap_attr:
