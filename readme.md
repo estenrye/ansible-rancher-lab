@@ -48,8 +48,8 @@ The vagrant driver for Hyper-V lacks two components that allow us to have a pred
 
 1. `vagrant up openvas router`
 2. `vagrant halt router`
-3. `Add-VMNetworkAdapter -VMName router -SwitchName Private -Name LAN`
-4. `Start-VM router`
+3. `Add-VMNetworkAdapter -VMName router.rz.lab -SwitchName Private -Name LAN`
+4. `Start-VM router.rz.lab`
 5. `./scripts/Generate-Ansible-Inventory.ps1`
 6. `vagrant ssh openvas -c "ansible-playbook -i inventory --become playbooks/network.yml"`
 7. `vagrant up acs utility dc`

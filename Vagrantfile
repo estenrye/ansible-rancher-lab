@@ -15,7 +15,7 @@ machines = {
     box: 'generic/ubuntu1804',
     cpus: 1,
     mem: 1024,
-    vmname: 'router',
+    vmname: 'router.rz.lab',
     network: 'Default Switch',
     script_path: 'scripts/provision_target.sh',
   },
