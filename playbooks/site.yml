@@ -6,6 +6,7 @@
     - rz.disable_systemd_resolved
     - rz.common
     - rz.ssh_keys
+    - rz.certs
 
 - hosts: directory_servers
   roles:
