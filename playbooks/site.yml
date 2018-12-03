@@ -25,4 +25,4 @@
 
 - hosts: datacenter
   roles:
-    - rz.libnss-ldap
+    - rz.sssd

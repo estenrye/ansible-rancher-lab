@@ -1,0 +1,13 @@
+---
+- name: run auth-client-config
+  command: auth-client-config -a -p sss
+  become: yes
+
+- name: run pam-auth-update
+  command: pam-auth-update --package  --force
+  become: yes
+
+- name: restart sssd
+  service:
+    name: sssd
+    state: restarted

@@ -1,0 +1,40 @@
+---
+- name: Install SSSD packages
+  package:
+    name: "{{sssd.packages}}"
+    state: present
+
+- name: update /usr/share/pam-configs/mkhomedir default setting
+  lineinfile:
+    path: /usr/share/pam-configs/mkhomedir
+    state: present
+    regexp: "Default: no"
+    line: "Default: yes"
+
+- name: remove mkhomedir from /var/lib/pam/seen
+  lineinfile:
+    path: /var/lib/pam/seen
+    state: absent
+    regex: mkhomedir
+
+- name: update sssd.conf
+  template:
+    src: sssd.conf.j2
+    dest: /etc/sssd/sssd.conf
+    mode: 0600
+  notify:
+    - restart sssd
+
+- name: copy sss profile
+  copy:
+    src: "{{ role_path }}/files/sss"
+    dest: /etc/auth-client-config/profile.d/sss
+  notify:
+    - run auth-client-config
+    - run pam-auth-update
+
+- name: Ensure sssd is enabled and started
+  service:
+    name: sssd
+    state: started
+    enabled: yes

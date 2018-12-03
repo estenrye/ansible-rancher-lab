@@ -1,0 +1,33 @@
+---
+sssd:
+  packages:
+    - libnss-ldap
+    - sssd
+    - libnss-sss
+  config:
+    sssd:
+      config_file_version: 2
+      services: nss, pam
+      domains: RZ_LAB
+    nss:
+      fallback_homedir: /home/%u
+      shell_fallback: /bin/bash
+      debug_level: 6
+    pam: {}
+    "domain/RZ_LAB":
+      id_provider: ldap
+      auth_provider: ldap
+      ldap_schema: rfc2307
+      ldap_uri: "ldap://dc.rz.lab"
+      ldap_default_bind_dn: cn=admin,dc=rz,dc=lab
+      ldap_default_authtok: Password1
+      ldap_default_authtok_type: password
+      ldap_search_base: dc=rz,dc=lab
+      ldap_user_search_base: ou=users,dc=rz,dc=lab
+      ldap_group_search_base: ou=groups,dc=rz,dc=lab
+      ldap_user_object_class: posixAccount
+      ldap_user_gecos: cn
+      sudo_provider: ldap
+      cache_credentials: true
+      enumerate: true
+      use_fully_qualified_names: false
