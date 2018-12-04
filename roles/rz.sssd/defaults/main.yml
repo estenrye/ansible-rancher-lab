@@ -18,7 +18,7 @@ sssd:
       id_provider: ldap
       auth_provider: ldap
       ldap_schema: rfc2307
-      ldap_uri: "ldap://dc.rz.lab"
+      ldap_uri: "ldaps://dc.rz.lab"
       ldap_default_bind_dn: cn=admin,dc=rz,dc=lab
       ldap_default_authtok: Password1
       ldap_default_authtok_type: password
