@@ -9,14 +9,25 @@
     values: "{{slapd.olcLogLevel}}"
     state: present
 
-- name: write enable_TLS.ldif
+- name: write ldiff files
   template:
-    src: enable_TLS.ldif.j2
-    dest: /etc/ldap/enable_TLS.ldif
+    src: "{{item}}.j2"
+    dest: "/etc/ldap/{{item}}"
+  loop:
+    - enable_TLS.ldif
+    - enable_TLS.modify.ldif
+
+- name: scripts
+  template:
+    src: "{{item}}.j2"
+    dest: "/etc/ldap/{{item}}"
+    mode: 'u=rx,g=rx'
+  loop:
+    - enable_TLS.sh
 
 - name: enable ldap over TLS
-  shell: ldapmodify -H ldapi:// -Y EXTERNAL -f /etc/ldap/enable_TLS.ldif
-  # TODO: need to add idemptotency for this command.
+  shell: "/etc/ldap/enable_TLS.sh"
+  become: yes
 
 - name: Set olcSecurity
   ldap_attr:
@@ -24,6 +35,20 @@
     name: olcSecurity
     values: "tls=1"
     state: present
+
+- name: Enable ldaps endpoint
+  lineinfile:
+    path: //etc/default/slapd
+    state: present
+    regex: ^SLAPD_SERVICES=*
+    line: 'SLAPD_SERVICES="ldap:/// ldapi:/// ldaps:///"'
+  register: endpoint_status
+
+- name: Restart slapd
+  service:
+    name: slapd
+    state: restarted
+  when: endpoint_status.changed
 
 - name: Create Top Level OU Structure
   ldap_entry:

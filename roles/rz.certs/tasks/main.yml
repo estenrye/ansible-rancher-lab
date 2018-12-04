@@ -1,6 +1,6 @@
 ---
 - include: create_certificate.yml
-  when: hostname == 'acs'
+  when: hostname is undefined or hostname == 'acs'
 
 - name: copy ldap certificate to trusted certs folder
   copy:
