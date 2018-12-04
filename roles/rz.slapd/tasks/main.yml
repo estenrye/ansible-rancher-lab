@@ -16,6 +16,7 @@
   loop:
     - enable_TLS.ldif
     - enable_TLS.modify.ldif
+    - sudo_schema.ldif
 
 - name: scripts
   template:
@@ -105,3 +106,15 @@
       cn: "{{item.username}}"
       userPassword: "{{item.password}}"
   loop: "{{slapd.inetOrgPersons}}"
+
+- name: Create Sudoers
+  ldap_entry:
+    dn: "cn={{item.cn}},ou=sudoers,dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass:
+      - sudoRole
+      - top
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
+    attributes: "{{item.attributes}}"
+  loop: "{{slapd.sudoers}}"
