@@ -5,7 +5,7 @@ else
   ldapmodify -H ldapi:/// -Y EXTERNAL -f /etc/ldap/enable_TLS.modify.ldif
 fi
 
-SEARCH_RESULT=$(ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config "(cn=*sudo)" dn 2>/dev/null)
+SEARCH_RESULT=$(ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config "(cn=*sudoRole)" dn 2>/dev/null)
 if [ -z $SEARCH_RESULT ]; then
   ldapadd -H ldapi:/// -Y EXTERNAL -f /etc/ldap/sudo_schema.ldif
 fi
