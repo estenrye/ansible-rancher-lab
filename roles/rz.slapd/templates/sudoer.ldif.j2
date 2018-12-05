@@ -1,6 +1,6 @@
 {% for item in slapd.sudoers %}
 dn: cn={{item.cn}},ou=sudoers,dc={{ldap.org}},dc={{ldap.tld}}
-objectClass: sudoUser
+objectClass: sudoRole
 objectClass: top
 cn: {{item.cn}}
 {% for key,value in item.attributes.iteritems() %}

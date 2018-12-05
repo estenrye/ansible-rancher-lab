@@ -112,14 +112,14 @@
   ldap_entry:
     dn: "cn={{item.cn}},ou=sudoers,dc={{ldap.org}},dc={{ldap.tld}}"
     objectClass:
-      - sudoRole
       - top
+      - sudoRole
     bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
     bind_pw: "{{ldap.directoryAdminPassword}}"
     server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
     attributes: 
       cn: "{{item.cn}}"
-      sudoHost: "{{item.sudoHost}}"
-      sudoUser: "{{item.sudoUser}}"
-      sudoCommand: "{{item.sudoCommand}}"
+      sudoHost: "{{item.attributes.sudoHost}}"
+      sudoUser: "{{item.attributes.sudoUser}}"
+      sudoCommand: "{{item.attributes.sudoCommand}}"
   loop: "{{slapd.sudoers}}"
