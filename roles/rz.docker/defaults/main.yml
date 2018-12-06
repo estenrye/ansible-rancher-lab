@@ -7,3 +7,7 @@ docker:
   package: docker-ce=17.03.3~ce-0~ubuntu-xenial
   users:
     - vagrant
+  swarm:
+    enabled: false
+    node_type: manager
+    initial_manager: ''

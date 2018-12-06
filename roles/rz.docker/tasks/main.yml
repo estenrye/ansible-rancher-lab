@@ -49,12 +49,20 @@
     name: "{{docker.package}}"
     state: present
 
+- name: Ensure docker group is present
+  group:
+    gid: '1337'
+    name: docker
+    state: present
+    system: yes
+  notify: restart docker
+
 - name: Add user to docker group.
   user:
     name: "{{item}}"
     groups: docker
     append: yes
-  with_items: docker.users
+  loop: "{{docker.users}}"
 
 - name: Install docker-compose
   get_url:
@@ -65,10 +73,85 @@
 
 - name: Install python-pip
   package:
-    name: python-pip
+    name:
+      - python-pip
     state: present
 
 - name: Install docker python module.
   pip:
-    name: docker
+    name: 
+      - docker
+      - paramiko
     state: present
+
+- name: Ensure docker swarm is present.
+  docker_swarm:
+    state: present
+    advertise_addr: "{{ansible_eth0.ipv4.address}}"
+  when: 
+    - docker.swarm.enabled
+    - docker.swarm.node_type == 'manager'
+    - docker.swarm.initial_manager is undefined or docker.swarm.initial_manager == hostname
+
+- name: SSH Fingerprint initial manager.
+  shell: "ssh-keyscan -H {{docker.swarm.initial_manager}}"
+  when: 
+    - docker.swarm.enabled
+    - docker.swarm.initial_manager is defined
+    - docker.swarm.initial_manager != hostname
+  register: ssh_fingerprint
+
+- name: Ensure .ssh directory exists
+  file:
+    path: /root/.ssh
+    state: directory
+  when: 
+    - docker.swarm.enabled
+    - docker.swarm.initial_manager is defined
+    - docker.swarm.initial_manager != hostname
+  
+- name: Ensure known_hosts exists
+  copy:
+    content: "{{ssh_fingerprint.stdout}}"
+    dest: /root/.ssh/known_hosts
+  become: yes
+  when: 
+    - docker.swarm.enabled
+    - docker.swarm.initial_manager is defined
+    - docker.swarm.initial_manager != hostname
+
+- name: Get Swarm Join Tokens.
+  docker_swarm:
+    state: inspect
+    docker_host: "ssh://{{username}}@{{docker.swarm.initial_manager}}"
+  register: swarm_info
+  when: 
+    - docker.swarm.enabled
+    - docker.swarm.initial_manager is defined
+    - docker.swarm.initial_manager != hostname
+
+- name: Join Swarm As Manager Node.
+  docker_swarm:
+    state: join
+    advertise_addr: "{{ansible_eth0.ipv4.address}}"
+    join_token: swarm_info.swarm_facts.JoinTokens.Manager
+    remote_addrs:
+     - "{{ansible_eth0.ipv4.address}}:2377"
+  when: 
+    - docker.swarm.enabled
+    - docker.swarm.node_type == 'manager'
+    - docker.swarm.initial_manager is defined
+    - docker.swarm.initial_manager != hostname
+
+- name: Join Swarm As Worker Node.
+  docker_swarm:
+    state: join
+    advertise_addr: "{{ansible_eth0.ipv4.address}}"
+    join_token: swarm_info.swarm_facts.JoinTokens.Worker
+    remote_addrs:
+     - "{{ansible_eth0.ipv4.address}}:2377"
+  when: 
+    - docker.swarm.enabled
+    - docker.swarm.node_type == 'worker'
+    - docker.swarm.initial_manager is defined
+    - docker.swarm.initial_manager != hostname

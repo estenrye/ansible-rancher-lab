@@ -16,18 +16,20 @@
   roles:
     - rz.sssd
 
-- hosts: utility_servers
-  gather_facts: true
-  roles:
-    - rz.docker
-    - rz.elastic_stack
-
 - hosts: routers
   roles:
     - rz.router
     - rz.bind
 
-- hosts: docker_swarm_managers
+- hosts:
+    - docker_swarm_managers
+    - docker_swarm_workers
+    - utility_servers
   gather_facts: true
   roles:
     - rz.docker
+
+- hosts: utility_servers
+  gather_facts: true
+  roles:
+    - rz.elastic_stack
