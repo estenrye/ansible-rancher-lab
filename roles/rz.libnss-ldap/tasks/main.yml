@@ -1,0 +1,115 @@
+---
+- name: Check for configure flag
+  stat:
+    path: "{{common.flags}}/ldap.installed"
+  register: stat_result
+
+- name: Answer ldap install questions
+  debconf:
+    name: ldap-auth-config
+    question: "{{item.question}}"
+    value: "{{item.value}}"
+    vtype: "{{item.vtype}}"
+  loop:
+    - question: ldap-auth-config/rootbindpw
+      value: "{{ldap.directoryAdminPassword}}"
+      vtype: password
+    - question: ldap-auth-config/bindpw
+      value: "{{ldap.directoryAdminPassword}}"
+      vtype: password
+    - question: ldap-auth-config/rootbinddn
+      value: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+      vtype: string
+    - question: ldap-auth-config/dbrootlogin
+      value: "true"
+      vtype: boolean
+    - question: ldap-auth-config/ldapns/base-dn
+      value: "dc={{ldap.org}},dc={{ldap.tld}}"
+      vtype: string
+    - question: ldap-auth-config/binddn
+      value: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+      vtype: string
+    - question: ldap-auth-config/ldapns/ldap_version
+      value: "3"
+      vtype: select
+    - question: ldap-auth-config/pam_password
+      value: "md5"
+      vtype: select
+    - question: ldap-auth-config/dblogin
+      value: "false"
+      vtype: boolean
+    - question: ldap-auth-config/ldapns/ldap-server
+      value: "ldap://dc.{{ldap.org}}.{{ldap.tld}}"
+      vtype: string
+    - question: ldap-auth-config/override
+      value: "true"
+      vtype: boolean
+    - question: ldap-auth-config/move-to-debconf
+      value: "true"
+      vtype: boolean
+  when: stat_result.stat.exists == false
+
+- name: Install LDAP Packages
+  package:
+    name: libnss-ldap
+    state: present
+
+- name: add install flag
+  copy:
+    content: ""
+    dest: "{{common.flags}}/ldap.installed"
+    force: no
+    owner: root
+    group: root
+    mode: "u=rw,g=rw,o=r"
+
+- name: Check for configure flag
+  stat:
+    path: "{{common.flags}}/ldap.configured"
+  register: stat_result
+
+- name: Answer libpam install questions
+  debconf:
+    name: libpam-runtime
+    question: "{{item.question}}"
+    value: "{{item.value}}"
+    vtype: "{{item.vtype}}"
+  loop:
+    - question: libpam-runtime/profiles
+      value: "unix, ldap, systemd, mkhomedir, capability"
+      vtype: multiselect
+  when: stat_result.stat.exists == false
+
+- name: run auth-client-config
+  command: auth-client-config -t nss -p lac_ldap
+  become: yes
+  when: stat_result.stat.exists == false
+
+- name: update /usr/share/pam-configs/mkhomedir default setting
+  lineinfile:
+    path: /usr/share/pam-configs/mkhomedir
+    state: present
+    regexp: "Default: no"
+    line: "Default: yes"
+  when: stat_result.stat.exists == false
+
+- name: remove mkhomedir from /var/lib/pam/seen
+  lineinfile:
+    path: /var/lib/pam/seen
+    state: absent
+    regex: mkhomedir
+  when: stat_result.stat.exists == false
+
+- name: update pam auth to enable home directory creation
+  command: pam-auth-update --package
+  become: yes
+  when: stat_result.stat.exists == false
+
+- name: add install flag
+  copy:
+    content: ""
+    dest: "{{common.flags}}/ldap.configured"
+    force: no
+    owner: root
+    group: root
+    mode: "u=rw,g=rw,o=r"

@@ -9,7 +9,7 @@ param(
             'open-vas'
         )
         routers = @(
-            'router'
+            'router.rz.lab'
         )
         jdk_workstations = @(
             'jdk'

@@ -15,7 +15,7 @@ machines = {
     box: 'generic/ubuntu1804',
     cpus: 1,
     mem: 1024,
-    vmname: 'router',
+    vmname: 'router.rz.lab',
     network: 'Default Switch',
     script_path: 'scripts/provision_target.sh',
   },
@@ -28,7 +28,7 @@ machines = {
     hv_mac: '00:35:10:00:01:00',
     script_path: 'scripts/provision_acs.sh',
   },
-  utilityServer: {
+  utility: {
     box: 'generic/ubuntu1804',
     cpus: 2,
     mem: 2048,
@@ -37,14 +37,22 @@ machines = {
     hv_mac: '00:35:10:00:01:01',
     script_path: 'scripts/provision_target.sh',
   },
+  dc: {
+    box: 'generic/ubuntu1804',
+    cpus: 1,
+    mem: 2048,
+    vmname: 'dc.rz.lab',
+    network: 'Private',
+    hv_mac: '00:35:10:00:01:02',
+    script_path: 'scripts/provision_target.sh',
+  },
 }
 
 Vagrant.configure(vagrant_api_version) do |config|
-
   config.trigger.before :up do |t|
     t.info = 'Initializing environment'
-    if !(File.exist? 'scripts/id_rsa')
-      %x(ssh-keygen -f scripts/id_rsa -t rsa -b 4096)
+    unless File.exist? 'scripts/id_rsa'
+      `%x(ssh-keygen -f scripts/id_rsa -t rsa -b 4096)`
     end
   end
 
@@ -57,7 +65,7 @@ Vagrant.configure(vagrant_api_version) do |config|
       machine.vm.provision 'file', source: 'host_vars', destination: '/home/vagrant/host_vars' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
       machine.vm.provision 'file', source: 'roles', destination: '/home/vagrant/roles' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
       machine.vm.provision 'file', source: 'playbooks', destination: '/home/vagrant/playbooks' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
-      machine.vm.provision 'file', source: 'rz_lab_inventory', destination: '/home/vagrant/rz_lab_inventory' if (hostname.to_s.eql? 'acs')
+      machine.vm.provision 'file', source: 'rz_lab_inventory', destination: '/home/vagrant/rz_lab_inventory' if hostname.to_s.eql? 'acs'
       machine.vm.provision 'file', source: 'ansible.cfg', destination: '/home/vagrant/ansible.cfg' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
       machine.vm.provision 'file', source: 'scripts/id_rsa', destination: '/home/vagrant/.ssh/id_rsa' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')
       machine.vm.provision 'file', source: 'scripts/id_rsa.pub', destination: '/home/vagrant/.ssh/id_rsa.pub' if (hostname.to_s.eql? 'openvas') || (hostname.to_s.eql? 'acs')

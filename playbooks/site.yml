@@ -6,6 +6,11 @@
     - rz.disable_systemd_resolved
     - rz.common
     - rz.ssh_keys
+    - rz.certs
+
+- hosts: directory_servers
+  roles:
+    - rz.slapd
 
 - hosts: utility_servers
   gather_facts: true
@@ -17,3 +22,7 @@
   roles:
     - rz.router
     - rz.bind
+
+- hosts: datacenter
+  roles:
+    - rz.sssd

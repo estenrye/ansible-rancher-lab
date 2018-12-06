@@ -1,0 +1,125 @@
+---
+- include: install_slapd.yml
+  when: slapd.installDaemon
+
+- name: Set olcLogLevel
+  ldap_attr:
+    dn: "cn=config"
+    name: olcLogLevel
+    values: "{{slapd.olcLogLevel}}"
+    state: present
+
+- name: write ldiff files
+  template:
+    src: "{{item}}.j2"
+    dest: "/etc/ldap/{{item}}"
+  loop:
+    - enable_TLS.ldif
+    - enable_TLS.modify.ldif
+    - sudo_schema.ldif
+    - sudoer.ldif
+
+- name: scripts
+  template:
+    src: "{{item}}.j2"
+    dest: "/etc/ldap/{{item}}"
+    mode: 'u=rx,g=rx'
+  loop:
+    - enable_TLS.sh
+
+- name: enable ldap over TLS
+  shell: "/etc/ldap/enable_TLS.sh"
+  become: yes
+
+- name: Set olcSecurity
+  ldap_attr:
+    dn: "olcDatabase={1}mdb,cn=config"
+    name: olcSecurity
+    values: "tls=1"
+    state: present
+
+- name: Enable ldaps endpoint
+  lineinfile:
+    path: //etc/default/slapd
+    state: present
+    regex: ^SLAPD_SERVICES=*
+    line: 'SLAPD_SERVICES="ldap:/// ldapi:/// ldaps:///"'
+  register: endpoint_status
+
+- name: Restart slapd
+  service:
+    name: slapd
+    state: restarted
+  when: endpoint_status.changed
+
+- name: Create Top Level OU Structure
+  ldap_entry:
+    dn: "ou={{item}},dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass: organizationalUnit
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
+  loop: "{{slapd.organizationalUnits}}"
+
+- name: Create POSIX Groups
+  ldap_entry:
+    dn: "cn={{item.name}},ou=groups,dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass: posixGroup
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
+    attributes:
+      gidNumber: "{{item.gid}}"
+  loop: "{{slapd.posixGroups}}"
+
+- name: Create POSIX Users
+  ldap_entry:
+    dn: "uid={{item.username}},ou=users,dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass:
+      - inetOrgPerson
+      - posixAccount
+      - shadowAccount
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
+    attributes:
+      uid: "{{item.username}}"
+      sn: "{{item.surname}}"
+      givenName: "{{item.givenName}}"
+      cn: "{{item.username}}"
+      uidNumber: "{{item.uid}}"
+      gidNumber: "{{item.gid}}"
+      userPassword: "{{item.password}}"
+      loginShell: "{{item.shell}}"
+      homeDirectory: "/home/{{item.username}}"
+  loop: "{{slapd.posixUsers}}"
+
+- name: Create InetOrgPerson Users
+  ldap_entry:
+    dn: "cn={{item.username}},ou=users,dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass: inetOrgPerson
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
+    attributes:
+      sn: "{{item.surname}}"
+      givenName: "{{item.givenName}}"
+      cn: "{{item.username}}"
+      userPassword: "{{item.password}}"
+  loop: "{{slapd.inetOrgPersons}}"
+
+- name: Create Sudoers
+  ldap_entry:
+    dn: "cn={{item.cn}},ou=sudoers,dc={{ldap.org}},dc={{ldap.tld}}"
+    objectClass:
+      - top
+      - sudoRole
+    bind_dn: "cn=admin,dc={{ldap.org}},dc={{ldap.tld}}"
+    bind_pw: "{{ldap.directoryAdminPassword}}"
+    server_uri: "ldaps://dc.{{ldap.org}}.{{ldap.tld}}"
+    attributes: 
+      cn: "{{item.cn}}"
+      sudoHost: "{{item.attributes.sudoHost}}"
+      sudoUser: "{{item.attributes.sudoUser}}"
+      sudoCommand: "{{item.attributes.sudoCommand}}"
+  loop: "{{slapd.sudoers}}"

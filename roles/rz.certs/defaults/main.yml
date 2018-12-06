@@ -1,0 +1,7 @@
+---
+ldap:
+  tld: lab
+  org: rz
+
+slapd:
+  installDaemon: false

@@ -2,8 +2,20 @@
 ansible_ssh_user: vagrant
 ansible_ssh_pass: vagrant
 ansible_python_interpreter: '/usr/bin/python2.7'
+domain: rz.lab
 dnsNameServers:
   - 10.100.10.1
+
+common:
+  flags: /opt/ansible/flags
+
+ldap:
+  tld: lab
+  org: rz
+  directoryAdminPassword: Password1
+
+slapd:
+  installDaemon: false
 
 ntp_area: 'us'
 ntp_servers: 

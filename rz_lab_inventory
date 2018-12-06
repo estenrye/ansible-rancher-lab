@@ -7,10 +7,14 @@ router.rz.lab
 [utility_servers]
 utility.rz.lab
 
+[directory_servers]
+dc.rz.lab
+
 [datacenter:children]
 utility_servers
 ansible_control_servers
 routers
+directory_servers
 
 [local]
 127.0.0.1

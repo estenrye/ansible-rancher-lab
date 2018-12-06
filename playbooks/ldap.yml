@@ -1,0 +1,29 @@
+- hosts: utility_servers
+  tasks:
+    - name: Answer ldap install questions
+      debconf:
+        name: libpam-runtime
+        question: "{{item.question}}"
+        value: "{{item.value}}"
+        vtype: "{{item.vtype}}"
+      loop:
+        - question: libpam-runtime/profiles
+          value: "unix, ldap, systemd, mkhomedir, capability"
+          vtype: multiselect
+
+    - name: update /usr/share/pam-configs/mkhomedir default setting
+      lineinfile:
+        path: /usr/share/pam-configs/mkhomedir
+        state: present
+        regexp: "Default: no"
+        line: "Default: yes"
+
+    - name: remove mkhomedir from /var/lib/pam/seen
+      lineinfile:
+        path: /var/lib/pam/seen
+        state: absent
+        regex: mkhomedir
+
+    - name: update pam auth to enable home directory creation
+      command: pam-auth-update --package
+      become: yes

@@ -1,0 +1,28 @@
+---
+- include: create_certificate.yml
+  when: hostname is undefined or hostname == 'acs'
+
+- name: copy ldap certificate to trusted certs folder
+  copy:
+    src: "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.crt"
+    dest: "/usr/local/share/ca-certificates/{{ldap.org}}.{{ldap.tld}}.crt"
+    mode: 0644
+
+- name: Update cert index
+  shell: /usr/sbin/update-ca-certificates
+
+- name: create /etc/ldap/certs directory
+  file:
+    path: "/etc/ldap/certs/{{ldap.org}}.{{ldap.tld}}"
+    state: directory
+    mode: "u=rwx,g=rx"
+  when: slapd.installDaemon
+
+- name: copy ldap certificate to ldap certs folder
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/ldap/certs/{{ldap.org}}.{{ldap.tld}}"
+  with_fileglob:
+    - "{{ role_path }}/files/{{ldap.org}}.{{ldap.tld}}.*"
+  become: yes
+  when: slapd.installDaemon
