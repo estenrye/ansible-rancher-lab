@@ -12,6 +12,10 @@
   roles:
     - rz.slapd
 
+- hosts: datacenter
+  roles:
+    - rz.sssd
+
 - hosts: utility_servers
   gather_facts: true
   roles:
@@ -23,6 +27,7 @@
     - rz.router
     - rz.bind
 
-- hosts: datacenter
+- hosts: docker_swarm_managers
+  gather_facts: true
   roles:
-    - rz.sssd
+    - rz.docker
