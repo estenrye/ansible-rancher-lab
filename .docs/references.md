@@ -40,10 +40,16 @@ Laurenson, T. (2018). Building a linux gateway using ubuntu server 18.04 Retriev
 
 Mallett, A., & Pluralsight. (2018). Linux: Network client management (LPIC-2). Retrieved from https://app.pluralsight.com/library/courses/linux-network-client-management-lpic-2/table-of-contents
 
+Miller, T. C. (2018). Sudoers.ldap. Retrieved from http://manpages.ubuntu.com/manpages/bionic/man5/sudoers.ldap.5.html
+
 Schroder, C. (2017a). Building IPv6 firewalls: IPv6 security myths. Retrieved from https://www.linux.com/learn/intro-to-linux/2017/7/building-ipv6-firewalls-ipv6-security-myths
 
 Schroder, C. (2017b). How to write iptables rules for IPv6. Retrieved from https://www.linux.com/learn/intro-to-linux/2017/8/iptables-rules-ipv6
 
+SSSD developers. (2017). Troubleshooting SUDO. Retrieved from https://docs.pagure.org/SSSD.sssd/users/sudo_troubleshooting.html
+
 Stoik, J. (2017). Fix linux DNS issues caused by systemd-resolved. Retrieved from https://blobfolio.com/2017/05/fix-linux-dns-issues-caused-by-systemd-resolved/
 
 Taheri, H., & Carvalho, E. (2013). How to make IP forwarding permanent? Retrieved from https://askubuntu.com/questions/311053/how-to-make-ip-forwarding-permanent
+
+The SSSD upstream. (2018). Sssd-ldap(5) - linux man page. Retrieved from https://linux.die.net/man/5/sssd-ldap
