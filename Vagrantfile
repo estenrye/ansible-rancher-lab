@@ -46,7 +46,7 @@ machines = {
     hv_mac: '00:35:10:00:01:02',
     script_path: 'scripts/provision_target.sh',
   },
-  docker_manager: {
+  'docker-manager': {
     box: 'generic/ubuntu1804',
     cpus: 2,
     mem: 2048,
@@ -55,7 +55,7 @@ machines = {
     hv_mac: '00:35:10:00:01:03',
     script_path: 'scripts/provision_target.sh',
   },
-  docker_worker: {
+  'docker-worker': {
     box: 'generic/ubuntu1804',
     cpus: 2,
     mem: 2048,
