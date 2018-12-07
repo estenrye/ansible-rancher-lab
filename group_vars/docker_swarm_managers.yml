@@ -1,0 +1,13 @@
+---
+docker:
+  compose:
+    version: 1.23.1
+    checksum: "sha256:c176543737b8aea762022245f0f4d58781d3cb1b072bc14f3f8e5bb96f90f1a2"
+  repository: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+  package: docker-ce
+  users:
+    - vagrant
+  swarm:
+    enabled: true
+    node_type: manager
+    initial_manager: 'docker-manager'

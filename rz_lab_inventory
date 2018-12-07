@@ -10,11 +10,19 @@ utility.rz.lab
 [directory_servers]
 dc.rz.lab
 
+[docker_swarm_managers]
+docker-manager.rz.lab
+
+[docker_swarm_workers]
+docker-worker.rz.lab
+
 [datacenter:children]
 utility_servers
 ansible_control_servers
 routers
 directory_servers
+docker_swarm_managers
+docker_swarm_workers
 
 [local]
 127.0.0.1

@@ -55,10 +55,10 @@ dhcpdConf:
     - name: directory_server
       mac_address: 00:35:10:00:01:02
       fixed_address: 10.100.10.4
-    - name: swarm_master
+    - name: docker-manager
       mac_address: 00:35:10:00:01:03
       fixed_address: 10.100.10.11
-    - name: swarm_worker
+    - name: docker-worker
       mac_address: 00:35:10:00:01:04
       fixed_address: 10.100.10.12
 
@@ -105,6 +105,18 @@ bind:
           class: IN
           type: A
           target: 10.100.10.4
+        - name: docker-manager
+          class: IN
+          type: A
+          target: 10.100.10.11
+        - name: docker-worker
+          class: IN
+          type: A
+          target: 10.100.10.12
+        - name: lbr
+          class: IN
+          type: A
+          target: 10.100.10.10
 
 systemd_resolved:
   disabled: true

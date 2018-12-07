@@ -41,7 +41,7 @@ slapd:
     - cn: role_ldapUsers
       attributes:
         sudoHost: ALL
-        sudoUser: ldapUsers
+        sudoUser: '%ldapUsers'
         sudoCommand: ALL
   debconf:
     backend: MDB

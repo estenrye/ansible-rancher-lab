@@ -5,7 +5,7 @@ ansible_python_interpreter: '/usr/bin/python2.7'
 domain: rz.lab
 dnsNameServers:
   - 10.100.10.1
-
+username: vagrant
 common:
   flags: /opt/ansible/flags
 
@@ -51,6 +51,9 @@ docker:
   package: docker-ce
   users:
     - vagrant
+  swarm:
+    enabled: true
+    node_type: manager
 
 beat:
   config:

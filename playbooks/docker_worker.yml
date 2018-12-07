@@ -1,0 +1,8 @@
+---
+- hosts:
+    - docker_swarm_managers
+    - docker_swarm_workers
+    - utility_servers
+  gather_facts: true
+  roles:
+    - rz.docker
