@@ -1,0 +1,28 @@
+---
+- name: Ensure public docker network exists.
+  docker_network:
+    driver: overlay
+    name: public
+    state: present
+
+- name: Ensure private docker network exists.
+  docker_network:
+    driver: overlay
+    name: private
+    state: present
+
+- name: Add wordpress directory.
+  file:
+    path: /opt/wordpress
+    state: directory
+
+- name: Deploy Stack Config.
+  template:
+      src: wordpress.stack.yml.j2
+      dest: /opt/wordpress/wordpress.stack.yml
+  notify: deploy wordpress
+
+- name: Ensure docker swarm is present.
+  docker_swarm:
+    state: present
+    advertise_addr: "{{ansible_eth0.ipv4.address}}"

@@ -109,6 +109,10 @@ bind:
           class: IN
           type: A
           target: 10.100.10.11
+        - name: '*.test'
+          class: IN
+          type: A
+          target: 10.100.10.11
         - name: docker-worker
           class: IN
           type: A

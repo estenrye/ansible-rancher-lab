@@ -1,0 +1,6 @@
+---
+- name: deploy wordpress
+  command: docker stack deploy -c wordpress.stack.yml blog
+  args:
+    chdir: /opt/wordpress
+  become: yes
