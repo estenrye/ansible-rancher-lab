@@ -19,20 +19,15 @@ if (-not (Get-VMSwitch -Name Private))
 # Generate Private Key for Ansible if it does not already exist.
 if (-not (Test-Path $PSScriptRoot/id_rsa))
 {
-    ssh-keygen -f "$PSScriptRoot\id_rsa" -t rsa -b 4096
+    ssh-keygen -f "$PSScriptRoot/id_rsa" -t rsa -b 4096 -N '""'
 }
 
-$activeVMs = Get-VM
-
-if (-not $activeVMs.Name.Contains('open-vas'))
+if (-not (Test-Path $PSScriptRoot/../roles/rz.docker/files))
 {
-    vagrant up openvas
+    New-Item -ItemType Directory "$PSScriptRoot/../roles/rz.docker/files"
 }
 
-if (-not $activeVMs.Name.Contains('router'))
+if (-not (Test-Path $PSScriptRoot/../roles/rz.docker/files/id_rsa))
 {
-    vagrant up router
+    ssh-keygen -f "$PSScriptRoot/../roles/rz.docker/files/id_rsa" -t rsa -b 4096 -N '""'
 }
-
-& "$PSScriptRoot\Provision-SecondAdaptor.ps1" -VMName router -VMSwitchName Private -VMNetworkAdapterName LAN
-& "$PSScriptRoot\Generate-Ansible-Inventory.ps1"

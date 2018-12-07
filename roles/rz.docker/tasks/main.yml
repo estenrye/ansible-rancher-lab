@@ -98,7 +98,6 @@
   when: 
     - docker.swarm.enabled
     - docker.swarm.initial_manager is defined
-    - docker.swarm.initial_manager != hostname
   register: ssh_fingerprint
 
 - name: Ensure .ssh directory exists
@@ -107,8 +106,6 @@
     state: directory
   when: 
     - docker.swarm.enabled
-    - docker.swarm.initial_manager is defined
-    - docker.swarm.initial_manager != hostname
   
 - name: Ensure known_hosts exists
   copy:
@@ -118,7 +115,24 @@
   when: 
     - docker.swarm.enabled
     - docker.swarm.initial_manager is defined
-    - docker.swarm.initial_manager != hostname
+
+- name: Deploy Private Docker Auth SSH key.
+  copy:
+      dest: /root/.ssh/id_rsa
+      content: "{{ lookup('file', 'id_rsa') }}"
+  become: yes
+  when:
+    - docker.swarm.enabled
+    - docker.swarm.initial_manager is defined
+
+- name: Deploy Public Docker Auth SSH Key
+  authorized_key:
+    user: "{{username}}"
+    key: "{{ lookup('file', 'id_rsa.pub') }}"
+    state: present
+  when:
+    - docker.swarm.enabled
+    - docker.swarm.initial_manager is defined
 
 - name: Get Swarm Join Tokens.
   docker_swarm:

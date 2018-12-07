@@ -46,6 +46,7 @@ if (-not $env:PATH.Contains('C:/Program Files/Git/usr/bin'))
 
 The vagrant driver for Hyper-V lacks two components that allow us to have a predictable lab setup.  The first is that the Hyper-V vagrant driver does not provide a mechanism for specifying multiple Network Interface Adapters on a guest VM.  The second is that the Hyper-V vagrant driver does not provide a mechnanism for specifying a static IP address for a guest VM on any network type.  This project addresses the first problem by using a combination of vagrant commands and PowerShell commandlets to add a second Network Interface Adapter to the router guest VM.  It addresses the second by dynamically generating the inventory on the host machine and copying it to the acs guest VM.
 
+0. `./scripts/OneTimeSetup.ps1`
 1. `vagrant up openvas router`
 2. `vagrant halt router`
 3. `Add-VMNetworkAdapter -VMName router.rz.lab -SwitchName Private -Name LAN`
