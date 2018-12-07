@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="75cm" height="33cm" viewBox="129 84 1483 647" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="75cm" height="33cm" viewBox="129 84 1483 660" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g>
     <path style="fill: #ffffff" d="M 881.241 97.6959 C 872.031,97.5458 854.17,100.697 856.682,107.45 C 859.193,114.203 871.194,115.704 876.218,113.753 C 881.241,111.802 868.403,123.207 892.963,126.209 C 917.522,129.21 930.081,124.408 926.453,120.956 C 922.825,117.505 947.942,129.06 959.664,122.457 C 971.385,115.854 947.663,109.551 952.687,110.452 C 957.71,111.352 973.06,110.152 968.036,98.8964 C 963.013,87.6413 917.801,96.3453 922.825,94.6945 C 927.848,93.0438 915.289,84.79 899.661,86.4408 C 884.032,88.0915 882.924,91.087 881.249,97.69 L 881.241,97.6959z"/>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 881.241 97.6959 C 872.031,97.5458 854.17,100.697 856.682,107.45 C 859.193,114.203 871.194,115.704 876.218,113.753 C 881.241,111.802 868.403,123.207 892.963,126.209 C 917.522,129.21 930.081,124.408 926.453,120.956 C 922.825,117.505 947.942,129.06 959.664,122.457 C 971.385,115.854 947.663,109.551 952.687,110.452 C 957.71,111.352 973.06,110.152 968.036,98.8964 C 963.013,87.6413 917.801,96.3453 922.825,94.6945 C 927.848,93.0438 915.289,84.79 899.661,86.4408 C 884.032,88.0915 882.924,91.087 881.249,97.69 L 881.241,97.6959"/>
@@ -330,22 +330,22 @@
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="291.564,565.63 281.573,570.648 284.064,565.643 281.555,560.648 "/>
   </g>
   <g>
-    <rect style="fill: #ffffff" x="810.976" y="628" width="94.05" height="102"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="810.976" y="628" width="94.05" height="102"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="858.001" y="675.8">
-      <tspan x="858.001" y="675.8">Services:</tspan>
-      <tspan x="858.001" y="691.8">docker</tspan>
+    <rect style="fill: #ffffff" x="958.975" y="641.5" width="94.05" height="102"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="958.975" y="641.5" width="94.05" height="102"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1006" y="689.3">
+      <tspan x="1006" y="689.3">Services:</tspan>
+      <tspan x="1006" y="705.3">docker</tspan>
     </text>
   </g>
   <g>
-    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="809.994" y1="645.134" x2="762.847" y2="611.875"/>
-    <polygon style="fill: #000000" points="756.719,607.552 767.772,609.231 762.847,611.875 762.008,617.402 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="756.719,607.552 767.772,609.231 762.847,611.875 762.008,617.402 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="705.216" y1="636.984" x2="705.807" y2="615.996"/>
+    <polygon style="fill: #000000" points="706.018,608.499 710.735,618.636 705.807,615.996 700.739,618.354 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="706.018,608.499 710.735,618.636 705.807,615.996 700.739,618.354 "/>
   </g>
   <g>
-    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="906.006" y1="644.913" x2="952.513" y2="611.889"/>
-    <polygon style="fill: #000000" points="958.628,607.547 953.369,617.413 952.513,611.889 947.579,609.26 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="958.628,607.547 953.369,617.413 952.513,611.889 947.579,609.26 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1006.16" y1="644.207" x2="1006.26" y2="615.989"/>
+    <polygon style="fill: #000000" points="1006.28,608.489 1011.25,618.506 1006.26,615.989 1001.25,618.472 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1006.28,608.489 1011.25,618.506 1006.26,615.989 1001.25,618.472 "/>
   </g>
   <g>
     <rect style="fill: #d9d9cd" x="1178.75" y="542.512" width="253.95" height="63.4874"/>
@@ -533,4 +533,13 @@
     <tspan x="1313.84" y="519.524">10.100.10.4</tspan>
     <tspan x="1313.84" y="535.524">dc.rz.lab</tspan>
   </text>
+  <g>
+    <rect style="fill: #ffffff" x="656.727" y="637.982" width="94.05" height="102"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="656.727" y="637.982" width="94.05" height="102"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="703.752" y="677.782">
+      <tspan x="703.752" y="677.782">Services:</tspan>
+      <tspan x="703.752" y="693.782">docker</tspan>
+      <tspan x="703.752" y="709.782">traefik</tspan>
+    </text>
+  </g>
 </svg>

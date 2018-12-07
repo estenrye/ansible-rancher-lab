@@ -29,6 +29,10 @@
   roles:
     - rz.docker
 
+- hosts: docker-manager.rz.lab
+  roles:
+    - rz.traefik
+
 - hosts: utility_servers
   gather_facts: true
   roles:

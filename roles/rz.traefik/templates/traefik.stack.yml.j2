@@ -1,0 +1,35 @@
+---
+version: '3.7'
+networks:
+  public:
+    external: true
+services:
+  traefik:
+    image: traefik:{{traefik.tag}}
+    command:
+{% for command in traefik.command %}
+      - {{command}}
+{% endfor %}
+    networks:
+      - public
+    ports:
+{% for port in traefik.ports %}
+      - target: {{port.target}}
+        published: {{port.published}}
+        mode: {{port.mode}}
+{% endfor %}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+        delay: 30s
+      restart_policy:
+        condition: any
+        delay: 5s
+        window: 120s
+      placement:
+        constraints:
+          - node.role == manager
