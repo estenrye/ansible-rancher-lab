@@ -1,0 +1,40 @@
+version: '3.7'
+networks:
+  public:
+    external: true
+  private:
+    external: true
+services:
+  wordpress:
+    image: wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.port=80
+        - traefik.frontend.rule=Host:blog.test.{{ldap.org}}.{{ldap.tld}}
+        - traefik.docker.network=public
+        - traefik.backend=wordpress-backend
+      placement:
+        constraints:
+          - node.role == worker
+    networks:
+      - public
+      - private
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+    networks:
+      - private

@@ -32,6 +32,7 @@
 - hosts: docker-manager.rz.lab
   roles:
     - rz.traefik
+    - rz.wordpress
 
 - hosts: utility_servers
   gather_facts: true

@@ -6,7 +6,7 @@ ldap:
 traefik:
   tag: 1.7.5
   command:
-    - "--debug=false"
+    - "--debug=true"
     - "--api"
     - "--entrypoints=Name:http Address::80"
     - "--entrypoints=Name:traefik Address::8080"
