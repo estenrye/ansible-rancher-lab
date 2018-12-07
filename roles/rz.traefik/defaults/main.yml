@@ -1,0 +1,25 @@
+---
+ldap:
+  org: rz
+  tld: lab
+
+traefik:
+  tag: 1.7.5
+  command:
+    - "--debug=false"
+    - "--api"
+    - "--entrypoints=Name:http Address::80"
+    - "--entrypoints=Name:traefik Address::8080"
+    - "--defaultentrypoints=http"
+    - "--docker"
+    - "--docker.swarmmode=true"
+    - "--docker.domain=router.${{ldap.org}}.{{ldap.tld}}"
+    - "--docker.exposedbydefault=false"
+    - "--docker.watch=true"
+  ports:
+    - target: 80
+      published: 80
+      mode: ingress
+    - target: 8080
+      published: 8080
+      mode: ingress

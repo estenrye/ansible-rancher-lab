@@ -1,0 +1,6 @@
+---
+- name: deploy traefik
+  command: docker stack deploy -c traefik.stack.yml lbr
+  args:
+    chdir: /opt/traefik
+  become: yes
