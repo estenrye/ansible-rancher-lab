@@ -61,5 +61,4 @@ The vagrant driver for Hyper-V lacks two components that allow us to have a pred
 
 ## References
 
-
 Much of this project wouldn't be, if not for the great contributions of others.  Please check out their sites in the [references](.docs/references.md).
