@@ -1,0 +1,74 @@
+---
+- name: Alter packet destination address for WAN packet received on port 80 to docker-manager
+  iptables:
+    table: nat
+    chain: PREROUTING
+    in_interface: eth0
+    protocol: tcp
+    destination_port: '80'
+    to_destination: 10.100.10.11
+    jump: DNAT
+    comment: Ansible[router] - Rewrite destination address for packets received on the WAN at port 80
+  become: yes
+  notify:
+    - persist iptables
+
+- name: Forward first WAN packet received from a new connection on port 80 to port 80 the LAN.
+  iptables:
+    table: filter
+    chain: FORWARD
+    in_interface: eth0
+    out_interface: eth1
+    protocol: tcp
+    destination_port: '80'
+    ctstate: NEW
+    jump: ACCEPT
+    comment: Ansible[router] - Accept new HTTP connections on port 80 and forward to LAN
+  become: yes
+  notify:
+    - persist iptables
+
+- name: Forward WAN packets received on port 80 for an ESTABLISHED, RELATED connection to the LAN.
+  iptables:
+    table: filter
+    chain: FORWARD
+    in_interface: eth0
+    out_interface: eth1
+    protocol: tcp
+    destination_port: '80'
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+    comment: Ansible[router] - Accept established, related HTTP connections on port 80 and forward to LAN
+  become: yes
+  notify:
+    - persist iptables
+
+- name: Forward WAN packets received on port 80 for an ESTABLISHED, RELATED connection to the LAN.
+  iptables:
+    table: filter
+    chain: FORWARD
+    in_interface: eth1
+    out_interface: eth0
+    protocol: tcp
+    destination_port: '80'
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+    comment: Ansible[router] - Accept established, related HTTP connections on port 80 and forward to LAN
+  become: yes
+  notify:
+    - persist iptables
+
+- name: Alter packet source address to router IP for LAN packet received for docker-manager on port 80 to WAN
+  iptables:
+    table: nat
+    chain: POSTROUTING
+    out_interface: eth1
+    destination: 10.100.10.11
+    protocol: tcp
+    destination_port: '80'
+    to_source: 10.100.10.1
+    jump: SNAT
+    comment: Ansible[router] - Rewrite source address for packets received with a destination address of 10.100.10.11 on the LAN at port 80
+  become: yes
+  notify:
+    - persist iptables

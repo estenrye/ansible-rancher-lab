@@ -37,5 +37,8 @@
 - name: Include IPV4 Firewall Rule tasks
   include_tasks: ipv4.yml
 
+- name: 'Include firewall port 80 foward to docker-manager.'
+  include_tasks: allow_port_80_to_docker-manager.yml
+
 - name: Include IPV6 Firewall Rule tasks
   include_tasks: ipv6.yml

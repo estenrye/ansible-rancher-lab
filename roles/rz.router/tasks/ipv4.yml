@@ -102,7 +102,6 @@
   notify:
     - persist iptables
 
-
 - name: Default policy to drop all forwarded ipv4 packets
   iptables:
     table: filter
