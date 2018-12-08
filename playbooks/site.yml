@@ -17,6 +17,7 @@
     - rz.sssd
 
 - hosts: routers
+  gather_facts: true
   roles:
     - rz.router
     - rz.bind

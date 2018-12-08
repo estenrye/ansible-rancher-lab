@@ -16,7 +16,7 @@ services:
       labels:
         - traefik.enable=true
         - traefik.port=80
-        - traefik.frontend.rule=Host:blog.test.{{ldap.org}}.{{ldap.tld}}
+        - traefik.frontend.rule=Host:blog.test.{{ldap.org}}.{{ldap.tld}},blog.external.{{ldap.org}}.{{ldap.tld}}
         - traefik.docker.network=public
         - traefik.backend=wordpress-backend
       placement:

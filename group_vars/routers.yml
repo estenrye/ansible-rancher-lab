@@ -113,6 +113,10 @@ bind:
           class: IN
           type: A
           target: 10.100.10.11
+        - name: '*.external'
+          class: IN
+          type: A
+          target: eth0
         - name: docker-worker
           class: IN
           type: A
