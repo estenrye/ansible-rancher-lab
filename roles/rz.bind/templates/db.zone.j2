@@ -10,5 +10,9 @@ $TTL    {{item.TTL}}
                            {{item.negative_cache_ttl}}); Negative Cache TTL
 @        IN    NS     {{item.nameserver}}.
 {% for record in item.records %}
+{% if record.target == 'eth0' %}
+{{record.name}}    {{record.class}}    {{record.type}}  {{ansible_eth0.ipv4.address}}
+{% else %}
 {{record.name}}    {{record.class}}    {{record.type}}  {{record.target}}
+{% endif %}
 {% endfor %}

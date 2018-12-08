@@ -1,5 +1,6 @@
 ---
 - hosts: routers
+  gather_facts: true
   roles:
     - rz.ntp
     - mrlesmithjr.netplan

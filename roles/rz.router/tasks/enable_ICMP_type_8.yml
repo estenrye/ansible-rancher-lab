@@ -1,0 +1,23 @@
+- name: Allow ICMP Type 8 (ping, ICMP Traceroute)
+  iptables:
+    chain: INPUT
+    protocol: icmp
+    icmp_type: '8'
+    destination: 172.16.0.0/12
+    jump: ACCEPT
+    comment: Ansible[router] - Allow ICMP Type 8 (ping, ICMP Traceroute)
+  become: yes
+  notify:
+    - persist iptables
+
+- name: Enable rejection of UDP Traceroute
+  iptables:
+    chain: INPUT
+    protocol: udp
+    destination: 172.16.0.0/12
+    destination_port: 33434:33523
+    jump: REJECT
+    comment: Ansible[router] - Allow ICMP Type 8 (ping, ICMP Traceroute)
+  become: yes
+  notify:
+    - persist iptables
