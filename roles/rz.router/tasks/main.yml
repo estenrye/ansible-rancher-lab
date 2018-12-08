@@ -42,3 +42,6 @@
 
 - name: Include IPV6 Firewall Rule tasks
   include_tasks: ipv6.yml
+
+- name: Enable ICMP Type 8
+  include_tasks: enable_ICMP_type_8.yml
