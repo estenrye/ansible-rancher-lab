@@ -31,3 +31,11 @@
   file:
     name: "{{common.flags}}"
     state: directory
+
+- name: Disable RFC 1323 to mitigate leakage of uptime information.
+  sysctl:
+    name: net.ipv4.tcp_timestamps
+    value: '0'
+    state: present
+    reload: True
+  become: yes
