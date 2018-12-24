@@ -13,7 +13,7 @@ if (-not $env:PATH.Contains('C:/Program Files/Git/usr/bin'))
 # Ensure VM Switch Exists.
 if (-not (Get-VMSwitch -Name Private))
 {
-    New-VMSwitch -Name Internal -SwitchType Private
+    New-VMSwitch -Name Private -SwitchType Internal
 }
 
 # Generate Private Key for Ansible if it does not already exist.
